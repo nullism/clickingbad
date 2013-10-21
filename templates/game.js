@@ -1238,8 +1238,8 @@ function Game() {
         var this_tick = (new Date).getTime();
         var this_sub = 1000 / tick_ms;
         var ticks = Math.round((this_tick - last_tick) / tick_ms);
-        if(ticks > 100) { 
-            ticks = 100;
+        if(ticks > 360000) { 
+            ticks = 360000;
         }
         last_tick = this_tick;
 
