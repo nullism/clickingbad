@@ -978,7 +978,6 @@ function Game() {
          },
 
         // ACHIEVEMENTS
-        // Hey bitch! Stop looking at the achievements. You're gonna spoil the game.
         'achievements': { 
             'hand_made_widgets_1': { 
                 'label':'This is kinda fun...',
@@ -1120,7 +1119,29 @@ function Game() {
                 'value':1,
                 'group':210,
                 'min_time':1,           
-            }
+            },
+            'cheated_cash_1':{
+                'label':'Counterfeiter',
+                'description':'You\'ve hacked in some cash',
+                'property':'stats.cheated_cash',
+                'required':1,
+                'unlocked':false,
+                'hidden':true,
+                'value':1,
+                'group':210,
+                'min_time':1,           
+            },
+            'cheated_meth_1':{
+                'label':'Meth from nowhere',
+                'description':'You\'ve hacked in some batches-o-meth',
+                'property':'stats.cheated_widgets',
+                'required':1,
+                'unlocked':false,
+                'hidden':true,
+                'value':1,
+                'group':210,
+                'min_time':1,           
+            },
         },
 
         // EVENTS
@@ -1190,6 +1211,8 @@ function Game() {
         'stats': {
             'seller_rps':0,
             'clicker_rps':0,
+            'cheated_widgets':0,
+            'cheated_cash':0,
             'hand_made_widgets':0,
             'made_widgets':0,
             'sold_widgets':0,
@@ -1202,13 +1225,14 @@ function Game() {
     pdro = pd;
 
 
-     
+    // sec_tick() - Runs every 1000ms 
     this.sec_tick = function() {
         fix_saved();
         fix_stats(); 
         check_achievements();
     }
 
+    // tick() - Runs every tick_ms (default 100ms)
     this.tick = function() { 
         pdro = pd;
         var this_tick = (new Date).getTime();
@@ -1241,6 +1265,7 @@ function Game() {
         fix_display();
     }
 
+    // Version check
     this.check_version = function() { 
         $.get('/version.json',
             function(data) { 
@@ -1254,6 +1279,7 @@ function Game() {
         ,"json");
     }
 
+    // Calculate and return the player's risk level
     function get_risk() { 
         var rsk = 0;
         for(var k in pd.clickers) { 
@@ -1283,6 +1309,7 @@ function Game() {
         }
         return cst;
     }
+
     function get_item_last_cost(scl) { 
         var cst = ((scl.amount) * scl.base_cost) * (scl.amount);
         // Double costs if > 10 are owned
@@ -1291,6 +1318,7 @@ function Game() {
         }
         return cst;
     }
+
     function get_item_sell_value(scl) {
         return get_item_last_cost(scl) * (pd.sell_return * pd.economy_roi);
     }
@@ -1382,6 +1410,19 @@ function Game() {
     /****************************************************************************** 
      * ACTIONS
      */
+
+    // Expose "add_cash" for cheaters
+    this.add_cash = function(n) { 
+        pd.cash.amount += n;
+        pd.stats.cheated_cash += n;
+    }
+
+    // Expose "add_widgets" for cheaters
+    this.add_widgets = function(n) { 
+        pd.widgets.amount += n;
+        pd.stats.cheated_widgets += n;
+    }
+    
 
     this.do_save = function() {
         update_save_from_pd();
@@ -1619,9 +1660,12 @@ function Game() {
         var ac_unl = 0;
         var ac_tot = 0; 
         for(var k in pd.achievements) { 
-            ac_tot += 1;
             var ac = pd.achievements[k];
             var el = $('#'+k);
+            if((ac.hidden)&&(!ac.unlocked)) { 
+                continue;
+            }
+            ac_tot += 1;
             if(ac.unlocked) { 
                 ac_unl += 1;
                 el.removeClass('hidden');
@@ -2101,7 +2145,9 @@ function Game() {
         good_message('You were able to negotiate your way out of a DEA raid');
         return false;
     }
-}
+} // END - Game()
+
+
 
 /*******************************************************************************
  * Messaging 
@@ -2151,7 +2197,6 @@ function pretty_int(num) {
     var num_str = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); 
     return num_str;
 }
-
 
 var gm = new Game();
 
