@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% block title %}$0{% endblock %}
+{% block content %}
+<script>
+{% include 'game.js' %}
+</script>
+
+<table>
+<tr>
+    <td colspan="3">
+    <div id="updated" style="display: none;">
+        The game has been updated, refresh to see new ways to get your meth on.
+    </div>
+    </td>
+</tr>
+
+<tr>
+
+
+<td style="width: 300px; text-align: center;"> 
+    <div id="risk_div" class="small">
+        You have a <b><span id="risk_level">low</span></b> chance of a DEA raid
+        (<b><span id="risk_amount">0</span>%</b>)
+    </div>
+        
+    </div>
+    <div id="make_div">
+        <p>
+            <span id="make_lbl">widgets</span>
+            (purity is <em><span id="make_qlt">NA</span></em>)<br />
+            <strong><span id="make_amt">0</span></strong><br />
+            <small><span id="clicker_rps">0</span> per second (net)</small><br />
+            <small><span id="clicker_rps_g">0</span> per second (gross)</small>
+        </p>
+        <p>
+            <button id="make_btn">make</button>
+        </p>
+    </div>
+
+    <div id="sell_div">
+        <p>
+            <span id="sell_lbl">cash</span>
+            ($<span id="sell_roi">0</span> ea)<br />
+            $<strong><span id="sell_amt">0</span></strong><br />
+            <small>$<span id="seller_rps">0</span> per second</small>
+        </p>
+        <p><button id="sell_btn">sell</button></p>
+    </div>
+
+    <div id="last_saved">Game saved 60 seconds ago</div>
+    <div id="messages" style="text-align: left;"></div>
+</td>
+<td>
+<div class="tabs">
+    <button onclick="switch_tab('manufacturing');" id="manufacturing_tab" class="tab">
+        Manufacturing (<span id="clickers_unlocked">0</span>/<span id="clickers_total">0</span>)
+    </button>
+    
+    <button onclick="switch_tab('distribution');" id="distribution_tab" class="tab">
+        Distribution (<span id="sellers_unlocked">0</span>/<span id="sellers_total">0</span>)
+    </button>
+
+    <button onclick="switch_tab('upgrades');" id="upgrades_tab" class="tab">
+        Upgrades (<span id="upgrades_unlocked">0</span>/<span id="upgrades_total">0</span>)
+    </button>
+
+    <button onclick="switch_tab('achievements');" id="achievements_tab" class="tab">
+        Achievements (<span id="achievements_unlocked">0</span>/<span id="achievements_total">0</span>)
+    </button>
+
+    <button onclick="switch_tab('misc');" id="misc_tab" class="tab">
+        Options &amp; Stats
+    </button>
+</div>
+
+<div class="tab_div" id="manufacturing_div">
+    <div id="clickers"></div>
+</div>
+
+<div class="tab_div" id="distribution_div">
+    <div id="sellers"></div>
+</div>
+
+<div class="tab_div" id="upgrades_div">
+    <div id="upgrades"></div>
+</div>
+
+<div class="tab_div" id="achievements_div">
+    <div id="achievements"></div>
+</div>
+
+<div class="tab_div w_div" id="misc_div">
+    <div class="pull_left">
+        <h3>Instructions</h3>
+        <ol>
+            <li>Cook batches of meth</li>
+            <li>Sell meth</li>
+            <li>Buy stuff with your drug money</li>
+        </ol>
+    </div>
+
+    <div class="pull_left">
+        <h3>Options</h3>
+        <ul>
+            <li><button onclick="gm.do_reset_confirm();">Reset</button></li>
+            <li><button onclick="gm.do_save();">Save</button></li>
+            <li><button onclick="gm.do_load();">Load</button></li>
+            <li><button onclick="gm.do_import();">Import</button><span class="small grey">Not yet functional</span></li>
+        </ul>
+    </div>
+
+    <div class="pull_left">
+        <h3>Stats</h3>
+        <ul>
+            <li>Batches cooked: <b><span id="made_widgets">0</span></b></li>
+            <li>Batches hand-cooked: <b><span id="hand_made_widgets">0</span></b></li>
+            <li>Batches sold: <b><span id="sold_widgets">0</span></b></li>
+            <li>Batches hand-sold: <b><span id="hand_sold_widgets">0</span></b></li>
+            <li>Total upgrades purchased: <b><span id="bought_upgrades">0</span></b></li>
+            <li>Total cash earned: <b><span id="total_cash">0</span></b></li>
+            <li>Seconds spent playing: <b><span id="time_played">0</span></b></li>
+        </ul>    
+    </div>
+
+    <div class="clear"></div>
+</div>
+
+
+
+</td>
+</tr>
+</table>
+
+<div class="make_up"></div>
+<div id="sell_up" class="sell_up"></div>
+
+{% raw %}
+<script id="tpl_achievement" type="text/template">
+<div id="{{id}}" class="s_div">
+    <h3 id="{{id}}_lbl">
+        {{ac.label}}
+    </h3>
+    <p class="small">
+        {{ac.description}}
+    </p>
+</div>
+</script>
+
+<script id="tpl_clicker" type="text/template">
+<div id="{{id}}" class="s_div">
+    <h3 id="{{id}}_lbl">{{cl.label}} 
+        <label id="{{id}}_amt" class="grey pull_right">{{cl.amount}}</label>
+    </h3>
+    <p class="small">
+        <b>$<span id="{{id}}_cst">{{cl.cost}}</span></b> &mdash;
+        <em class="grey">{{cl.description}}</em>
+    </p>
+    <p class="pull_right small">
+        cooks <b><span id="{{id}}_rps">{{cl.rps}}</span></b> per second; 
+        <b><span id="{{id}}_rsk">{{cl.risk}}</span>%</b> risk
+    </p>
+    <button id="{{id}}_btn" onclick="gm.buy_clicker('{{id}}')">Purchase</button>
+    <button id="{{id}}_sell_btn" onclick="gm.sell_clicker('{{id}}')">Sell</button>
+</div>
+</script>
+
+<script id="tpl_seller" type="text/template">
+<div id="{{id}}" class="s_div">
+    <h3 id="{{id}}_lbl">{{sl.label}} 
+        <label id="{{id}}_amt" class="grey pull_right">{{sl.amount}}</label>
+    </h3>
+    <p class="small">
+        <b>$<span id="{{id}}_cst">{{sl.cost}}</span></b> &mdash; 
+        <em class="grey">{{sl.description}}</em>
+    </p>
+    <p class="pull_right small">
+        Sells <b><span id="{{id}}_rps">{{sl.rps}}</span></b> per second;
+        <b><span id="{{id}}_rsk">{{sl.risk}}</span>%</b> risk
+    </p>
+    <button id="{{id}}_btn" onclick="gm.buy_seller('{{id}}')">Purchase</button>
+    <button id="{{id}}_sell_btn" onclick="gm.sell_seller('{{id}}')">Sell</button>
+</div>
+</script>
+
+<script id="tpl_upgrade" type="text/template">
+<div id="{{id}}" class="s_div">
+    <h3 id="{{id}}_lbl">
+        {{upg.label}} 
+        <span id="{{id}}_cst" class="grey pull_right">${{upg.cost}}</span>
+    </h3>
+    <p class="small grey"><em>{{upg.description}}</em></p>
+    <button id="{{id}}_btn" onclick="gm.buy_upgrade('{{id}}')">Purchase</button>
+</div>
+</script>
+{% endraw %}
+
+<div id="footer">
+<div>
+    <p class="small light_grey">&copy;2013 nullism.com, version <span id="version">{{version}}</span> still beta, but not as beta as before, bitch. <a href="http://clickingbad.tumblr.com" target="_blank">Dev Blog</a></p>
+</div>
+
+</div>
+
+{% endblock %}

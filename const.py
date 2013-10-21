@@ -1,0 +1,3 @@
+VERSION = '0.7.3'
+DOCROOT = 'docroot'
+TEST_PORT = 5000
