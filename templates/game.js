@@ -1277,16 +1277,17 @@ function Game() {
 
     function get_item_cost(scl) { 
         var cst = ((scl.amount + 1) * scl.base_cost) * (scl.amount + 1);
+        // Double costs if > 10 are owned
         if((scl.amount + 1) > 10) { 
-            cst *= scl.amount+1;
+            cst *= 2;
         }
         return cst;
     }
     function get_item_last_cost(scl) { 
         var cst = ((scl.amount) * scl.base_cost) * (scl.amount);
-        
+        // Double costs if > 10 are owned
         if(scl.amount > 10) { 
-            cst *= scl.amount;
+            cst *= 2;
         }
         return cst;
     }
