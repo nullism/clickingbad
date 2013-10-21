@@ -1662,7 +1662,8 @@ function Game() {
         for(var k in pd.achievements) { 
             var ac = pd.achievements[k];
             var el = $('#'+k);
-            if((ac.hidden)&&(!ac.unlocked)) { 
+            if((ac.hidden)&&(!ac.unlocked)) {
+                el.addClass('hidden'); 
                 continue;
             }
             ac_tot += 1;
