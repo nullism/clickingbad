@@ -1128,7 +1128,7 @@ function Game() {
                 'unlocked':false,
                 'hidden':true,
                 'value':1,
-                'group':210,
+                'group':220,
                 'min_time':1,           
             },
             'cheated_meth_1':{
@@ -1139,7 +1139,7 @@ function Game() {
                 'unlocked':false,
                 'hidden':true,
                 'value':1,
-                'group':210,
+                'group':230,
                 'min_time':1,           
             },
         },
