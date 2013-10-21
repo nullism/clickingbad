@@ -14,8 +14,8 @@ Code
 * 4 spaces indent, no tabs
 * Comments should appear on their own line or lines
     * This is due to the comment-stripper regex
-* No Windows carraige returns (\r\n)
-    * dos2unix can be ran on these, but we'd prefer not to.
+* No Windows carraige returns (`\r\n`)
+    * `dos2unix` can be ran on these, but we'd prefer not to.
 * No "special" characters in code, use standard ASCII where possible.
 
 #### Sample .vimrc
@@ -24,4 +24,19 @@ Code
     set tabstop=4
     set expandtab
 
+Testing
+-------
 
+### Caching
+
+The following command will cache templates to `./docroot`.   
+
+    $ ./control.py cache
+    ...
+
+### Testing
+
+    $ cd ./docroot
+    $ python -m SimpleHTTPServer 5000
+
+ 
