@@ -2164,7 +2164,7 @@ $(document).ready(function() {
     save_tmr = setInterval("gm.do_save()", 30000);
     event_tmr = setInterval("gm.check_events()", 120000);
     ver_tmr = setInterval("gm.check_version()", 620000);
-    message('Welcome to '+', bitch.');
+    message('Welcome to '+pdro.title+', bitch.');
     gm.do_load();
 
 
