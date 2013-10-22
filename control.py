@@ -59,10 +59,21 @@ def cache_template(tpl, minify=False):
         html = minify_template(html)
     open(out,'wb').write(html)
 
+def cache_phonegap(minify=False):
+    pg_tpl = env.get_template('phonegap.html')
+    out = os.path.join(self_path, const.PG_DOCROOT, 'index.html')
+    print 'Caching PG template to %s'%(out)
+    html = pg_tpl.render(version=const.VERSION)
+    if minify:
+        html = minify_template(html)
+    open(out,'wb').write(html)
+
+
 def cache_all():
     ''' Update this list when new templates are added '''
     cache_template('index.html', minify=True)
     cache_template('thanks.html')
+    cache_phonegap(minify=True)
     cache_version()
 
 def run_test_server():

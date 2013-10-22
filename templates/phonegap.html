@@ -1,13 +1,24 @@
-{% extends 'base.html' %}
-{% block title %}$0{% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clicking Bad</title>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/mustache.js"></script>
+</head>
+
+<body>
+<style>
+</style>
 <script>
+
+// Include the main game stuff
 {% include 'game.js' %}
 
 // SETUP
 var gm = new Game();
 $(document).ready(function() { 
-
+    has_gaq = false;
     gm.setup_display();
     tmr = setInterval("gm.tick()", tick_ms);
     sec_tmr = setInterval("gm.sec_tick()", 1000);
@@ -93,21 +104,10 @@ $(document).ready(function() {
     switch_tab('manufacturing');
     $('button').attr('disabled', false);
 });
+
+
 </script>
 
-<table>
-<tr>
-    <td colspan="3">
-    <div id="updated" style="display: none;">
-        The game has been updated, refresh to see new ways to get your meth on.
-    </div>
-    </td>
-</tr>
-
-<tr>
-
-
-<td style="width: 300px; text-align: center;"> 
     <div id="risk_div" class="small">
         You have a <b><span id="risk_level">low</span></b> chance of a DEA raid
         (<b><span id="risk_amount">0</span>%</b>)
@@ -140,8 +140,7 @@ $(document).ready(function() {
 
     <div id="last_saved">Game saved 60 seconds ago</div>
     <div id="messages" style="text-align: left;"></div>
-</td>
-<td>
+
 <div class="tabs">
     <button onclick="switch_tab('manufacturing');" id="manufacturing_tab" class="tab">
         Manufacturing (<span id="clickers_unlocked">0</span>/<span id="clickers_total">0</span>)
@@ -224,22 +223,11 @@ $(document).ready(function() {
     <div class="clear"></div>
 </div>
 
-
-
-</td>
-</tr>
-</table>
-
 <div class="make_up"></div>
 <div id="sell_up" class="sell_up"></div>
 
 {% include "tpls.html" %}
 
-<div id="footer">
-<div>
-    <p class="small light_grey">&copy;2013 nullism.com, version <span id="version">{{version}}</span> still beta, but not as beta as before, bitch. <a href="http://clickingbad.tumblr.com" target="_blank">Dev Blog</a></p>
-</div>
+</body>
+</html>
 
-</div>
-
-{% endblock %}
