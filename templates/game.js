@@ -22,6 +22,7 @@
     THE SOFTWARE. 
  ******************************************************************************/
 
+var active_tab = '';
 var tmr = null;
 var sec_tmr = null;
 var save_tmr = null;
@@ -127,7 +128,7 @@ function Game() {
         ],
         'cash': {
             'amount':0,
-            'protected':0, 
+            'safe':0, 
             'label':'Cash Money',
             'action_label':'SELL!',
         },
@@ -155,17 +156,35 @@ function Game() {
         'banks':{
             'storage_1k':{
                 'label':'Lock Box',
-                'description':'Purchase a lock box to securely store $1K',
+                'description':'Invest in a lock box to securely store $1K',
                 'cash_protect':1000,
-                'cost':100000,
+                'cost':10000,
+                'purchased':false,
                 'prereq':null,
             },
             'storage_10k':{
                 'label':'Diaper Box',
-                'description':'Purchase a diaper box to securely store $10K',
+                'description':'Invest in a diaper box to securely store $10K',
                 'cash_protect':10000,
-                'cost':1000000,
+                'cost':100000,
+                'purchased':false,
                 'prereq':'storage_1k',
+            },
+            'storage_100k':{
+                'label':'Duffle Bag',
+                'description':'Invest in a duffle bag to securely store $100K',
+                'cash_protect':100000,
+                'cost':1000000,
+                'purchased':false,
+                'prereq':'storage_10k',
+            },
+            'storage_1m':{
+                'label':'Banana Stand',
+                'description':'Invest in a banana stand to securely store $1M',
+                'cash_protect':1000000,
+                'cost':10000000,
+                'purchased':false,
+                'prereq':'storage_100k',
             },
         },
 
@@ -1326,9 +1345,12 @@ function Game() {
         }
         return rsk;
     }
+
+
     this.get_click_sell_amount = function() { 
         return pd.sell_amount + (pd.stats.seller_rps * pd.sell_rps_multiplier);
     }
+
     this.get_click_make_amount = function() { 
         return pd.make_amount + (pd.stats.clicker_rps * pd.make_rps_multiplier);
     }
@@ -1355,6 +1377,22 @@ function Game() {
         return get_item_last_cost(scl) * (pd.sell_return * pd.economy_roi);
     }
     
+    function get_safe_cash() { 
+        return pd.cash.safe;
+    }
+
+    function get_unsafe_cash() { 
+        var unsafe = pd.cash.amount - pd.cash.safe;
+        if(unsafe < 0) { unsafe = 0; }
+        return unsafe;
+    }
+
+    function new_save_to_pd() {
+
+    }
+    function new_pd_to_save() {
+
+    }
 
     function update_save_from_pd() { 
         var sv = {
@@ -1363,9 +1401,16 @@ function Game() {
             'clickers':{},
             'sellers':{},
             'upgrades':{},
+            'banks':[],
             'stats':pd.stats,
             'version':pd.version,
         };
+        // Banks
+        for(var k in pd.banks) { 
+            if(pd.banks[k].purchased) {
+                sv.banks.push(k);
+            }
+        }
         // Clickers 
         for(var k in pd.clickers) { 
             sv.clickers[k] = {
@@ -1405,6 +1450,14 @@ function Game() {
             pd.cash.amount = sv.cash;
             pd.widgets.amount = sv.widgets;
             $.extend(pd.stats, sv.stats);
+            // Banks
+            if(sv.banks) {
+                for(var i=0; i<sv.banks.length; i++) { 
+                    if(pd.banks[sv.banks[i]]) {
+                        apply_bank(sv.banks[i]);
+                    }
+                }
+            }
             // Clickers
             for(var k in sv.clickers) { 
                 if(pd.clickers[k]) {
@@ -1562,14 +1615,39 @@ function Game() {
         return 'NA';
     }
 
+
     /****************************************************************************** 
      * BUY/SELL STUFF
      */
 
+    this.buy_bank = function(key) {
+        var bn = pd.banks[key];
+        if(!bn) { 
+            return error('Invalid bank key');
+        }
+        if(pd.cash.amount < bn.cost) {
+            return false;
+        }
+        pd.cash.amount -= bn.cost;
+        apply_bank(key);
+        if(has_gaq) {
+            _gaq.push(['_trackPageview','/game_buy_bank']);
+        }
+        return true;
+    }
+
+    function apply_bank(key) { 
+        var bn = pd.banks[key];
+        if(!bn) { return false; }
+        if(bn.purchased) { return false; }
+        pd.cash.safe += bn.cash_protect;
+        bn.purchased = true;
+        return true
+    }
+
     this.buy_clicker = function(key) { 
         var cl = pd.clickers[key];
         if(pd.cash.amount < cl.cost) { 
-            //console.log('CL Cost: '+cl.cost+' CASH: '+pd.cash.amount);
             return false;
         }
         pd.cash.amount -= cl.cost;
@@ -1685,7 +1763,8 @@ function Game() {
         fix_make_sell();
         fix_title();
         fix_risk();
-        fix_achievements(); 
+        fix_achievements();
+        fix_banks(); 
     }
 
     function fix_achievements() {
@@ -1715,11 +1794,47 @@ function Game() {
         $('#achievements_total').html(pretty_int(ac_tot));
     }
 
+    function fix_banks() {
+        var bn_unl = 0;
+        var bn_tot = 0;
+
+        for(var k in pd.banks) {
+            bn_tot += 1; 
+            var bn = pd.banks[k];
+            var el = $('#'+k);
+            var el_btn = $('#'+k+'_btn');
+            var el_lbl = $('#'+k+'_lbl');
+            var el_cst = $('#'+k+'_cst');
+            el_cst.html('$'+pretty_int(bn.cost));
+
+            // Already purchased
+            if(bn.purchased) {
+                bn_unl += 1;
+                el_lbl.addClass('purchased');
+                el.removeClass('hidden');
+                el_btn.addClass('hidden');
+                continue;
+            }
+
+            // Prerequisite purchased
+            if((bn.prereq)&&(!pd.banks[bn.prereq].purchased)) { 
+                el.addClass('hidden');
+                continue;
+            }
+ 
+            if(pd.cash.amount < bn.cost) { 
+                el_btn.attr('disabled',true);
+            } else { 
+                el_btn.attr('disabled',false);
+            }
+            el.removeClass('hidden');
+        }
+        $('#banks_total').html(pretty_int(bn_tot));
+        $('#banks_unlocked').html(pretty_int(bn_unl));
+    }
+
     function fix_risk() { 
         pd.risk_amount = get_risk();
-        /*if(pd.risk_amount < 0) { 
-            pd.risk_amount = 0;
-        }*/
         $('#risk_amount').html(pretty_int(pd.risk_amount * 100)); 
         var el_lvl = $('#risk_level');
         for(var i=0; i<pd.risk_levels.length; i++) {
@@ -1744,6 +1859,7 @@ function Game() {
         $('#sell_lbl').html(pd.cash.label);
         $('#sell_amt').html(pretty_int(pd.cash.amount));
         $('#sell_roi').html(pretty_int(pd.widget_roi));
+        $('#safe_cash').html(pretty_int(get_safe_cash()));
         var sell_rate = pd.stats.seller_rps;
         if((pd.stats.seller_rps > pd.stats.clicker_rps)&&(pd.widgets.amount < pd.stats.seller_rps)) { 
             sell_rate = pd.stats.clicker_rps;
@@ -1930,6 +2046,7 @@ function Game() {
         setup_clickers(); 
         setup_sellers();
         setup_upgrades();   
+        setup_banks();
         setup_achievements();
     }
 
@@ -1950,6 +2067,25 @@ function Game() {
             var html = Mustache.to_html(template, data);
             ac_el.prepend(html);
         }    
+    }
+
+    function setup_banks() {
+       var sortlist = [];
+        for(var k in pd.banks) { 
+            sortlist.push([k, pd.banks[k].cost]);
+        } 
+        var sorted = sortlist.sort(function(x,y) { return x[1] - y[1] });
+        var bn_el = $('#banks');
+        bn_el.html('');
+
+        for(var i in sorted) {
+            var k = sorted[i][0];
+            var bn = pd.banks[k];
+            var template = $('#tpl_bank').html();
+            var data = {'bn':bn, 'id':k};
+            var html = Mustache.to_html(template, data);
+            bn_el.prepend(html);
+        }
     }
 
     function setup_clickers() { 
@@ -2102,6 +2238,7 @@ function Game() {
     // Cash lost, cash income per second * r
     function event_lose_cash(r) { 
         var amt = (pd.stats.seller_rps * pd.widget_roi) * r;
+        amt -= get_safe_cash();
         if(amt < 1) { 
             return false;
         }
@@ -2116,6 +2253,7 @@ function Game() {
     // Rivals seize cash, cash income per second * r
     function event_rival_lose_cash(r) { 
         var amt = (pd.stats.seller_rps * pd.widget_roi) * r;
+        amt -= get_safe_cash();
         if(amt < 1) { 
             return false;
         }
@@ -2130,6 +2268,7 @@ function Game() {
     // Pay bribe, cash income per second * r
     function event_pay_bribe(r) { 
         var amt = (pd.stats.seller_rps * pd.widget_roi) * r;
+        amt -= get_safe_cash();
         if(amt < 1) { 
             return false;
         }
@@ -2143,8 +2282,10 @@ function Game() {
 
     // Seize cash * n
     function event_dea_seize_cash(n) { 
-        var amt = pd.cash.amount * n;
+        var amt = (pd.cash.amount * n);
+        amt -= get_safe_cash();
         if(amt < 1) { 
+            good_message('The DEA was unable to seize any cash');
             return false;
         }
         pd.cash.amount -= amt;
@@ -2222,6 +2363,7 @@ function switch_tab(tbid) {
     $('.tab').removeClass('active');
     $('#'+tbid+'_tab').addClass('active');
     tb_el.show();
+    active_tab = tbid;
     return false;
 }
 

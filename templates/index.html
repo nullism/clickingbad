@@ -42,6 +42,7 @@
             <span id="sell_lbl">cash</span>
             ($<span id="sell_roi">0</span> ea)<br />
             $<strong><span id="sell_amt">0</span></strong><br />
+            <small>$<span id="safe_cash">0</span> protected</small><br />
             <small>$<span id="seller_rps">0</span> per second</small>
         </p>
         <p><button id="sell_btn">sell</button></p>
@@ -64,6 +65,10 @@
         Upgrades (<span id="upgrades_unlocked">0</span>/<span id="upgrades_total">0</span>)
     </button>
 
+    <button onclick="switch_tab('finances');" id="finances_tab" class="tab">
+        Finances (<span id="banks_unlocked">0</span>/<span id="banks_total">0</span>)
+    </button>
+
     <button onclick="switch_tab('achievements');" id="achievements_tab" class="tab">
         Achievements (<span id="achievements_unlocked">0</span>/<span id="achievements_total">0</span>)
     </button>
@@ -83,6 +88,10 @@
 
 <div class="tab_div" id="upgrades_div">
     <div id="upgrades"></div>
+</div>
+
+<div class="tab_div" id="finances_div">
+    <div id="banks"></div>
 </div>
 
 <div class="tab_div" id="achievements_div">
@@ -143,6 +152,16 @@
     <p class="small">
         {{ac.description}}
     </p>
+</div>
+</script>
+
+<script id="tpl_bank" type="text/template">
+<div id="{{id}}" class="s_div">
+    <h3 id="{{id}}_lbl">{{bn.label}}
+        <label id="{{id}}_cst" class="grey pull_right">${{bn.cost}}</label>
+    </h3>
+    <p class="small">{{bn.description}}</p>
+    <button id="{{id}}_btn" onclick="gm.buy_bank('{{id}}')">Invest</button>
 </div>
 </script>
 
