@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width; initial-scale=1.0"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <title>Clicking Bad</title>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/mustache.js"></script>
@@ -109,13 +109,8 @@ $(document).ready(function() {
 
 </script>
 
-    <div id="risk_div" class="small">
-        You have a <b><span id="risk_level">low</span></b> chance of a DEA raid
-        (<b><span id="risk_amount">0</span>%</b>)
-    </div>
-        
-    </div>
-
+       
+<div id="left_wrap">
     <div id="make_sell_wrap">
     <div id="make_div">
         <p>
@@ -141,90 +136,107 @@ $(document).ready(function() {
     <div class="clear"></div>
     </div>
 
+    <div id="make_sell_pad"></div>
+
+    <div id="risk_div" class="small">
+        You have a <b><span id="risk_level">low</span></b> chance of a DEA raid
+        (<b><span id="risk_amount">0</span>%</b>)
+    </div>
     <div id="last_saved">Game saved 60 seconds ago</div>
-    <div id="messages" style="text-align: left;"></div>
+    <div id="last_message">No new messages</div>
+</div> <!-- End left_wrap -->
 
 <div class="tabs">
 </div>
 
-<button onclick="toggle_tab('manufacturing');" id="manufacturing_tab" class="tab">
-    Manufacturing (<span id="clickers_unlocked">0</span>/<span id="clickers_total">0</span>)
-</button>
-<div class="tab_div" id="manufacturing_div" style="display:none;">
-    <div id="clickers"></div>
-</div>
-
-<button onclick="toggle_tab('distribution');" id="distribution_tab" class="tab">
-    Distribution (<span id="sellers_unlocked">0</span>/<span id="sellers_total">0</span>)
-</button>
-<div class="tab_div" id="distribution_div" style="display:none;">
-    <div id="sellers"></div>
-</div>
-
-<button onclick="toggle_tab('upgrades');" id="upgrades_tab" class="tab">
-    Upgrades (<span id="upgrades_unlocked">0</span>/<span id="upgrades_total">0</span>)
-</button>
-<div class="tab_div" id="upgrades_div" style="display:none;">
-    <div id="upgrades"></div>
-</div>
-
-<button onclick="toggle_tab('finances');" id="finances_tab" class="tab">
-    Finances (<span id="banks_unlocked">0</span>/<span id="banks_total">0</span>)
-</button>
-<div class="tab_div" id="finances_div" style="display:none;">
-    <div id="banks"></div>
-</div>
-
-<button onclick="toggle_tab('achievements');" id="achievements_tab" class="tab">
-    Achievements (<span id="achievements_unlocked">0</span>/<span id="achievements_total">0</span>)
-</button>
-<div class="tab_div" id="achievements_div" style="display:none;">
-    <div id="achievements"></div>
-</div>
-
-<button onclick="toggle_tab('misc');" id="misc_tab" class="tab">
-    Options &amp; Stats
-</button>
-<div class="tab_div w_div" id="misc_div" style="display:none;">
-    <div class="pull_left">
-        <h3>Instructions</h3>
-        <ol>
-            <li>Cook batches of meth</li>
-            <li>Sell meth</li>
-            <li>Buy stuff with your drug money</li>
-        </ol>
+<div id="tab_divs">
+    <button onclick="toggle_tab('manufacturing');" id="manufacturing_tab" class="tab">
+        Manufacturing (<span id="clickers_unlocked">0</span>/<span id="clickers_total">0</span>)
+    </button>
+    <div class="tab_div" id="manufacturing_div" style="display:none;">
+        <div id="clickers"></div>
     </div>
 
-    <div class="pull_left">
-        <h3>Options</h3>
-        <ul>
-            <li><button onclick="gm.do_reset_confirm();">Reset</button></li>
-            <li><button onclick="gm.do_save();">Save</button></li>
-            <li><button onclick="gm.do_load();">Load</button></li>
-            <li><button onclick="gm.do_import();">Import</button><span class="small grey">Not yet functional</span></li>
-        </ul>
+    <button onclick="toggle_tab('distribution');" id="distribution_tab" class="tab">
+        Distribution (<span id="sellers_unlocked">0</span>/<span id="sellers_total">0</span>)
+    </button>
+    <div class="tab_div" id="distribution_div" style="display:none;">
+        <div id="sellers"></div>
     </div>
 
-    <div class="pull_left">
-        <h3>Stats</h3>
-        <ul>
-            <li>Batches cooked: <b><span id="made_widgets">0</span></b></li>
-            <li>Batches hand-cooked: <b><span id="hand_made_widgets">0</span></b></li>
-            <li>Batches sold: <b><span id="sold_widgets">0</span></b></li>
-            <li>Batches hand-sold: <b><span id="hand_sold_widgets">0</span></b></li>
-            <li>Total upgrades purchased: <b><span id="bought_upgrades">0</span></b></li>
-            <li>Total cash earned: <b><span id="total_cash">0</span></b></li>
-            <li>Seconds spent playing: <b><span id="time_played">0</span></b></li>
-        </ul>    
+    <button onclick="toggle_tab('upgrades');" id="upgrades_tab" class="tab">
+        Upgrades (<span id="upgrades_unlocked">0</span>/<span id="upgrades_total">0</span>)
+    </button>
+    <div class="tab_div" id="upgrades_div" style="display:none;">
+        <div id="upgrades"></div>
     </div>
 
-    <div class="clear"></div>
+    <button onclick="toggle_tab('finances');" id="finances_tab" class="tab">
+        Finances (<span id="banks_unlocked">0</span>/<span id="banks_total">0</span>)
+    </button>
+    <div class="tab_div" id="finances_div" style="display:none;">
+        <div id="banks"></div>
+    </div>
+
+    <button onclick="toggle_tab('achievements');" id="achievements_tab" class="tab">
+        Achievements (<span id="achievements_unlocked">0</span>/<span id="achievements_total">0</span>)
+    </button>
+    <div class="tab_div" id="achievements_div" style="display:none;">
+        <div id="achievements"></div>
+    </div>
+
+    <button onclick="toggle_tab('messages');" id="messages_tab" class="tab">
+        Messages
+    </button>
+    <div class="tab_div" id="messages_div" style="display:none;">
+        <div id="messages" style="text-align: left;"></div>
+    </div>
+
+    <button onclick="toggle_tab('misc');" id="misc_tab" class="tab">
+        Options &amp; Stats
+    </button>
+    <div class="tab_div w_div" id="misc_div" style="display:none;">
+        <div class="pull_left">
+            <h3>Instructions</h3>
+            <ol>
+                <li>Cook batches of meth</li>
+                <li>Sell meth</li>
+                <li>Buy stuff with your drug money</li>
+            </ol>
+        </div>
+
+        <div class="pull_left">
+            <h3>Options</h3>
+            <ul>
+                <li><button onclick="gm.do_reset_confirm();">Reset</button></li>
+                <li><button onclick="gm.do_save();">Save</button></li>
+                <li><button onclick="gm.do_load();">Load</button></li>
+                <li><button onclick="gm.do_import();">Import</button><span class="small grey">Not yet functional</span></li>
+            </ul>
+        </div>
+
+        <div class="pull_left">
+            <h3>Stats</h3>
+            <ul>
+                <li>Batches cooked: <b><span id="made_widgets">0</span></b></li>
+                <li>Batches hand-cooked: <b><span id="hand_made_widgets">0</span></b></li>
+                <li>Batches sold: <b><span id="sold_widgets">0</span></b></li>
+                <li>Batches hand-sold: <b><span id="hand_sold_widgets">0</span></b></li>
+                <li>Total upgrades purchased: <b><span id="bought_upgrades">0</span></b></li>
+                <li>Total cash earned: <b><span id="total_cash">0</span></b></li>
+                <li>Seconds spent playing: <b><span id="time_played">0</span></b></li>
+            </ul>    
+        </div>
+
+        <div class="clear"></div>
+    </div>
 </div>
+
+
+{% include "tpls.html" %}
 
 <div class="make_up"></div>
 <div id="sell_up" class="sell_up"></div>
-
-{% include "tpls.html" %}
 
 </body>
 </html>

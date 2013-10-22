@@ -73,13 +73,13 @@ h1 {
     width: 100%;
     border: 1px solid #39e;
     overflow: hidden;
-    height: 85px;
     border-radius: 10px;
     color: #eee;
 }
 #messages div { 
     margin-bottom: -2px;
 }
+
 .good_message {
     color: #afa;
 }
@@ -104,16 +104,21 @@ h1 {
 .sell_up { 
     color: #5e5;
 }
+#left_div { 
+    min-width: 250px;
+    max-width: 100%;
+    float: left;
+}
 #make_sell_wrap { 
     background: #fff;
+    border-bottom: 2px solid #dde;
     border-radius: 5px;
-    margin-bottom: 4px;
+    z-index: 1000;
 }
 #make_div, #sell_div { 
     padding: 3px;
     margin: 4px;
     text-align: center;
-    float: left;
 }
 #make_btn, #sell_btn {
     -moz-user-select: none; 
@@ -143,6 +148,19 @@ h1 {
     border-color: #0a0;
     text-shadow: -1px -1px 1px #0a0;
 }
+
+/*
+ * For Mobile browsers
+ */
+@media screen and (min-width: 640px) { 
+    #tab_divs {
+        float: right;
+        width: 40%;
+    }
+}
+
+
+
 /* Upgrade, Clicker, Seller divs */
 .semi_trans { 
     opacity: 0.5;

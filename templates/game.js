@@ -2356,6 +2356,7 @@ function add_message(msg, _type) {
     var el = $("<div></div>");
     el.html(msg);
     el.addClass(_type);
+    $('#last_message').html(el);
     $('#messages').prepend(el);
     //el.fadeOut(100000);
     if($('#messages div').length > 30) { 
