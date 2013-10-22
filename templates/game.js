@@ -908,8 +908,7 @@ function Game() {
                 'label':'Fearless',
                 'description':'After facing death so many times, '
                     +'you no longer have a sense of self preservation. '
-                    +'Sell another 50% of sales at a time '
-                    +'at a time',
+                    +'Sell another 50% of sales at a time',
                 'cost':20100500000,
                 'action':'sell_rps_multiplier',
                 'mod':0.5,
