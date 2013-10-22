@@ -1143,7 +1143,7 @@ function Game() {
                 'min_time':1,           
             },
             'dea_1':{
-                'label':'One the inside',
+                'label':'On the inside',
                 'description':'A DEA Mole is now in your pocket',
                 'property':'sellers.07_dea.amount',
                 'required':1,
