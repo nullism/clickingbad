@@ -1117,7 +1117,40 @@ function Game() {
                 'required':1,
                 'unlocked':false,
                 'value':1,
-                'group':210,
+                'group':220,
+                'min_time':1,           
+            },
+            'moon_lab_1':{
+                'label':'One small step for meth kind',
+                'description':'You\'ve built a Moon Lab',
+                'property':'clickers.12_moon_lab.amount',
+                'required':1,
+                'unlocked':false,
+                'hidden':false,
+                'value':1,
+                'group':227,
+                'min_time':1,           
+            },
+            'station_1':{
+                'label':'The meth is strong with you',
+                'description':'You\'ve built a Meth Star',
+                'property':'clickers.station.amount',
+                'required':1,
+                'unlocked':false,
+                'hidden':false,
+                'value':1,
+                'group':227,
+                'min_time':1,           
+            },
+            'dea_1':{
+                'label':'One the inside',
+                'description':'A DEA Mole is now in your pocket',
+                'property':'sellers.07_dea.amount',
+                'required':1,
+                'unlocked':false,
+                'hidden':false,
+                'value':1,
+                'group':227,
                 'min_time':1,           
             },
             'cheated_cash_1':{
@@ -1128,7 +1161,7 @@ function Game() {
                 'unlocked':false,
                 'hidden':true,
                 'value':1,
-                'group':220,
+                'group':230,
                 'min_time':1,           
             },
             'cheated_meth_1':{
@@ -1139,9 +1172,9 @@ function Game() {
                 'unlocked':false,
                 'hidden':true,
                 'value':1,
-                'group':230,
+                'group':240,
                 'min_time':1,           
-            },
+            },            
         },
 
         // EVENTS
@@ -1662,6 +1695,7 @@ function Game() {
         for(var k in pd.achievements) { 
             var ac = pd.achievements[k];
             var el = $('#'+k);
+            var el_lbl = $('#'+k+'_lbl');
             if((ac.hidden)&&(!ac.unlocked)) {
                 el.addClass('hidden'); 
                 continue;
@@ -1670,8 +1704,11 @@ function Game() {
             if(ac.unlocked) { 
                 ac_unl += 1;
                 el.removeClass('hidden');
+                el.removeClass('semi_trans');
+                el_lbl.addClass('purchased');
             } else { 
-                el.addClass('hidden');
+                el.addClass('locked');
+                el.addClass('semi_trans');
             }
         }
 

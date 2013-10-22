@@ -133,6 +133,10 @@ h1 {
     text-shadow: -1px -1px 1px #0a0;
 }
 /* Upgrade, Clicker, Seller divs */
+.semi_trans { 
+    opacity: 0.5;
+    -moz-opacity: 0.5;
+}
 .s_div, .w_div { 
     /*border: 3px solid #ddd;
     border-bottom-color: #ccc;*/
@@ -192,6 +196,9 @@ h1 {
 }
 .purchased { 
     color: #0a0;
+}
+.locked { 
+    color: #777;
 }
 .max { 
     width: 100%;
