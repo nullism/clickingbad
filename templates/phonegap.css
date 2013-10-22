@@ -1,0 +1,255 @@
+body { 
+    font-size: 1.0em;
+    font-family: Verdana, Helvetica, Arial;
+    color: #333;
+    background: #28d;
+}
+table { 
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+td { 
+    vertical-align: top;
+    padding: 5px;
+}
+a, a:visited, a:active { 
+    text-decoration: none;
+    color: #369;
+}
+a:hover { 
+    text-decoration: underline;
+}
+button { 
+    background-color: #bbb;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    text-shadow: -1px -1px 0px #aaa;
+    padding: 5px;
+}
+button:disabled, button.disabled { 
+    color: #aaa;
+    background-color: #777;
+    border-color: #777;
+    cursor: default;
+    text-shadow: none;
+}
+
+h1, h2 { 
+    color: #fff;
+    text-shadow: -1px -1px 0px #27c;
+}
+h3 { 
+    font-size: 1.0em;
+}
+h2 { 
+    font-size: 1.2em;
+}
+h1 { 
+    font-size: 1.4em;
+}
+#updated { 
+    display: none;
+    background: #cfc;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px;
+}
+#last_saved { 
+    color: #eee;
+    font-size: 0.9em;
+}
+#risk_div { 
+    color: #fff;
+    font-size: 1.1em;
+    padding: 3px;
+    margin-bottom: 5px;
+}
+#messages { 
+    position: relative;
+    width: 100%;
+    border: 1px solid #39e;
+    overflow: hidden;
+    border-radius: 10px;
+    color: #eee;
+}
+#messages div { 
+    margin-bottom: -2px;
+}
+.good_message {
+    color: #afa;
+}
+.bad_message { 
+    color: #fcc;
+}
+#footer a, #footer a:visited, #footer a:active { 
+    color: #9be;
+}
+.make_up, .sell_up { 
+    display: none;
+    z-index: 500;
+    position: absolute;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #ccc;
+    text-shadow: 0px 1px 1px #333;
+}
+.make_up { 
+    color: #58f;
+}
+.sell_up { 
+    color: #5e5;
+}
+#make_div, #sell_div { 
+    background: #fff;
+    border-radius: 10px;
+    padding: 3px;
+    margin-bottom: 4px;
+}
+#make_btn, #sell_btn { 
+    padding: 10px;
+    width: 220px;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+}
+#make_btn:disabled, #sell_btn:disabled { 
+    color: #ddd;
+}
+#make_btn { 
+    background-color: #39f;
+    border-color: #27e;
+    text-shadow: -1px -1px 1px #27e;
+}
+#sell_btn { 
+    background-color: #1c3;
+    border-color: #0a0;
+    text-shadow: -1px -1px 1px #0a0;
+}
+/* Upgrade, Clicker, Seller divs */
+.semi_trans { 
+    opacity: 0.5;
+    -moz-opacity: 0.5;
+}
+.s_div, .w_div { 
+    /*border: 3px solid #ddd;
+    border-bottom-color: #ccc;*/
+    border-radius: 10px;
+    background: #fff;
+    margin: 4px;
+    padding: 2px;
+}
+.w_div { 
+    padding: 10px;
+}
+.s_div p { 
+    margin: 0px;
+    padding: 3px;
+}
+.s_div h3 { 
+    margin: 2px;
+}
+.pull_left { 
+    float: left;
+}
+.pull_right { 
+    float: right;
+}
+.small { 
+    font-size: 0.8em;
+}
+.grey { 
+    color: #777;
+}
+.light_grey { 
+    color: #aaa;
+}
+
+/* Tab Stuff */
+.tab { 
+    outline: none;
+}
+.tab.active { 
+    background: #eee;
+    border-color: #ccc;
+    color: #777;
+    text-shadow: none;
+}
+
+
+.message, .error { 
+    margin: 0px;
+    padding: 3px;
+}
+.error { 
+    font-weight: bold;
+    color: #f22;
+}
+.hidden { 
+    display: none;
+}
+.purchased { 
+    color: #0a0;
+}
+.locked { 
+    color: #777;
+}
+.max { 
+    width: 100%;
+    clear: both;
+    margin: 0px;
+}
+.clear { 
+    clear: both;
+    padding: 0;
+    margin: 0;
+    width: 0;
+    height: 0;
+}
+.resource { 
+    float: left;
+    padding: 3px;
+    margin: 2px;
+    border: 1px solid #eee;
+}
+.btn { 
+    padding: 5px;
+    background: #ddd;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #bbb;
+}
+.btn:disabled { 
+    cursor: default;
+}
+
+.btn-large { 
+    font-size: 1.1em;
+    padding: 10px;
+}
+.btn-large:disabled { 
+    color: #ddd;
+}
+.blue_bg, .green_bg { 
+    color: #fff;
+}
+.blue_bg { 
+    background-color: #11aaff;
+    border-color: #11aaff;
+    text-shadow: -1px -1px 0px #09d;
+}
+.green_bg { 
+    background-color: #11dd77;
+    border-color: #11dd77;
+    text-shadow: -1px -1px 0px #0a3;
+}
