@@ -2388,6 +2388,11 @@ function switch_tab(tbid) {
     return false;
 }
 
+function toggle_tab(tbid) { 
+    $('#'+tbid+'_div').toggle(200);
+    return false;
+}
+
 function pretty_int(num) {
     if(num < 1000) { 
         num = Math.round(num * 10) / 10;

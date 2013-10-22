@@ -102,7 +102,7 @@ $(document).ready(function() {
     });
 
     // End actions
-    switch_tab('manufacturing');
+    toggle_tab('manufacturing');
     $('button').attr('disabled', false);
 });
 
@@ -115,6 +115,8 @@ $(document).ready(function() {
     </div>
         
     </div>
+
+    <div id="make_sell_wrap">
     <div id="make_div">
         <p>
             <span id="make_lbl">widgets</span>
@@ -123,9 +125,7 @@ $(document).ready(function() {
             <small><span id="clicker_rps">0</span> per second (net)</small><br />
             <small><span id="clicker_rps_g">0</span> per second (gross)</small>
         </p>
-        <p>
-            <button id="make_btn">make</button>
-        </p>
+        <div id="make_btn">make</div>
     </div>
 
     <div id="sell_div">
@@ -136,59 +136,56 @@ $(document).ready(function() {
             <small>$<span id="safe_cash">0</span> protected</small><br />
             <small>$<span id="seller_rps">0</span> per second</small>
         </p>
-        <p><button id="sell_btn">sell</button></p>
+        <div id="sell_btn">sell</div>
+    </div>
+    <div class="clear"></div>
     </div>
 
     <div id="last_saved">Game saved 60 seconds ago</div>
     <div id="messages" style="text-align: left;"></div>
 
 <div class="tabs">
-    <button onclick="switch_tab('manufacturing');" id="manufacturing_tab" class="tab">
-        Manufacturing (<span id="clickers_unlocked">0</span>/<span id="clickers_total">0</span>)
-    </button>
-    
-    <button onclick="switch_tab('distribution');" id="distribution_tab" class="tab">
-        Distribution (<span id="sellers_unlocked">0</span>/<span id="sellers_total">0</span>)
-    </button>
-
-    <button onclick="switch_tab('upgrades');" id="upgrades_tab" class="tab">
-        Upgrades (<span id="upgrades_unlocked">0</span>/<span id="upgrades_total">0</span>)
-    </button>
-
-    <button onclick="switch_tab('finances');" id="finances_tab" class="tab">
-        Finances (<span id="banks_unlocked">0</span>/<span id="banks_total">0</span>)
-    </button>
-
-    <button onclick="switch_tab('achievements');" id="achievements_tab" class="tab">
-        Achievements (<span id="achievements_unlocked">0</span>/<span id="achievements_total">0</span>)
-    </button>
-
-    <button onclick="switch_tab('misc');" id="misc_tab" class="tab">
-        Options &amp; Stats
-    </button>
 </div>
 
-<div class="tab_div" id="manufacturing_div">
+<button onclick="toggle_tab('manufacturing');" id="manufacturing_tab" class="tab">
+    Manufacturing (<span id="clickers_unlocked">0</span>/<span id="clickers_total">0</span>)
+</button>
+<div class="tab_div" id="manufacturing_div" style="display:none;">
     <div id="clickers"></div>
 </div>
 
-<div class="tab_div" id="distribution_div">
+<button onclick="toggle_tab('distribution');" id="distribution_tab" class="tab">
+    Distribution (<span id="sellers_unlocked">0</span>/<span id="sellers_total">0</span>)
+</button>
+<div class="tab_div" id="distribution_div" style="display:none;">
     <div id="sellers"></div>
 </div>
 
-<div class="tab_div" id="upgrades_div">
+<button onclick="toggle_tab('upgrades');" id="upgrades_tab" class="tab">
+    Upgrades (<span id="upgrades_unlocked">0</span>/<span id="upgrades_total">0</span>)
+</button>
+<div class="tab_div" id="upgrades_div" style="display:none;">
     <div id="upgrades"></div>
 </div>
 
-<div class="tab_div" id="finances_div">
+<button onclick="toggle_tab('finances');" id="finances_tab" class="tab">
+    Finances (<span id="banks_unlocked">0</span>/<span id="banks_total">0</span>)
+</button>
+<div class="tab_div" id="finances_div" style="display:none;">
     <div id="banks"></div>
 </div>
 
-<div class="tab_div" id="achievements_div">
+<button onclick="toggle_tab('achievements');" id="achievements_tab" class="tab">
+    Achievements (<span id="achievements_unlocked">0</span>/<span id="achievements_total">0</span>)
+</button>
+<div class="tab_div" id="achievements_div" style="display:none;">
     <div id="achievements"></div>
 </div>
 
-<div class="tab_div w_div" id="misc_div">
+<button onclick="toggle_tab('misc');" id="misc_tab" class="tab">
+    Options &amp; Stats
+</button>
+<div class="tab_div w_div" id="misc_div" style="display:none;">
     <div class="pull_left">
         <h3>Instructions</h3>
         <ol>

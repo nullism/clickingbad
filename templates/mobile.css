@@ -73,6 +73,7 @@ h1 {
     width: 100%;
     border: 1px solid #39e;
     overflow: hidden;
+    height: 85px;
     border-radius: 10px;
     color: #eee;
 }
@@ -103,13 +104,23 @@ h1 {
 .sell_up { 
     color: #5e5;
 }
-#make_div, #sell_div { 
+#make_sell_wrap { 
     background: #fff;
-    border-radius: 10px;
-    padding: 3px;
+    border-radius: 5px;
     margin-bottom: 4px;
 }
-#make_btn, #sell_btn { 
+#make_div, #sell_div { 
+    padding: 3px;
+    margin: 4px;
+    text-align: center;
+    float: left;
+}
+#make_btn, #sell_btn {
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
+    -ms-user-select:none; 
+    user-select:none; 
+    margin: auto; 
     padding: 10px;
     width: 220px;
     font-weight: bold;
@@ -174,6 +185,7 @@ h1 {
 /* Tab Stuff */
 .tab { 
     outline: none;
+    width: 100%;
 }
 .tab.active { 
     background: #eee;
