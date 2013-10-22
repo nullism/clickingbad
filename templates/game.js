@@ -37,13 +37,13 @@ var last_bust = 0;
 var last_float = 10;
 var tick_ms = 100;
 var has_gaq = true;
-var pdro = {};
+
 
 function Game() { 
 
     var pd = {
-        'version':'{{version}}',
         'title':'Clicking Bad',
+        'version':'{{version}}',
         'make_amount':1,
         'make_rps_multiplier':0,
         'sell_amount':1,
@@ -1192,7 +1192,18 @@ function Game() {
                 'value':1,
                 'group':240,
                 'min_time':1,           
-            },            
+            },
+            'banana_stand': {
+                'label':'Frozen Bananas',
+                'description':'There\'s always money in the banana stand',
+                'property':'banks.storage_1m.purchased',
+                'required':true,
+                'unlocked':false,
+                'hidden':false,
+                'value':1,
+                'group':250,
+                'min_time':1,           
+            }, 
         },
 
         // EVENTS
@@ -1273,7 +1284,6 @@ function Game() {
             'start_time':(new Date).getTime(),
         },
     };
-    pdro = pd;
 
 
     // sec_tick() - Runs every 1000ms 
@@ -1285,7 +1295,7 @@ function Game() {
 
     // tick() - Runs every tick_ms (default 100ms)
     this.tick = function() { 
-        pdro = pd;
+        
         var this_tick = (new Date).getTime();
         var this_sub = 1000 / tick_ms;
         var ticks = Math.round((this_tick - last_tick) / tick_ms);
@@ -1353,6 +1363,14 @@ function Game() {
 
     this.get_click_make_amount = function() { 
         return pd.make_amount + (pd.stats.clicker_rps * pd.make_rps_multiplier);
+    }
+
+    this.get_widget_roi = function() {
+        return pd.widget_roi;
+    }
+
+    this.get_title = function() { 
+        return pd.title;
     }
 
     function get_item_cost(scl) { 
@@ -2162,7 +2180,10 @@ function Game() {
             for(var i = 0; i<pps.length; i++) { 
                 val = val[pps[i]];
             }
-            if((val)&&(val >= a.required)) {
+            if((val === true)&&(val === a.required)) { 
+                unlock_achievement(k);
+            }
+            else if((val)&&(val >= a.required)) {
                 unlock_achievement(k);
             } 
         }
@@ -2388,7 +2409,7 @@ $(document).ready(function() {
     save_tmr = setInterval("gm.do_save()", 30000);
     event_tmr = setInterval("gm.check_events()", 120000);
     ver_tmr = setInterval("gm.check_version()", 620000);
-    message('Welcome to '+pdro.title+', bitch.');
+    message('Welcome to '+gm.title+', bitch.');
     gm.do_load();
 
 
@@ -2419,7 +2440,7 @@ $(document).ready(function() {
             return;
         }
         var elc = $('.sell_up:first').clone()
-        elc.html('$'+pretty_int(sale*pdro.widget_roi));
+        elc.html('$'+pretty_int(sale*gm.get_widget_roi()));
         $('#sell_div').append(elc);
         elc.show();
         elc.offset({left:e.pageX-30, top:e.pageY-50});
