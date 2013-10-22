@@ -1,0 +1,70 @@
+{% raw %}
+<script id="tpl_achievement" type="text/template">
+<div id="{{id}}" class="s_div">
+    <h3 id="{{id}}_lbl">
+        {{ac.label}}
+    </h3>
+    <p class="small">
+        {{ac.description}}
+    </p>
+</div>
+</script>
+
+<script id="tpl_bank" type="text/template">
+<div id="{{id}}" class="s_div">
+    <h3 id="{{id}}_lbl">{{bn.label}}
+        <label id="{{id}}_cst" class="grey pull_right">${{bn.cost}}</label>
+    </h3>
+    <p class="small">{{bn.description}}</p>
+    <button id="{{id}}_btn" onclick="gm.buy_bank('{{id}}')">Invest</button>
+</div>
+</script>
+
+<script id="tpl_clicker" type="text/template">
+<div id="{{id}}" class="s_div">
+    <h3 id="{{id}}_lbl">{{cl.label}} 
+        <label id="{{id}}_amt" class="grey pull_right">{{cl.amount}}</label>
+    </h3>
+    <p class="small">
+        <b>$<span id="{{id}}_cst">{{cl.cost}}</span></b> &mdash;
+        <em class="grey">{{cl.description}}</em>
+    </p>
+    <p class="pull_right small">
+        cooks <b><span id="{{id}}_rps">{{cl.rps}}</span></b> per second; 
+        <b><span id="{{id}}_rsk">{{cl.risk}}</span>%</b> risk
+    </p>
+    <button id="{{id}}_btn" onclick="gm.buy_clicker('{{id}}')">Purchase</button>
+    <button id="{{id}}_sell_btn" onclick="gm.sell_clicker('{{id}}')">Sell</button>
+</div>
+</script>
+
+<script id="tpl_seller" type="text/template">
+<div id="{{id}}" class="s_div">
+    <h3 id="{{id}}_lbl">{{sl.label}} 
+        <label id="{{id}}_amt" class="grey pull_right">{{sl.amount}}</label>
+    </h3>
+    <p class="small">
+        <b>$<span id="{{id}}_cst">{{sl.cost}}</span></b> &mdash; 
+        <em class="grey">{{sl.description}}</em>
+    </p>
+    <p class="pull_right small">
+        Sells <b><span id="{{id}}_rps">{{sl.rps}}</span></b> per second;
+        <b><span id="{{id}}_rsk">{{sl.risk}}</span>%</b> risk
+    </p>
+    <button id="{{id}}_btn" onclick="gm.buy_seller('{{id}}')">Purchase</button>
+    <button id="{{id}}_sell_btn" onclick="gm.sell_seller('{{id}}')">Sell</button>
+</div>
+</script>
+
+<script id="tpl_upgrade" type="text/template">
+<div id="{{id}}" class="s_div">
+    <h3 id="{{id}}_lbl">
+        {{upg.label}} 
+        <span id="{{id}}_cst" class="grey pull_right">${{upg.cost}}</span>
+    </h3>
+    <p class="small grey"><em>{{upg.description}}</em></p>
+    <button id="{{id}}_btn" onclick="gm.buy_upgrade('{{id}}')">Purchase</button>
+</div>
+</script>
+{% endraw %}
+
