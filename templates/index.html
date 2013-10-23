@@ -14,7 +14,7 @@
 
 <body>
 <style>
-{% include "mobile.css" %}
+{% include "game.css" %}
 </style>
 <script>
 
@@ -237,10 +237,11 @@ $(document).ready(function() {
         <div class="clear"></div>
     </div>
 </div>
+{% include "tpls.html" %}
+
 {% if not isapp %}
     {% include "footer.html" %}
 {% endif %}
-{% include "tpls.html" %}
 
 <div class="make_up"></div>
 <div id="sell_up" class="sell_up"></div>

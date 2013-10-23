@@ -61,12 +61,20 @@ h1 {
 #last_saved { 
     color: #eee;
     font-size: 0.9em;
+    text-align: center;
 }
 #risk_div { 
     color: #fff;
     font-size: 1.1em;
     padding: 3px;
     margin-bottom: 5px;
+    text-align: center;
+}
+#last_message { 
+    color: #eee;
+}
+#last_message div { 
+    margin: auto;
 }
 #messages { 
     position: relative;
@@ -76,9 +84,10 @@ h1 {
     border-radius: 10px;
     color: #eee;
 }
-#messages div { 
+#last_message div, #messages div { 
     margin-bottom: -2px;
 }
+
 .good_message {
     color: #afa;
 }
@@ -103,13 +112,28 @@ h1 {
 .sell_up { 
     color: #5e5;
 }
-#make_div, #sell_div { 
-    background: #fff;
-    border-radius: 10px;
-    padding: 3px;
-    margin-bottom: 4px;
+#left_wrap { 
+    width: 100%;
+    float: left;
+    margin-right: 10px;
 }
-#make_btn, #sell_btn { 
+#make_sell_wrap { 
+    background: #fff;
+    border-bottom: 2px solid #dde;
+    border-radius: 5px;
+    z-index: 1000;
+}
+#make_div, #sell_div { 
+    padding: 3px;
+    margin: 4px;
+    text-align: center;
+}
+#make_btn, #sell_btn {
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
+    -ms-user-select:none; 
+    user-select:none; 
+    margin: auto; 
     padding: 10px;
     width: 220px;
     font-weight: bold;
@@ -132,6 +156,9 @@ h1 {
     border-color: #0a0;
     text-shadow: -1px -1px 1px #0a0;
 }
+
+
+
 /* Upgrade, Clicker, Seller divs */
 .semi_trans { 
     opacity: 0.5;
@@ -174,6 +201,7 @@ h1 {
 /* Tab Stuff */
 .tab { 
     outline: none;
+    width: 48%;
 }
 .tab.active { 
     background: #eee;
@@ -252,4 +280,76 @@ h1 {
     background-color: #11dd77;
     border-color: #11dd77;
     text-shadow: -1px -1px 0px #0a3;
+}
+
+/*
+ * Responsive layouts
+ */
+
+
+
+/* Small desktop */
+@media screen and (min-width: 200px) {
+    .tab {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 400px) { 
+    .tab { 
+        width: 48%;
+    }
+}
+@media screen and (min-width: 700px) { 
+    #tab_divs, #tab_btns {
+        float: left;
+        width: 58%;
+    }
+    .tab { 
+        width: 48%;
+    }
+    #left_wrap { 
+        float: left;
+        width: 40%;
+        min-width: 250px;
+    }
+}
+
+@media screen and (min-width: 850px) { 
+    .tab { 
+        width: 31%;
+    }
+}
+
+@media screen and (min-width: 1100px) { 
+    .tab { 
+        width: 31%;
+    }
+    #left_wrap { 
+        width: 30%;
+    }
+    #tab_divs, #tab_btns { 
+        width: 65%;
+    }
+}
+@media screen and (min-width: 1300px) { 
+    .tab { 
+        width: 23%;
+    }
+    #left_wrap { 
+        width: 25%;
+    }
+    #tab_divs, #tab_btns { 
+        width: 70%;
+    }
+}
+@media screen and (min-width: 1600px) { 
+    .tab { 
+        width: 19%;
+    }
+    #left_wrap { 
+        width: 20%;
+    }
+    #tab_divs, #tab_btns { 
+        width: 75%;
+    }
 }
