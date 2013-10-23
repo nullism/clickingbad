@@ -130,6 +130,8 @@ function Game() {
             'protected':0, 
             'label':'Cash Money',
             'action_label':'SELL!',
+            'at_risk_cash':0,
+            'safe_cash':0,
         },
         'widget_roi':0.5,
         'widgets':{
@@ -1177,6 +1179,155 @@ function Game() {
             },            
         },
 
+    // FINANCES 
+    // Places to put your money some have higher ROI than others 
+        'launderers': { 
+            'checking_acct': { 
+                'label':'Checking Account',
+                'description':'Your run of the mill checking account you have always had.',
+                'unlock_rps':0.5,
+                'unlocked':true,
+                'amount':1,
+                'base_cost':0,
+                'cost':'Totally Free!',
+                'rps':.5,
+                'costperd':0,
+                'cln_per_run':1,
+                'seizable':true,
+                'sieze_chance':.80,
+                'enabled':true,
+                'cleaned': 0,
+            },
+            'pampers_boxes': { 
+                'label':'Pampers box',
+                'description':'Put your extra cash in these boxes to keep suspicion down. Maybe don\'t leave your name on it. Not really laundering I know but easy to hide.',
+                'unlock_rps':1,
+                'unlocked':false,
+                'amount':0,
+                'base_cost':10,
+                'cost':50,
+                'rps':1,
+                'cln_per_run':10,
+                'costperd':0,
+                'seizable':true,
+                'sieze_chance':.70,
+                'enabled': false,
+                'cleaned': 0,
+            },
+            'barrels': { 
+                'label':'Barrels',
+                'description':'Holds more cash than a shoe box, but harder to carry.',
+                'unlock_rps':15000,
+                'unlocked':false,
+                'amount':0,
+                'cost':100,
+                'base_cost':10,
+                'rps':5,
+                'cln_per_run':1000,
+                'costperd':0,
+                'seizable':true,
+                'sieze_chance':.60,
+                'enabled': false,
+                'cleaned': 0,
+            },
+            'pickup_trucks': { 
+                'label':'Run down old Pickup Truck',
+                'description':'Holds more cash than a shoe box and a barrel, and mobile too if you have to run .',
+                'unlock_rps':25000,
+                'unlocked':false,
+                'amount':0,
+                'base_cost':10,
+                'cost':1000,
+                'rps':10,
+                'cln_per_run':2000,
+                'costperd':0,
+                'seizable':true,
+                'sieze_chance':.50,
+                'enabled': false,
+                'cleaned': 0,
+            },
+            'banana_stand': { 
+                'label':'Bluth\'s Original Frozen Banana Stand',
+                'description':'There\'s always money in the banana stand.',
+                'unlocked':false,
+                'unlock_rps':50000,
+                'amount':0,
+                'base_cost':10,
+                'cost':10000,
+                'rps':25,
+                'cln_per_run':5000,
+                'costperd':.40,
+                'seizable': true,
+                'sieze_chance':.45,
+                'enabled': false,
+                'cleaned': 0,
+            },
+            'fast_food': { 
+                'label':'Fried Chicken Restaurant',
+                'description':'Add a chicken restaurant to get better returns on your laundered money . Get 65 cents for every dollar.',
+                'unlocked':false,
+                'unlock_rps':75000,
+                'amount':0,
+                'base_cost':10,
+                'cost':50000,
+                'rps':50,
+                'cln_per_run':25000,
+                'costperd':.35,
+                'seizable': false,
+                'sieze_chance':.35,
+                'enabled': false,
+                'cleaned': 0,
+            },
+            'car_wash': { 
+                'label':'Car Wash Business',
+                'description':'Operate as a cash only business to help clean your illicit income.  Get 80 cents for every dollar.',
+                'unlocked':false,
+                'unlock_rps':110000,
+                'amount':0,
+                'base_cost':10,
+                'cost':100000,
+                'rps':100,
+                'cln_per_run':100000,
+                'costperd':.8,
+                'seizable': false,
+                'sieze_chance':.25,
+                'enabled': false,
+                'cleaned': 0,
+            },
+            'casino': { 
+                'label':'Methcalibur Casino',
+                'description':'Join forces with some real criminals by opening a casino. Get 90 cents for every dollar laundered.',
+                'unlocked':false,
+                'unlock_rps':1300000,
+                'amount':0,
+                'base_cost':10,
+                'cost': 10,
+                'rps':1000,
+                'cln_per_run':120000,
+                'costperd':.1,
+                'seizable': false,
+                'sieze_chance':.01,
+                'enabled': false,
+                'cleaned': 0,
+            },
+            'offshore_acct': { 
+                'label':'Offshore Account',
+                'description':'Keep your money where the feds cannot reach it.',
+                'unlocked':false,
+                'unlock_rps':160000,
+                'amount':0,
+                'base_cost':10,
+                'cost':10000000000,
+                'rps': 10000,
+                'cln_per_run':100000000,
+                'costperd':0,
+                'seizable': false,
+                'sieze_chance':0,
+                'enabled': false,
+                'cleaned': 0,
+            },
+        },
+        
         // EVENTS
         'events': { 
             'cash_found_small':{
@@ -1294,6 +1445,7 @@ function Game() {
         sell_amount = sell_amount / this_sub;
 
         do_sell(sell_amount * ticks);
+        do_laundry();
 
         fix_display();
     }
@@ -1360,9 +1512,12 @@ function Game() {
     function update_save_from_pd() { 
         var sv = {
             'cash':Math.round(pd.cash.amount),
+            'at_risk_cash':Math.round(pd.cash.at_risk_cash),
+            'safe_cash':Math.round(pd.cash.safe_cash),
             'widgets':Math.round(pd.widgets.amount),
             'clickers':{},
             'sellers':{},
+            'launderers':{},
             'upgrades':{},
             'stats':pd.stats,
             'version':pd.version,
@@ -1387,6 +1542,14 @@ function Game() {
                 'purchased':pd.upgrades[k].purchased,
             };
         }
+        // Launderers 
+        for(var k in pd.launderers) { 
+            sv.launderers[k] = {
+                'amount':pd.launderers[k].amount,
+                'unlocked':pd.launderers[k].unlocked,
+                'unlocked':pd.launderers[k].cleaned,
+            };
+        }
         localStorage.sv = JSON.stringify(sv);
 
         // Achievements
@@ -1404,6 +1567,8 @@ function Game() {
         if(localStorage.sv) { 
             var sv = $.parseJSON(localStorage.sv);
             pd.cash.amount = sv.cash;
+            pd.cash.at_risk_cash = sv.at_risk_cash;
+            pd.cash.safe_cash = sv.safe_cash;
             pd.widgets.amount = sv.widgets;
             $.extend(pd.stats, sv.stats);
             // Clickers
@@ -1428,6 +1593,15 @@ function Game() {
                     }
                 }
             }
+            for(var k in sv.launderers) { 
+                if(pd.upgrades[k]) { 
+                    pd.launderers[k].amount = sv.launderers[k].amount;
+                    pd.launderers[k].unlocked = sv.launderers[k].unlocked;
+                    pd.launderers[k].cleaned = sv.launderers[k].cleaned;
+                    }
+                }
+             
+    
         } 
         // Achievements
         if(localStorage.ac) { 
@@ -1563,24 +1737,75 @@ function Game() {
         return 'NA';
     }
 
+    
+    function do_laundry() { 
+        for(var k in pd.launderers) {
+        var clean_amt = pd.launderers[k].cln_per_run;
+        //console.log(k+" cleans "+ clean_amt + " and is " +pd.launderers[k].enabled);
+        // if there is enough in gross to clean grab that amount
+        if ((pd.launderers[k].enabled ) && (( pd.cash.amount - pd.cash.at_risk_cash ) > clean_amt)) {
+            var sz = pd.launderers[k].seizable;
+            var cpd = pd.launderers[k].costperd;
+            pd.cash.amount -= clean_amt;
+            var cost = clean_amt * cpd;
+            clean_amt -= cost;
+            pd.launderers[k].cleaned += clean_amt;
+            //console.log("Took "+clean_amt+" from gross to launder");
+            if(sz){
+            // put clean_amount in bank according to whether this is a 
+            // seizable clean or not
+            pd.cash.amount += clean_amt;
+            pd.cash.at_risk_cash += clean_amt;
+            pd.launderers[k].amount +=1;
+            
+            }
+            else {
+             // this is a safe clean so it is now protected
+             pd.cash.safe_cash += clean_amt;
+            }
+        }
+        }
+        return true;
+    }
+    
+
     /****************************************************************************** 
      * BUY/SELL STUFF
      */
 
+    function pay(n) {
+        if((pd.cash.at_risk_cash + pd.cash.safe_cash) > n) {
+            console.log("Funds available");
+            // deduct from seizable funds first 
+            pd.cash.at_risk_cash -= n;
+            pd.cash.amount -= n;
+            
+            if(pd.cash.at_risk_cash < 0) {
+                console.log("Not enough to purchase outright");
+                pd.cash.safe_cash += pd.cash.at_risk_cash;
+                console.log("pd.cash.safe "+pd.cash.safe_cash+" + "+pd.cash.at_risk_cash);
+                pd.cash.at_risk_cash = 0; 
+            }
+            return true;
+        }
+        return false;
+    }
+ 
     this.buy_clicker = function(key) { 
         var cl = pd.clickers[key];
-        if(pd.cash.amount < cl.cost) { 
-            //console.log('CL Cost: '+cl.cost+' CASH: '+pd.cash.amount);
+        //pd.cash.amount -= cl.cost;
+        if( pay(cl.cost)) {
+            cl.amount += 1;
+            message('You have purchased a '+cl.label);
+            fix_clickers();
+            if(has_gaq) { 
+                _gaq.push(['_trackPageview','/game_buy_clicker']);
+            }
+            return true;
+        }
+        else {
             return false;
         }
-        pd.cash.amount -= cl.cost;
-        cl.amount += 1;
-        message('You have purchased a '+cl.label);
-        fix_clickers();
-        if(has_gaq) { 
-            _gaq.push(['_trackPageview','/game_buy_clicker']);
-        }
-        return true;
     }
 
     this.sell_clicker = function(key) { 
@@ -1597,18 +1822,18 @@ function Game() {
 
     this.buy_seller = function(key) { 
         var sl = pd.sellers[key];
-        if(pd.cash.amount < sl.cost) { 
-            //console.log('SL Cost: '+sl.cost+' CASH: '+pd.cash.amount);
+        if( pay(sl.cost)) {
+            sl.amount += 1;
+            message('You have purchased a '+sl.label);
+            fix_sellers();
+            if(has_gaq) { 
+                _gaq.push(['_trackPageview','/game_buy_seller']);
+            }
+            return true;
+        }
+        else {
             return false;
         }
-        pd.cash.amount -= sl.cost;
-        sl.amount += 1;
-        message('You have purchased a '+sl.label);
-        fix_sellers();
-        if(has_gaq) { 
-            _gaq.push(['_trackPageview','/game_buy_seller']);
-        }
-        return true;
     }
 
     this.sell_seller = function(key) { 
@@ -1625,14 +1850,13 @@ function Game() {
 
     this.buy_upgrade = function(key) { 
         var upg = pd.upgrades[key];
-        if(pd.cash.amount < upg.cost) { 
+        if(!pay(upg.cost)) { 
             return false;
         }
         var unl = apply_upgrade(key);
         if(!unl) { 
             return false;
         }
-        pd.cash.amount -= upg.cost;
         message('You have unlocked '+upg.label);
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_buy_upgrade']);
@@ -1673,6 +1897,40 @@ function Game() {
         good_message('You have earned a new achievement: <em>'+ac.label+'</em>');
         return true;
     }
+    
+    this.buy_laundry = function(key) { 
+        var ld = pd.launderers[key];
+        if(pay(ld.cost)) { 
+            pd.cash.amount -= ld.cost;
+            ld.amount += 1;
+            message('You have purchased a '+ld.label);
+            fix_launderers();
+            if(has_gaq) { 
+                _gaq.push(['_trackPageview','/game_buy_launderer']);
+            return true;
+            }
+        }
+        else {
+             return false;
+        }
+    }
+
+    this.enable_laundry = function(key) { 
+        //console.log("Attempting to enable: "+key);
+        var ld = pd.launderers[key];
+        for(var k in pd.launderers) {
+        if ( k == key) {
+            pd.launderers[k].enabled = true;
+        }
+        else {
+            pd.launderers[k].enabled = false;
+            //console.log("disable: "+ k +" val: "+pd.launderers[k].enabled);
+        }
+        }
+        message('You enabled a '+ld.label+' to launder your money');
+        return true;
+    }
+    
 
     /****************************************************************************** 
      * FIX DISPLAY 
@@ -1687,6 +1945,7 @@ function Game() {
         fix_title();
         fix_risk();
         fix_achievements(); 
+        fix_launderers(); 
     }
 
     function fix_achievements() {
@@ -1744,6 +2003,8 @@ function Game() {
         $('#sell_btn').html(pd.cash.action_label);
         $('#sell_lbl').html(pd.cash.label);
         $('#sell_amt').html(pretty_int(pd.cash.amount));
+        $('#risk_amt').html(pretty_int(pd.cash.at_risk_cash));
+        $('#safe_amt').html(pretty_int(pd.cash.safe_cash));
         $('#sell_roi').html(pretty_int(pd.widget_roi));
         var sell_rate = pd.stats.seller_rps;
         if((pd.stats.seller_rps > pd.stats.clicker_rps)&&(pd.widgets.amount < pd.stats.seller_rps)) { 
@@ -1860,6 +2121,14 @@ function Game() {
                 sl.unlocked = true;        
             }
         }
+         
+        for(var k in pd.launderers) { 
+            var ld = pd.launderers[k];
+            if(ld.unlock_rps <= pd.stats.seller_rps) { 
+                ld.unlocked = true;
+            }
+        }
+        
     }
 
     function fix_upgrades() {
@@ -1923,6 +2192,65 @@ function Game() {
         $('#time_played').html(pretty_int(sec_played));
     }
 
+    
+    function fix_launderers() { 
+        var hd_unl = $('#launderers_unlocked');
+        var hd_tot = $('#launderers_total');
+        var ld_tot = 0;
+        var ld_unl = 0;
+        for(var k in pd.launderers) { 
+        ld_tot += 1;
+        var el = $('#'+k);
+        var el_btn = $('#'+k+'_btn');
+        var el_sell_btn = $('#'+k+'_sell_btn');
+        var el_amt = $('#'+k+'_amt');
+        var el_cst = $('#'+k+'_cst');
+        var el_rps = $('#'+k+'_rps');
+        var el_rsk = $('#'+k+'_cleaned');
+        var el_sz = $('#'+k+'_seizable');
+        var ld = pd.launderers[k];
+        if (ld.amount > 0) {
+            if (ld.enabled) { 
+                el_sell_btn.attr('disabled', true);
+            } 
+            else { 
+                el_sell_btn.attr('disabled', false);
+            }
+        }  
+        else {
+            el_sell_btn.attr('disabled', true);
+        }
+        
+        ld.cost = get_item_cost(ld); 
+        
+        if(ld.cost > pd.cash.amount) {
+            el_btn.attr('disabled', true);
+        } else if(ld.amount > 0) {
+            el_btn.attr('disabled', true);
+        } 
+        else { 
+            el_btn.attr('disabled', false);
+        }
+        if(!ld.unlocked) { 
+            el.addClass('hidden');
+        } else { 
+            ld_unl += 1;
+            el.removeClass('hidden');
+        }
+        //el_cst.html(pretty_int(ld.cost));
+        el_amt.html(pretty_int(ld.amount));
+        //el_rps.html(pretty_int(ld.rps));
+        el_rps.html(pretty_int(ld.cln_per_run));
+        //el_rsk.html(pretty_int(ld.risk * 100));
+        el_rsk.html(pretty_int(ld.amount * ld.cln_per_run));
+        el_rsk.html(pretty_int(ld.amount * ld.cln_per_run));
+        }
+        hd_unl.html(pretty_int(ld_unl));
+        hd_tot.html(pretty_int(ld_tot));
+    }
+
+    
+
     /****************************************************************************** 
      * SETUP DISPLAY 
      */
@@ -1932,6 +2260,7 @@ function Game() {
         setup_sellers();
         setup_upgrades();   
         setup_achievements();
+        setup_launderers();
     }
 
     function setup_achievements() { 
@@ -2011,6 +2340,27 @@ function Game() {
             upgs_el.prepend(html);
         }
     }
+
+    
+    function setup_launderers() { 
+       var sortlist = [];
+        for(var k in pd.launderers) { 
+            sortlist.push([k, pd.launderers[k].group]);
+        } 
+        var sorted = sortlist.sort(function(x,y) { return x[1] - y[1] });
+        var ld_el = $('#launderers');
+        ld_el.html('');
+    
+        for(var i in sorted) {
+            var k = sorted[i][0];
+            var ld = pd.launderers[k];
+            var template = $('#tpl_launderers').html();
+            var data = {'ld':ld, 'id':k};
+            var html = Mustache.to_html(template, data);
+            ld_el.prepend(html);
+        }    
+    }
+    
 
     /*******************************************************************************
      * Achievements
