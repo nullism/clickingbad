@@ -8,7 +8,13 @@
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/mustache.js"></script>
-{% include "google.html" %}
+{% if isapp %}
+    <script>
+    var has_gaq = false;
+    </script>    
+{% else %}
+    {% include "google.html" %}
+{% endif %}
 
 </head>
 
@@ -24,7 +30,6 @@
 // SETUP
 var gm = new Game();
 $(document).ready(function() { 
-    has_gaq = false;
     gm.setup_display();
     tmr = setInterval("gm.tick()", tick_ms);
     sec_tmr = setInterval("gm.sec_tick()", 1000);

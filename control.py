@@ -56,7 +56,8 @@ def cache_template(tpl, isapp=False, minify=False):
     if isapp:
         out = os.path.join(self_path, const.APP_DOCROOT, tpl)
     print 'Caching template to %s'%(out)
-    html = pg_tpl.render(version=const.VERSION, isapp=isapp)
+    html = pg_tpl.render(version=const.VERSION, 
+        isapp=isapp, updated=const.UPDATED)
     if minify:
         html = minify_template(html)
     open(out,'wb').write(html)

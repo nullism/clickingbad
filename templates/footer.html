@@ -1,9 +1,14 @@
 <div class="clear"></div>
 <div id="footer">
 <div>
-    <p class="small light_grey">&copy;2013 nullism.com, version <span id="version">{{version}}</span> now with less beta, bitch. <a href="http://clickingbad.tumblr.com" target="_blank">Dev Blog</a></p>
+    <p class="small light_grey">
+        &copy;2013 nullism.com, version <b><span id="version">{{version}}</span></b>
+        updated on <b>{{updated}}</b> &mdash; now with less beta, bitch. 
+        [<a href="http://clickingbad.tumblr.com" target="_blank">Dev Blog</a>]
+    </p>
 </div>
 </div>
+{% if not isapp %}
 <div id="share_footer">
     <!--// Twitter Follow //-->
     <div class="pull_left" style="margin-left: 10px;">
@@ -53,3 +58,4 @@
     </div>
     <div class="clear"></div>
 </div>
+{% endif %}
