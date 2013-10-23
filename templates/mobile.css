@@ -61,18 +61,19 @@ h1 {
 #last_saved { 
     color: #eee;
     font-size: 0.9em;
+    text-align: center;
 }
 #risk_div { 
     color: #fff;
     font-size: 1.1em;
     padding: 3px;
     margin-bottom: 5px;
-}
-#last_message { 
     text-align: center;
 }
+
 #last_message div { 
     margin: auto;
+    color: #eee;
 }
 #messages { 
     position: relative;
@@ -82,7 +83,7 @@ h1 {
     border-radius: 10px;
     color: #eee;
 }
-#messages div { 
+#last_message div, #messages div { 
     margin-bottom: -2px;
 }
 
