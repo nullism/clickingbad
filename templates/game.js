@@ -84,6 +84,7 @@ function Game() {
             },
         ],
         'risk_amount':0,
+        'risk2_amount':0,
         'risk_levels':[
             {
                 'level':0.0001,
@@ -1340,6 +1341,21 @@ function Game() {
         fix_display();
     }
 
+    // Earn cash
+    function earn_cash(n) { 
+        pd.cash.amount += n;
+        return true;
+    }
+
+    // Spend cash
+    function spend_cash(n) {
+        if(n > (pd.cash.amount)) {
+            return false;
+        } 
+        pd.cash.amount -= n;
+        return true;
+    }
+
     // Version check
     this.check_version = function() { 
         $.get('/version.json',
@@ -1368,6 +1384,10 @@ function Game() {
             }
         }
         return rsk;
+    }
+    // Secondary risk levels, IRS in this case
+    function get_risk2() {
+        return 0.5 - (pd.cash.safe / pd.cash.amount);
     }
 
 
@@ -1532,7 +1552,7 @@ function Game() {
 
     // Expose "add_cash" for cheaters
     this.add_cash = function(n) { 
-        pd.cash.amount += n;
+        earn_cash(n);
         pd.stats.cheated_cash += n;
     }
 
@@ -1616,7 +1636,7 @@ function Game() {
         }
         pd.stats.sold_widgets += n;
         pd.widgets.amount -= n;
-        pd.cash.amount += (n * pd.widget_roi);
+        earn_cash(n * pd.widget_roi);
         pd.stats.total_cash += (n * pd.widget_roi);
         return n;
     }
@@ -1659,10 +1679,9 @@ function Game() {
         if(!bn) { 
             return error('Invalid bank key');
         }
-        if(pd.cash.amount < bn.cost) {
+        if(!spend_cash(bn.cost)) { 
             return false;
         }
-        pd.cash.amount -= bn.cost;
         apply_bank(key);
         if(has_gaq) {
             _gaq.push(['_trackPageview','/game_buy_bank']);
@@ -1681,10 +1700,9 @@ function Game() {
 
     this.buy_clicker = function(key) { 
         var cl = pd.clickers[key];
-        if(pd.cash.amount < cl.cost) { 
+        if(!spend_cash(cl.cost)) { 
             return false;
         }
-        pd.cash.amount -= cl.cost;
         cl.amount += 1;
         message('You have purchased a '+cl.label);
         fix_clickers();
@@ -1700,7 +1718,7 @@ function Game() {
             return false;
         }
         var sell_val = get_item_sell_value(cl);
-        pd.cash.amount += sell_val;
+        earn_cash(sell_val);
         message('You sold a '+cl.label+' for $'+pretty_int(sell_val));
         cl.amount -= 1;
         return true;
@@ -1708,11 +1726,9 @@ function Game() {
 
     this.buy_seller = function(key) { 
         var sl = pd.sellers[key];
-        if(pd.cash.amount < sl.cost) { 
-            //console.log('SL Cost: '+sl.cost+' CASH: '+pd.cash.amount);
+        if(!spend_cash(sl.cost)) { 
             return false;
         }
-        pd.cash.amount -= sl.cost;
         sl.amount += 1;
         message('You have purchased a '+sl.label);
         fix_sellers();
@@ -1728,7 +1744,7 @@ function Game() {
             return false;
         }
         var sell_val = get_item_sell_value(sl);
-        pd.cash.amount += sell_val;
+        earn_cash(sell_val);
         message('You sold a '+sl.label+' for $'+pretty_int(sell_val));
         sl.amount -= 1;
         return true;
@@ -1736,14 +1752,13 @@ function Game() {
 
     this.buy_upgrade = function(key) { 
         var upg = pd.upgrades[key];
-        if(pd.cash.amount < upg.cost) { 
-            return false;
-        }
         var unl = apply_upgrade(key);
         if(!unl) { 
             return false;
         }
-        pd.cash.amount -= upg.cost;
+        if(!spend_cash(upg.cost)) {
+            return false; 
+        } 
         message('You have unlocked '+upg.label);
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_buy_upgrade']);
@@ -1869,14 +1884,24 @@ function Game() {
 
     function fix_risk() { 
         pd.risk_amount = get_risk();
+        pd.risk2_amount = get_risk2();
         $('#risk_amount').html(pretty_int(pd.risk_amount * 100)); 
+        $('#risk2_amount').html(pretty_int(pd.risk2_amount * 100));
         var el_lvl = $('#risk_level');
+        var el_lvl2 = $('#risk2_level');
+        var slvl = false;
+        var slvl2 = false;
         for(var i=0; i<pd.risk_levels.length; i++) {
-            el_lvl.html(pd.risk_levels[i].label);
-            if(pd.risk_amount < pd.risk_levels[i].level) {
-                break;
+            if((pd.risk_amount < pd.risk_levels[i].level) && (!slvl)) {
+                el_lvl.html(pd.risk_levels[i].label);
+                slvl = true;
+            }
+            if((pd.risk2_amount < pd.risk_levels[i].level) && (!slvl2)) { 
+                el_lvl2.html(pd.risk_levels[i].label);
+                slvl2 = true;
             }
         }
+        
     }
 
     function fix_saved() { 
@@ -2242,7 +2267,7 @@ function Game() {
     function event_found_cash(r) { 
         var amt = (pd.stats.seller_rps * pd.widget_roi) * r;
         if(amt < 100) { amt = 100; }
-        pd.cash.amount += amt;
+        earn_cash(amt);
         if(amt > 10000000000) { 
             good_message('A mystery benefactor has contributed $'
                 +pretty_int(amt)+' to your cause');

@@ -150,7 +150,9 @@ $(document).ready(function() {
 
     <div id="risk_div" class="small">
         You have a <b><span id="risk_level">low</span></b> chance of a DEA raid
-        (<b><span id="risk_amount">0</span>%</b>)
+        (<b><span id="risk_amount">0</span>%</b>) and 
+        a <b><span id="risk2_level">low</span></b> chance of an IRS audit
+        (<b><span id="risk2_amount">0</span>%</b>)
     </div>
     <div id="last_saved">Game saved 60 seconds ago</div>
     <div id="last_message">No new messages</div>
@@ -242,15 +244,15 @@ $(document).ready(function() {
         <div class="clear"></div>
     </div>
 </div>
+
+<div class="make_up"></div>
+<div id="sell_up" class="sell_up"></div>
+
 {% include "tpls.html" %}
 
 {% if not isapp %}
     {% include "footer.html" %}
 {% endif %}
-
-<div class="make_up"></div>
-<div id="sell_up" class="sell_up"></div>
-
 </body>
 </html>
 
