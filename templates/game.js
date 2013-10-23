@@ -129,6 +129,7 @@ function Game() {
         'cash': {
             'amount':0,
             'safe':0, 
+            'safe_rps':0,
             'label':'Cash Money',
             'action_label':'SELL!',
         },
@@ -158,33 +159,51 @@ function Game() {
                 'label':'Lock Box',
                 'description':'Invest in a lock box to securely store $1K',
                 'cash_protect':1000,
+                'cash_protect_rps':0,
                 'cost':10000,
                 'purchased':false,
+                'interest':0,
                 'prereq':null,
             },
             'storage_10k':{
                 'label':'Diaper Box',
                 'description':'Invest in a diaper box to securely store $10K',
                 'cash_protect':10000,
+                'cash_protect_rps':0,
                 'cost':100000,
                 'purchased':false,
+                'interest':0,
                 'prereq':'storage_1k',
             },
             'storage_100k':{
                 'label':'Duffle Bag',
                 'description':'Invest in a duffle bag to securely store $100K',
                 'cash_protect':100000,
+                'cash_protect_rps':0,
                 'cost':1000000,
                 'purchased':false,
+                'interest':0,
                 'prereq':'storage_10k',
             },
             'storage_1m':{
                 'label':'Banana Stand',
-                'description':'Invest in a banana stand to securely store $1M',
+                'description':'Invest in a banana stand to launder $1M',
                 'cash_protect':1000000,
+                'cash_protect_rps':10,
                 'cost':10000000,
                 'purchased':false,
+                'interest':0.01,
                 'prereq':'storage_100k',
+            },
+            'storage_10m':{
+                'label':'Chicken Restaurant',
+                'description':'Invest in a fried chicken restaurant to safely launder $10M',
+                'cash_protect':10000000,
+                'cash_protect_rps':110,
+                'cost':100000000,
+                'purchased':false,
+                'interest':0.02,
+                'prereq':'storage_1m',
             },
         },
 
@@ -1289,7 +1308,8 @@ function Game() {
     // sec_tick() - Runs every 1000ms 
     this.sec_tick = function() {
         fix_saved();
-        fix_stats(); 
+        fix_stats();
+        fix_safe_cash(); 
         check_achievements();
     }
 
@@ -1415,6 +1435,7 @@ function Game() {
     function update_save_from_pd() { 
         var sv = {
             'cash':Math.round(pd.cash.amount),
+            'cash_safe':Math.round(pd.cash.safe),
             'widgets':Math.round(pd.widgets.amount),
             'clickers':{},
             'sellers':{},
@@ -1466,6 +1487,7 @@ function Game() {
         if(localStorage.sv) { 
             var sv = $.parseJSON(localStorage.sv);
             pd.cash.amount = sv.cash;
+            if(sv.cash.safe) { pd.cash.safe = sv.cash.safe; }
             pd.widgets.amount = sv.widgets;
             $.extend(pd.stats, sv.stats);
             // Banks
@@ -1659,6 +1681,7 @@ function Game() {
         if(!bn) { return false; }
         if(bn.purchased) { return false; }
         pd.cash.safe += bn.cash_protect;
+        pd.cash.safe_rps += bn.cash_protect_rps;
         bn.purchased = true;
         return true
     }
@@ -2037,6 +2060,10 @@ function Game() {
         }
         $('#upgrades_unlocked').html(pretty_int(up_unl));
         $('#upgrades_total').html(pretty_int(up_tot));
+    }
+
+    function fix_safe_cash() {
+        pd.cash.safe += pd.cash.safe_rps;
     }
 
     function fix_stats() {
