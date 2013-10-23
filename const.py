@@ -1,4 +1,4 @@
 VERSION = '0.7.5'
 DOCROOT = 'docroot'
-MB_DOCROOT = 'mobile'
+APP_DOCROOT = 'app_docroot'
 TEST_PORT = 5000

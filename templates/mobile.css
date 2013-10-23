@@ -70,10 +70,11 @@ h1 {
     margin-bottom: 5px;
     text-align: center;
 }
-
+#last_message { 
+    color: #eee;
+}
 #last_message div { 
     margin: auto;
-    color: #eee;
 }
 #messages { 
     position: relative;
@@ -156,21 +157,6 @@ h1 {
     text-shadow: -1px -1px 1px #0a0;
 }
 
-/*
- * For Mobile browsers
- */
-@media screen and (min-width: 800px) { 
-    #tab_divs {
-        float: left;
-        width: 58%;
-    }
-    #left_wrap { 
-        float: left;
-        width: 40%;
-        min-width: 250px;
-    }
-}
-
 
 
 /* Upgrade, Clicker, Seller divs */
@@ -215,7 +201,7 @@ h1 {
 /* Tab Stuff */
 .tab { 
     outline: none;
-    width: 100%;
+    width: 48%;
 }
 .tab.active { 
     background: #eee;
@@ -294,4 +280,76 @@ h1 {
     background-color: #11dd77;
     border-color: #11dd77;
     text-shadow: -1px -1px 0px #0a3;
+}
+
+/*
+ * Responsive layouts
+ */
+
+
+
+/* Small desktop */
+@media screen and (min-width: 200px) {
+    .tab {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 400px) { 
+    .tab { 
+        width: 48%;
+    }
+}
+@media screen and (min-width: 700px) { 
+    #tab_divs, #tab_btns {
+        float: left;
+        width: 58%;
+    }
+    .tab { 
+        width: 48%;
+    }
+    #left_wrap { 
+        float: left;
+        width: 40%;
+        min-width: 250px;
+    }
+}
+
+@media screen and (min-width: 850px) { 
+    .tab { 
+        width: 31%;
+    }
+}
+
+@media screen and (min-width: 1100px) { 
+    .tab { 
+        width: 31%;
+    }
+    #left_wrap { 
+        width: 30%;
+    }
+    #tab_divs, #tab_btns { 
+        width: 65%;
+    }
+}
+@media screen and (min-width: 1300px) { 
+    .tab { 
+        width: 23%;
+    }
+    #left_wrap { 
+        width: 25%;
+    }
+    #tab_divs, #tab_btns { 
+        width: 70%;
+    }
+}
+@media screen and (min-width: 1600px) { 
+    .tab { 
+        width: 19%;
+    }
+    #left_wrap { 
+        width: 20%;
+    }
+    #tab_divs, #tab_btns { 
+        width: 75%;
+    }
 }

@@ -36,7 +36,7 @@ var last_click = 0;
 var last_bust = 0;
 var last_float = 10;
 var tick_ms = 100;
-var has_gaq = true;
+//var has_gaq = true;
 
 
 function Game() { 
@@ -2356,10 +2356,10 @@ function add_message(msg, _type) {
     var el = $("<div></div>");
     el.html(msg);
     el.addClass(_type);
-    $('#last_message').html('<div class="'+_type+'">'+msg+'</div>');
+    $('#last_message').html($(el).clone().wrap('<p>').parent().html());
     $('#messages').prepend(el);
     //el.fadeOut(100000);
-    if($('#messages div').length > 30) { 
+    if($('#messages div').length > 45) { 
         $('#messages div:last').remove();
     }
 }

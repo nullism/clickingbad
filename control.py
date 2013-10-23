@@ -49,21 +49,14 @@ def cache_version():
     print 'Creating %s'%(vpath)
     open(vpath,'w').write('{"data":{"version":"%s"}}'%(const.VERSION))
 
-def cache_template(tpl, minify=False):
+def cache_template(tpl, isapp=False, minify=False):
     ''' Cache a template in ./templates '''
     pg_tpl = env.get_template(tpl)
     out = os.path.join(self_path, const.DOCROOT, tpl)
+    if isapp:
+        out = os.path.join(self_path, const.APP_DOCROOT, tpl)
     print 'Caching template to %s'%(out)
-    html = pg_tpl.render(version=const.VERSION)
-    if minify:
-        html = minify_template(html)
-    open(out,'wb').write(html)
-
-def cache_mobile(minify=False):
-    pg_tpl = env.get_template('mobile.html')
-    out = os.path.join(self_path, const.MB_DOCROOT, 'index.html')
-    print 'Caching mobile template to %s'%(out)
-    html = pg_tpl.render(version=const.VERSION)
+    html = pg_tpl.render(version=const.VERSION, isapp=isapp)
     if minify:
         html = minify_template(html)
     open(out,'wb').write(html)
@@ -72,8 +65,8 @@ def cache_mobile(minify=False):
 def cache_all():
     ''' Update this list when new templates are added '''
     cache_template('index.html', minify=True)
+    cache_template('index.html', minify=True, isapp=True)
     cache_template('thanks.html')
-    cache_mobile(minify=True)
     cache_version()
 
 def run_test_server():

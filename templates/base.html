@@ -12,40 +12,20 @@
 {% include 'game.css' %}
 </style>
 
-<!--// Google analytics //-->
-<script>
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-20427551-8']);
-_gaq.push(['_setDomainName', 'nullism.com']);
-_gaq.push(['_setAllowLinker', true]);
-_gaq.push(['_trackPageview']);
-
-(function() {
-var ga = document.createElement('script'); ga.type = 'text/javascript';
-  ga.async = true;
-ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
-  'http://www') + '.google-analytics.com/ga.js';
-var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(ga, s);
-})();
-</script>
-<!--// END Google analytics //-->
 
 </head>
 
 <body>
 
-<div id="fb-root"></div>
 
 <!--// Facebook App Junk //-->
-<script>(function(d, s, id) {
+<script>/*(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=249913428493511";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
+}(document, 'script', 'facebook-jssdk'));*/</script>
 
 <div>
     <div>
@@ -56,47 +36,5 @@ var s = document.getElementsByTagName('script')[0];
     </div>
 </div>
 
-<div id="share_footer">
-    <!--// Twitter Follow //-->
-    <div class="pull_left" style="margin-left: 10px;">
-    <a href="https://twitter.com/ClickingBad" 
-        class="twitter-follow-button" 
-        data-show-count="false">Follow @ClickingBad</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-            if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
-            fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-    </script>
-    </div>
-
-    <!--// Facebook Like //-->
-    <div class="fb-like pull_left" data-href="http://clickingbad.nullism.com" 
-        style="margin-left: 10px;"
-        data-width="400" data-colorscheme="light" 
-        data-layout="button_count" data-action="like" data-show-faces="true" 
-        data-send="false">
-    </div>
-
-    <!--// Paypal Donate //-->
-    <div class="pull_left" style="margin-left: 10px;">
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_s-xclick">
-    <input type="hidden" name="hosted_button_id" value="6JT4H4463XJ8Q">
-    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" 
-        alt="PayPal - The safer, easier way to donate online!">
-    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-    </form>
-
-    <!--//
-    <form style="display: inline;" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="pp_donate">
-    <input type="hidden" name="cmd" value="_s-xclick">
-    <input type="hidden" name="hosted_button_id" value="6JT4H4463XJ8Q">
-    <input type="hidden" name="submit">
-    <button type="submit" style="font-size: 0.7em; padding: 1px; margin: 0px;">Donate (PayPal)</button>
-    </form>
-    //-->
-    </div>
-    <div class="clear"></div>
-
-</div>
 </body>
 </html>

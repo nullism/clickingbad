@@ -1,13 +1,30 @@
-{% extends 'base.html' %}
-{% block title %}$0{% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<link rel="icon" type="image/png" href="/favicon.png" />
+
+<title>Clicking Bad</title>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/mustache.js"></script>
+{% include "google.html" %}
+
+</head>
+
+<body>
+<style>
+{% include "mobile.css" %}
+</style>
 <script>
+
+// Include the main game stuff
 {% include 'game.js' %}
 
 // SETUP
 var gm = new Game();
 $(document).ready(function() { 
-
+    has_gaq = false;
     gm.setup_display();
     tmr = setInterval("gm.tick()", tick_ms);
     sec_tmr = setInterval("gm.sec_tick()", 1000);
@@ -90,30 +107,16 @@ $(document).ready(function() {
     });
 
     // End actions
-    switch_tab('manufacturing');
+    toggle_tab('manufacturing');
     $('button').attr('disabled', false);
 });
+
+
 </script>
 
-<table>
-<tr>
-    <td colspan="3">
-    <div id="updated" style="display: none;">
-        The game has been updated, refresh to see new ways to get your meth on.
-    </div>
-    </td>
-</tr>
-
-<tr>
-
-
-<td style="width: 300px; text-align: center;"> 
-    <div id="risk_div" class="small">
-        You have a <b><span id="risk_level">low</span></b> chance of a DEA raid
-        (<b><span id="risk_amount">0</span>%</b>)
-    </div>
-        
-    </div>
+       
+<div id="left_wrap">
+    <div id="make_sell_wrap">
     <div id="make_div">
         <p>
             <span id="make_lbl">widgets</span>
@@ -122,9 +125,7 @@ $(document).ready(function() {
             <small><span id="clicker_rps">0</span> per second (net)</small><br />
             <small><span id="clicker_rps_g">0</span> per second (gross)</small>
         </p>
-        <p>
-            <button id="make_btn">make</button>
-        </p>
+        <div id="make_btn">make</div>
     </div>
 
     <div id="sell_div">
@@ -135,111 +136,115 @@ $(document).ready(function() {
             <small>$<span id="safe_cash">0</span> protected</small><br />
             <small>$<span id="seller_rps">0</span> per second</small>
         </p>
-        <p><button id="sell_btn">sell</button></p>
+        <div id="sell_btn">sell</div>
+    </div>
+    <div class="clear"></div>
     </div>
 
+    <div id="make_sell_pad"></div>
+
+    <div id="risk_div" class="small">
+        You have a <b><span id="risk_level">low</span></b> chance of a DEA raid
+        (<b><span id="risk_amount">0</span>%</b>)
+    </div>
     <div id="last_saved">Game saved 60 seconds ago</div>
-    <div id="messages" style="text-align: left;"></div>
-</td>
-<td>
-<div class="tabs">
+    <div id="last_message">No new messages</div>
+</div> <!-- End left_wrap -->
+
+<div id="tab_btns" class="tabs">
     <button onclick="switch_tab('manufacturing');" id="manufacturing_tab" class="tab">
         Manufacturing (<span id="clickers_unlocked">0</span>/<span id="clickers_total">0</span>)
     </button>
-    
     <button onclick="switch_tab('distribution');" id="distribution_tab" class="tab">
         Distribution (<span id="sellers_unlocked">0</span>/<span id="sellers_total">0</span>)
     </button>
-
     <button onclick="switch_tab('upgrades');" id="upgrades_tab" class="tab">
         Upgrades (<span id="upgrades_unlocked">0</span>/<span id="upgrades_total">0</span>)
     </button>
-
     <button onclick="switch_tab('finances');" id="finances_tab" class="tab">
         Finances (<span id="banks_unlocked">0</span>/<span id="banks_total">0</span>)
     </button>
-
     <button onclick="switch_tab('achievements');" id="achievements_tab" class="tab">
         Achievements (<span id="achievements_unlocked">0</span>/<span id="achievements_total">0</span>)
     </button>
-
+    <button onclick="switch_tab('messages');" id="messages_tab" class="tab">
+        All Messages
+    </button>
     <button onclick="switch_tab('misc');" id="misc_tab" class="tab">
         Options &amp; Stats
     </button>
 </div>
 
-<div class="tab_div" id="manufacturing_div">
-    <div id="clickers"></div>
-</div>
+<div id="tab_divs">
 
-<div class="tab_div" id="distribution_div">
-    <div id="sellers"></div>
-</div>
-
-<div class="tab_div" id="upgrades_div">
-    <div id="upgrades"></div>
-</div>
-
-<div class="tab_div" id="finances_div">
-    <div id="banks"></div>
-</div>
-
-<div class="tab_div" id="achievements_div">
-    <div id="achievements"></div>
-</div>
-
-<div class="tab_div w_div" id="misc_div">
-    <div class="pull_left">
-        <h3>Instructions</h3>
-        <ol>
-            <li>Cook batches of meth</li>
-            <li>Sell meth</li>
-            <li>Buy stuff with your drug money</li>
-        </ol>
+    <div class="tab_div" id="manufacturing_div" style="display:none;">
+        <div id="clickers"></div>
     </div>
 
-    <div class="pull_left">
-        <h3>Options</h3>
-        <ul>
-            <li><button onclick="gm.do_reset_confirm();">Reset</button></li>
-            <li><button onclick="gm.do_save();">Save</button></li>
-            <li><button onclick="gm.do_load();">Load</button></li>
-            <li><button onclick="gm.do_import();">Import</button><span class="small grey">Not yet functional</span></li>
-        </ul>
+    <div class="tab_div" id="distribution_div" style="display:none;">
+        <div id="sellers"></div>
     </div>
 
-    <div class="pull_left">
-        <h3>Stats</h3>
-        <ul>
-            <li>Batches cooked: <b><span id="made_widgets">0</span></b></li>
-            <li>Batches hand-cooked: <b><span id="hand_made_widgets">0</span></b></li>
-            <li>Batches sold: <b><span id="sold_widgets">0</span></b></li>
-            <li>Batches hand-sold: <b><span id="hand_sold_widgets">0</span></b></li>
-            <li>Total upgrades purchased: <b><span id="bought_upgrades">0</span></b></li>
-            <li>Total cash earned: <b><span id="total_cash">0</span></b></li>
-            <li>Seconds spent playing: <b><span id="time_played">0</span></b></li>
-        </ul>    
+    <div class="tab_div" id="upgrades_div" style="display:none;">
+        <div id="upgrades"></div>
     </div>
 
-    <div class="clear"></div>
+    <div class="tab_div" id="finances_div" style="display:none;">
+        <div id="banks"></div>
+    </div>
+
+    <div class="tab_div" id="achievements_div" style="display:none;">
+        <div id="achievements"></div>
+    </div>
+
+    <div class="tab_div" id="messages_div" style="display:none;">
+        <div id="messages" style="text-align: left;"></div>
+    </div>
+
+    <div class="tab_div w_div" id="misc_div" style="display:none;">
+        <div class="pull_left">
+            <h3>Instructions</h3>
+            <ol>
+                <li>Cook batches of meth</li>
+                <li>Sell meth</li>
+                <li>Buy stuff with your drug money</li>
+            </ol>
+        </div>
+
+        <div class="pull_left">
+            <h3>Options</h3>
+            <ul>
+                <li><button onclick="gm.do_reset_confirm();">Reset</button></li>
+                <li><button onclick="gm.do_save();">Save</button></li>
+                <li><button onclick="gm.do_load();">Load</button></li>
+                <li><button onclick="gm.do_import();">Import</button><span class="small grey">Not yet functional</span></li>
+            </ul>
+        </div>
+
+        <div class="pull_left">
+            <h3>Stats</h3>
+            <ul>
+                <li>Batches cooked: <b><span id="made_widgets">0</span></b></li>
+                <li>Batches hand-cooked: <b><span id="hand_made_widgets">0</span></b></li>
+                <li>Batches sold: <b><span id="sold_widgets">0</span></b></li>
+                <li>Batches hand-sold: <b><span id="hand_sold_widgets">0</span></b></li>
+                <li>Total upgrades purchased: <b><span id="bought_upgrades">0</span></b></li>
+                <li>Total cash earned: <b><span id="total_cash">0</span></b></li>
+                <li>Seconds spent playing: <b><span id="time_played">0</span></b></li>
+            </ul>    
+        </div>
+
+        <div class="clear"></div>
+    </div>
 </div>
-
-
-
-</td>
-</tr>
-</table>
+{% if not isapp %}
+    {% include "footer.html" %}
+{% endif %}
+{% include "tpls.html" %}
 
 <div class="make_up"></div>
 <div id="sell_up" class="sell_up"></div>
 
-{% include "tpls.html" %}
+</body>
+</html>
 
-<div id="footer">
-<div>
-    <p class="small light_grey">&copy;2013 nullism.com, version <span id="version">{{version}}</span> still beta, but not as beta as before, bitch. <a href="http://clickingbad.tumblr.com" target="_blank">Dev Blog</a></p>
-</div>
-
-</div>
-<div id="last_message" style="display:none;"></div>
-{% endblock %}
