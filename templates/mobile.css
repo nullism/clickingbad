@@ -68,6 +68,12 @@ h1 {
     padding: 3px;
     margin-bottom: 5px;
 }
+#last_message { 
+    text-align: center;
+}
+#last_message div { 
+    margin: auto;
+}
 #messages { 
     position: relative;
     width: 100%;
@@ -104,10 +110,10 @@ h1 {
 .sell_up { 
     color: #5e5;
 }
-#left_div { 
-    min-width: 250px;
-    max-width: 100%;
+#left_wrap { 
+    width: 100%;
     float: left;
+    margin-right: 10px;
 }
 #make_sell_wrap { 
     background: #fff;
@@ -152,10 +158,15 @@ h1 {
 /*
  * For Mobile browsers
  */
-@media screen and (min-width: 640px) { 
+@media screen and (min-width: 800px) { 
     #tab_divs {
-        float: right;
+        float: left;
+        width: 58%;
+    }
+    #left_wrap { 
+        float: left;
         width: 40%;
+        min-width: 250px;
     }
 }
 

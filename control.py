@@ -61,8 +61,8 @@ def cache_template(tpl, minify=False):
 
 def cache_mobile(minify=False):
     pg_tpl = env.get_template('mobile.html')
-    out = os.path.join(self_path, const.PG_DOCROOT, 'index.html')
-    print 'Caching PG template to %s'%(out)
+    out = os.path.join(self_path, const.MB_DOCROOT, 'index.html')
+    print 'Caching mobile template to %s'%(out)
     html = pg_tpl.render(version=const.VERSION)
     if minify:
         html = minify_template(html)
