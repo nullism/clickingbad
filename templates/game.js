@@ -157,44 +157,64 @@ function Game() {
         // BANKS
         'banks':{
             'storage_1k':{
+                'amount':0,
                 'label':'Lemonade Stand',
                 'description':'Launder $1K through a lemonade stand',
-                'cash_protect_rps':0.1,
-                'cost':10000,
+                'rps':1,
+                'cost':1000,
+                'base_cost':1000,
                 'purchased':false,
                 'prereq':null,
             },
             'storage_100k':{
+                'amount':0,
                 'label':'Nail Salon',
                 'description':'Launder $100K through a nail salon',
-                'cash_protect_rps':1,
-                'cost':1000000,
+                'rps':12,
+                'cost':10000,
+                'base_cost':10000,
                 'purchased':false,
                 'prereq':'storage_1k',
             },
             'storage_1m':{
+                'amount':0,
                 'label':'Banana Stand',
                 'description':'Invest in a banana stand to launder $1M',
-                'cash_protect_rps':10,
-                'cost':10000000,
+                'rps':120,
+                'cost':100000,
+                'base_cost':100000,
                 'purchased':false,
                 'prereq':'storage_100k',
             },
             'storage_10m':{
+                'amount':0,
                 'label':'Chicken Restaurant',
                 'description':'Invest in a fried chicken restaurant to safely launder $10M',
-                'cash_protect_rps':110,
-                'cost':100000000,
+                'rps':1500,
+                'cost':1000000,
+                'base_cost':1000000,
                 'purchased':false,
                 'prereq':'storage_1m',
             },
             'storage_100m':{
+                'amount':0,
                 'label':'Laser Tag Theme Park',
-                'description':'Launder $100M through laser tag',
-                'cash_protect_rps':11000,
-                'cost':100000000,
+                'description':'Launder money through laser tag!',
+                'rps':16000,
+                'cost':10000000,
+                'base_cost':10000000,
                 'purchased':false,
                 'prereq':'storage_10m',
+            },
+            'storage_1b':{
+                'label':'Car Wash',
+                'amount':0,
+                'description':'Launder cash through a car wash',
+                'rps':220000,
+                'cost':100000000,
+                'base_cost':100000000,
+                'purchased':false,
+                'prereq':'storage_100m',
             },
         },
 
@@ -1206,8 +1226,8 @@ function Game() {
             'banana_stand': {
                 'label':'Frozen Bananas',
                 'description':'There\'s always money in the banana stand',
-                'property':'banks.storage_1m.purchased',
-                'required':true,
+                'property':'banks.storage_1m.amount',
+                'required':1,
                 'unlocked':false,
                 'hidden':false,
                 'value':1,
@@ -1314,20 +1334,17 @@ function Game() {
         }
         last_tick = this_tick;
 
+        // Make widgets (meth)
         var make_amount = 0;
         for(var k in pd.clickers) {
             var cl = pd.clickers[k]; 
             make_amount += cl.amount * cl.rps;
         }
-        if(pd.cash.amount < pd.cash.safe) {
-            pd.cash.safe = pd.cash.amount;
-        } else {
-            pd.cash.safe += (pd.cash.safe_rps / this_sub) * ticks;
-        }
         pd.stats.clicker_rps = make_amount;
         make_amount = make_amount / this_sub;
         do_make(make_amount * ticks);
-       
+      
+        // Sell widgets
         var sell_amount = 0;
         for(var k in pd.sellers) { 
             var sl = pd.sellers[k];
@@ -1337,6 +1354,15 @@ function Game() {
         sell_amount = sell_amount / this_sub;
 
         do_sell(sell_amount * ticks);
+
+        // Safe-ify (launder) cash
+        var safe_amount = 0;
+        for(var k in pd.banks) { 
+            var bn = pd.banks[k];
+            safe_amount += bn.amount * bn.rps;
+        }
+        safe_amount = safe_amount / this_sub;
+        pd.cash.safe += safe_amount * ticks;
 
         fix_display();
     }
@@ -1387,6 +1413,9 @@ function Game() {
     }
     // Secondary risk levels, IRS in this case
     function get_risk2() {
+        if(pd.cash.safe > pd.cash.amount) { 
+            return 0;
+        }
         return 0.5 - (pd.cash.safe / pd.cash.amount);
     }
 
@@ -1430,7 +1459,11 @@ function Game() {
     }
     
     function get_safe_cash() { 
-        return pd.cash.safe;
+        if(pd.cash.safe > pd.cash.amount) {
+            return pd.cash.amount;
+        } else { 
+            return pd.cash.safe;
+        }
     }
 
     function get_unsafe_cash() { 
@@ -1454,14 +1487,14 @@ function Game() {
             'clickers':{},
             'sellers':{},
             'upgrades':{},
-            'banks':[],
+            'banks':{},
             'stats':pd.stats,
             'version':pd.version,
         };
         // Banks
         for(var k in pd.banks) { 
-            if(pd.banks[k].purchased) {
-                sv.banks.push(k);
+            if(pd.banks[k].amount > 0) {
+                sv.banks[k] = {'amount':pd.banks[k].amount};
             }
         }
         // Clickers 
@@ -1506,9 +1539,9 @@ function Game() {
             $.extend(pd.stats, sv.stats);
             // Banks
             if(sv.banks) {
-                for(var i=0; i<sv.banks.length; i++) { 
-                    if(pd.banks[sv.banks[i]]) {
-                        apply_bank(sv.banks[i]);
+                for(var k in sv.banks) { 
+                    if(pd.banks[k]) {
+                        pd.banks[k].amount = sv.banks[k].amount;
                     }
                 }
             }
@@ -1682,20 +1715,23 @@ function Game() {
         if(!spend_cash(bn.cost)) { 
             return false;
         }
-        apply_bank(key);
+        bn.amount += 1;
         if(has_gaq) {
             _gaq.push(['_trackPageview','/game_buy_bank']);
         }
         return true;
     }
 
-    function apply_bank(key) { 
+    this.sell_bank = function(key) { 
         var bn = pd.banks[key];
-        if(!bn) { return false; }
-        if(bn.purchased) { return false; }
-        pd.cash.safe_rps += bn.cash_protect_rps;
-        bn.purchased = true;
-        return true
+        if(bn.amount < 1) { 
+            return false;
+        }
+        var sell_val = get_item_sell_value(bn);
+        earn_cash(sell_val);
+        message('You sold a '+bn.label+' for $'+pretty_int(sell_val));
+        bn.amount -= 1;
+        return true;
     }
 
     this.buy_clicker = function(key) { 
@@ -1850,33 +1886,28 @@ function Game() {
         for(var k in pd.banks) {
             bn_tot += 1; 
             var bn = pd.banks[k];
+            bn.cost = get_item_cost(bn);
             var el = $('#'+k);
             var el_btn = $('#'+k+'_btn');
             var el_lbl = $('#'+k+'_lbl');
             var el_cst = $('#'+k+'_cst');
-            el_cst.html('$'+pretty_int(bn.cost));
+            var el_amt = $('#'+k+'_amt');
+            el_amt.html(pretty_int(bn.amount));
+            el_cst.html(pretty_int(bn.cost));
 
-            // Already purchased
-            if(bn.purchased) {
-                bn_unl += 1;
-                el_lbl.addClass('purchased');
-                el.removeClass('hidden');
-                el_btn.addClass('hidden');
-                continue;
-            }
-
-            // Prerequisite purchased
-            if((bn.prereq)&&(!pd.banks[bn.prereq].purchased)) { 
+            // Prerequisite amount > 0
+            if((bn.prereq)&&(!pd.banks[bn.prereq].amount)) { 
                 el.addClass('hidden');
                 continue;
             }
- 
+            
             if(pd.cash.amount < bn.cost) { 
                 el_btn.attr('disabled',true);
             } else { 
                 el_btn.attr('disabled',false);
             }
             el.removeClass('hidden');
+            bn_unl += 1;
         }
         $('#banks_total').html(pretty_int(bn_tot));
         $('#banks_unlocked').html(pretty_int(bn_unl));
@@ -2143,7 +2174,7 @@ function Game() {
             var bn = pd.banks[k];
             var template = $('#tpl_bank').html();
             var data = {'bn':bn, 'id':k, 
-                'pcp_rps':pretty_int(bn.cash_protect_rps)};
+                'pcp_rps':pretty_int(bn.rps)};
             var html = Mustache.to_html(template, data);
             bn_el.prepend(html);
         }
