@@ -159,7 +159,7 @@ function Game() {
             'storage_1k':{
                 'amount':0,
                 'label':'Lemonade Stand',
-                'description':'Launder $1K through a lemonade stand',
+                'description':'Launder minimal cash through a lemonade stand',
                 'rps':1,
                 'cost':1000,
                 'base_cost':1000,
@@ -169,7 +169,7 @@ function Game() {
             'storage_100k':{
                 'amount':0,
                 'label':'Nail Salon',
-                'description':'Launder $100K through a nail salon',
+                'description':'Purchase a nail salon to launder a small amount of cash',
                 'rps':12,
                 'cost':10000,
                 'base_cost':10000,
@@ -179,7 +179,7 @@ function Game() {
             'storage_1m':{
                 'amount':0,
                 'label':'Banana Stand',
-                'description':'Invest in a banana stand to launder $1M',
+                'description':'Invest in a banana stand for your laundering pleasure',
                 'rps':120,
                 'cost':100000,
                 'base_cost':100000,
@@ -189,7 +189,7 @@ function Game() {
             'storage_10m':{
                 'amount':0,
                 'label':'Chicken Restaurant',
-                'description':'Invest in a fried chicken restaurant to safely launder $10M',
+                'description':'Invest in a fried chicken restaurant to safely launder a fair amount of cash',
                 'rps':1500,
                 'cost':1000000,
                 'base_cost':1000000,
@@ -209,7 +209,7 @@ function Game() {
             'storage_1b':{
                 'label':'Car Wash',
                 'amount':0,
-                'description':'Launder cash through a car wash',
+                'description':'Launder cash through an overpriced car wash',
                 'rps':220000,
                 'cost':100000000,
                 'base_cost':100000000,
