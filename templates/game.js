@@ -156,65 +156,65 @@ function Game() {
 
         // BANKS
         'banks':{
-            'storage_1k':{
+            'b_lemonade':{
                 'amount':0,
                 'label':'Lemonade Stand',
                 'description':'Launder minimal cash through a lemonade stand',
                 'rps':1,
                 'cost':1000,
                 'base_cost':1000,
-                'purchased':false,
+                'unlocked':true,
                 'prereq':null,
             },
-            'storage_100k':{
+            'b_nail_salon':{
                 'amount':0,
                 'label':'Nail Salon',
                 'description':'Purchase a nail salon to launder a small amount of cash',
                 'rps':12,
                 'cost':10000,
                 'base_cost':10000,
-                'purchased':false,
-                'prereq':'storage_1k',
+                'unlocked':false,
+                'prereq':'b_lemonade',
             },
-            'storage_1m':{
+            'b_banana_stand':{
                 'amount':0,
                 'label':'Banana Stand',
                 'description':'Invest in a banana stand for your laundering pleasure',
                 'rps':120,
                 'cost':100000,
                 'base_cost':100000,
-                'purchased':false,
-                'prereq':'storage_100k',
+                'unlocked':false,
+                'prereq':'b_nail_salon',
             },
-            'storage_10m':{
+            'b_chicken_place':{
                 'amount':0,
                 'label':'Chicken Restaurant',
                 'description':'Invest in a fried chicken restaurant to safely launder a fair amount of cash',
                 'rps':1500,
                 'cost':1000000,
                 'base_cost':1000000,
-                'purchased':false,
-                'prereq':'storage_1m',
+                'unlocked':false,
+                'prereq':'b_banana_stand',
             },
-            'storage_100m':{
+            'b_laser_tag':{
                 'amount':0,
                 'label':'Laser Tag Theme Park',
                 'description':'Launder money through laser tag!',
                 'rps':16000,
                 'cost':10000000,
                 'base_cost':10000000,
-                'purchased':false,
-                'prereq':'storage_10m',
+                'unlocked':false,
+                'prereq':'b_chicken_place',
             },
-            'storage_1b':{
+            'b_car_wash':{
                 'label':'Car Wash',
                 'amount':0,
                 'description':'Launder cash through an overpriced car wash',
                 'rps':220000,
                 'cost':100000000,
                 'base_cost':100000000,
-                'purchased':false,
-                'prereq':'storage_100m',
+                'unlocked':false,
+                'prereq':'b_laser_tag',
             },
         },
 
@@ -1226,7 +1226,7 @@ function Game() {
             'banana_stand': {
                 'label':'Frozen Bananas',
                 'description':'There\'s always money in the banana stand',
-                'property':'banks.storage_1m.amount',
+                'property':'banks.b_banana_stand.amount',
                 'required':1,
                 'unlocked':false,
                 'hidden':false,
@@ -1435,7 +1435,9 @@ function Game() {
     this.get_title = function() { 
         return pd.title;
     }
-
+    this.dump_pd = function(key) { 
+        console.log(pd[key]);
+    }
     function get_item_cost(scl) { 
         var cst = ((scl.amount + 1) * scl.base_cost) * (scl.amount + 1);
         // Double costs if > 10 are owned
@@ -1493,8 +1495,11 @@ function Game() {
         };
         // Banks
         for(var k in pd.banks) { 
-            if(pd.banks[k].amount > 0) {
-                sv.banks[k] = {'amount':pd.banks[k].amount};
+            if(pd.banks[k].unlocked) {
+                sv.banks[k] = {
+                    'amount':pd.banks[k].amount,
+                    'unlocked':pd.banks[k].unlocked,
+                };
             }
         }
         // Clickers 
@@ -1542,6 +1547,7 @@ function Game() {
                 for(var k in sv.banks) { 
                     if(pd.banks[k]) {
                         pd.banks[k].amount = sv.banks[k].amount;
+                        pd.banks[k].unlocked = sv.banks[k].unlocked;
                     }
                 }
             }
@@ -1716,6 +1722,12 @@ function Game() {
             return false;
         }
         bn.amount += 1;
+        bn.unlocked = true;
+        for(var k in pd.banks) { 
+            if((pd.banks[k].prereq)&&(pd.banks[k].prereq == key)) { 
+                pd.banks[k].unlocked = true;
+            }
+        }
         if(has_gaq) {
             _gaq.push(['_trackPageview','/game_buy_bank']);
         }
@@ -1889,23 +1901,30 @@ function Game() {
             bn.cost = get_item_cost(bn);
             var el = $('#'+k);
             var el_btn = $('#'+k+'_btn');
+            var el_sell_btn = $('#'+k+'_sell_btn');
             var el_lbl = $('#'+k+'_lbl');
             var el_cst = $('#'+k+'_cst');
             var el_amt = $('#'+k+'_amt');
             el_amt.html(pretty_int(bn.amount));
             el_cst.html(pretty_int(bn.cost));
 
-            // Prerequisite amount > 0
-            if((bn.prereq)&&(!pd.banks[bn.prereq].amount)) { 
+            if((!bn.unlocked)) { 
                 el.addClass('hidden');
                 continue;
             }
             
-            if(pd.cash.amount < bn.cost) { 
+            if(pd.cash.amount < bn.cost) {
                 el_btn.attr('disabled',true);
             } else { 
                 el_btn.attr('disabled',false);
             }
+
+            if(bn.amount < 1) {
+                el_sell_btn.attr('disabled',true);
+            } else { 
+                el_sell_btn.attr('disabled',false);
+            }
+                
             el.removeClass('hidden');
             bn_unl += 1;
         }
