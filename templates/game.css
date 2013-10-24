@@ -11,7 +11,8 @@ a, a:visited, a:active {
 a:hover { 
     text-decoration: underline;
 }
-button { 
+button {
+    margin: 1px; 
     background-color: #bbb;
     border: 1px solid #aaa;
     border-radius: 5px;
@@ -326,9 +327,7 @@ h1 {
 }
 
 @media screen and (min-width: 850px) { 
-    .tab { 
-        width: 31%;
-    }
+
 }
 
 @media screen and (min-width: 1100px) { 
@@ -364,7 +363,17 @@ h1 {
         width: 75%;
     }
 }
-
+@media screen and (min-width: 1900px) { 
+    .tab { 
+        width: 15%;
+    }
+    #left_wrap { 
+        width: 16%;
+    }
+    #tab_divs, #tab_btns { 
+        width: 80%;
+    }
+}
 
 
 

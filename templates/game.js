@@ -1426,6 +1426,9 @@ function Game() {
     }
     // Secondary risk levels, IRS in this case
     function get_risk2() {
+        if(pd.cash.amount <= 20000) { 
+            return 0;
+        }
         if(pd.cash.safe > pd.cash.amount) { 
             return 0;
         }
