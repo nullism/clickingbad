@@ -20,7 +20,7 @@
         <em class="grey">{{bn.description}}</em>
     </p>
     <p class="pull_right small">
-        Launders <b>${{pcp_rps}}</b> per second
+        Launders <b>$<span id="{{id}}_rps">{{bn.rps}}</span></b> per second
     </p>
     <button id="{{id}}_btn" onclick="gm.buy_bank('{{id}}')">Buy</button>
     <button id="{{id}}_sell_btn" onclick="gm.sell_bank('{{id}}')">Sell</button>

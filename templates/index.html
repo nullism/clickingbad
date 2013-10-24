@@ -151,8 +151,8 @@ $(document).ready(function() {
 
     <div id="risk_div" class="small">
         You have a <b><span id="risk_level">low</span></b> chance of a DEA raid
-        (<b><span id="risk_amount">0</span>%</b>) and 
-        a <b><span id="risk2_level">low</span></b> chance of an IRS audit
+        (<b><span id="risk_amount">0</span>%</b>)<br />
+        You have a <b><span id="risk2_level">low</span></b> chance of an IRS audit
         (<b><span id="risk2_amount">0</span>%</b>)
     </div>
     <div id="last_saved">Game saved 60 seconds ago</div>
@@ -199,6 +199,22 @@ $(document).ready(function() {
     </div>
 
     <div class="tab_div" id="finances_div" style="display:none;">
+        <div class="w_div">
+            <h3>
+                <a href="#" onclick="$('#toggle_finance_info').toggle(100); return false;">
+                Laundering 
+                </a>
+                <small class="pull_right">$<span id="bank_rps">0</span>/sec</small>
+            </h3>
+            <div id="toggle_finance_info">
+            <p class="small">Total laundered <b>$<span id="bank_total">0</span></b>
+                <br /><br />
+                Laundered cash is safe from being stolen or
+                seized by the DEA or IRS. The higher the laundered to 
+                unlaundered cash ratio, the lower the likelihood that 
+                you'll be audited.</p>
+            </div>
+        </div>
         <div id="banks"></div>
     </div>
 

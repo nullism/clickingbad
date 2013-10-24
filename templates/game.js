@@ -226,6 +226,27 @@ function Game() {
                 'base_cost':500000000,
                 'unlocked':false,
             },
+            'b_offshore': {
+                'label':'Offshore Account',
+                'amount':0,
+                'description':'Launder cash using an offshore finance account',
+                'rps':60000000,
+                'unlock_rps':60000000,
+                'cost':4500000000,
+                'base_cost':4500000000,
+                'unlocked':false,
+            },
+            'b_nyme': {
+                'label':'NYME',
+                'amount':0,
+                'description':'Launder high volumes of cash through stocks and bonds on '
+                    + 'the New York Meth Exchange ',
+                'rps':750000000,
+                'unlock_rps':750000000,
+                'cost':50500000000,
+                'base_cost':50500000000,
+                'unlocked':false,
+            },
         },
 
         // MANUFACTURING
@@ -1051,6 +1072,27 @@ function Game() {
                 'purchased':false,
                 'prereq':'methylamine_secret',           
             },
+            // Laundering
+            'u_nyme_1':{
+                'label':'Insider Trading',
+                'description':'Improves NYME laundering by $500m per second ',
+                'cost':50020555000,
+                'action':'banks.b_nyme.rps',
+                'mod':500000000,
+                'purchased':false,
+                'prereq':'lawyers_sleaze',                          
+            },
+            'u_nyme_2': {
+                'label':'Sleazy Brokers',
+                'description':'These sleazy stock brokers help your NYME launder '
+                    + 'an extra $1B per second',
+                'cost':500320555000,
+                'action':'banks.b_nyme.rps',
+                'mod':1000000000,
+                'purchased':false,
+                'prereq':'u_nyme_1',                          
+            },
+
             'donator_thanks':{
                 'label':'Thank You',
                 'description':'Thanks for donating, your meth is now worth $50 more per batch',
@@ -1340,6 +1382,7 @@ function Game() {
         'stats': {
             'seller_rps':0,
             'clicker_rps':0,
+            'bank_rps':0,
             'cheated_widgets':0,
             'cheated_cash':0,
             'hand_made_widgets':0,
@@ -1398,6 +1441,7 @@ function Game() {
             var bn = pd.banks[k];
             safe_amount += bn.amount * bn.rps;
         }
+        pd.stats.bank_rps = safe_amount;
         safe_amount = safe_amount / this_sub;
         pd.cash.safe += safe_amount * ticks;
         if(pd.cash.safe > pd.cash.amount) { 
@@ -1765,6 +1809,7 @@ function Game() {
             return false;
         }
         bn.amount += 1;
+        message('You have bought a '+bn.label);
         if(has_gaq) {
             _gaq.push(['_trackPageview','/game_buy_bank']);
         }
@@ -1931,7 +1976,8 @@ function Game() {
     function fix_banks() {
         var bn_unl = 0;
         var bn_tot = 0;
-
+        $('#bank_rps').html(pretty_int(pd.stats.bank_rps));
+        $('#bank_total').html(pretty_int(pd.cash.safe));
         for(var k in pd.banks) {
             bn_tot += 1; 
             var bn = pd.banks[k];
@@ -1942,8 +1988,11 @@ function Game() {
             var el_lbl = $('#'+k+'_lbl');
             var el_cst = $('#'+k+'_cst');
             var el_amt = $('#'+k+'_amt');
+            var el_rps = $('#'+k+'_rps');
+        
             el_amt.html(pretty_int(bn.amount));
             el_cst.html(pretty_int(bn.cost));
+            el_rps.html(pretty_int(bn.rps));
 
             if((!bn.unlocked)) { 
                 el.addClass('hidden');
@@ -2235,8 +2284,7 @@ function Game() {
             var k = sorted[i][0];
             var bn = pd.banks[k];
             var template = $('#tpl_bank').html();
-            var data = {'bn':bn, 'id':k, 
-                'pcp_rps':pretty_int(bn.rps)};
+            var data = {'bn':bn, 'id':k};
             var html = Mustache.to_html(template, data);
             bn_el.prepend(html);
         }
