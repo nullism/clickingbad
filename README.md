@@ -3,6 +3,21 @@ Clicking Bad
 
 Official Clicking Bad Repository
 
+[TOC]
+
+About
+=====
+
+System Requirements
+-------------------
+
+### Supported browsers
+
+* IE9 & 10
+* FF20-24
+* Chrome (all recent)
+* Android
+
 Contributing
 ============
 
@@ -23,6 +38,15 @@ Code
     set shiftwidth=4
     set tabstop=4
     set expandtab
+
+Look and Feel
+-------------
+
+There are a few things that should be kept in mind:
+
+1. **Responsive design.** One CSS file should allow `index.html` to look good on mobile phones, too.
+2. **Cross browser.** This means no `div` overflow, since it's not supported by Adroid. See the [Supported Browsers](#Supported Browser) section for more information.
+3. **Valid.** Try to keep the HTML5 as valid as possible. 
 
 Testing
 -------
