@@ -161,60 +161,70 @@ function Game() {
                 'label':'Lemonade Stand',
                 'description':'Launder minimal cash through a lemonade stand',
                 'rps':1,
+                'unlock_rps':1,
                 'cost':1000,
                 'base_cost':1000,
                 'unlocked':true,
-                'prereq':null,
             },
             'b_nail_salon':{
                 'amount':0,
                 'label':'Nail Salon',
                 'description':'Purchase a nail salon to launder a small amount of cash',
                 'rps':12,
+                'unlock_rps':12,
                 'cost':10000,
                 'base_cost':10000,
                 'unlocked':false,
-                'prereq':'b_lemonade',
             },
             'b_banana_stand':{
                 'amount':0,
                 'label':'Banana Stand',
                 'description':'Invest in a banana stand for your laundering pleasure',
                 'rps':120,
+                'unlock_rps':120,
                 'cost':100000,
                 'base_cost':100000,
                 'unlocked':false,
-                'prereq':'b_nail_salon',
             },
             'b_chicken_place':{
                 'amount':0,
                 'label':'Chicken Restaurant',
                 'description':'Invest in a fried chicken restaurant to safely launder a fair amount of cash',
                 'rps':1500,
+                'unlock_rps':1500,
                 'cost':1000000,
                 'base_cost':1000000,
                 'unlocked':false,
-                'prereq':'b_banana_stand',
             },
             'b_laser_tag':{
                 'amount':0,
                 'label':'Laser Tag Theme Park',
                 'description':'Launder money through laser tag!',
                 'rps':16000,
+                'unlock_rps':16000,
                 'cost':10000000,
                 'base_cost':10000000,
                 'unlocked':false,
-                'prereq':'b_chicken_place',
             },
             'b_car_wash':{
                 'label':'Car Wash',
                 'amount':0,
                 'description':'Launder cash through an overpriced car wash',
                 'rps':220000,
+                'unlock_rps':220000,
                 'cost':100000000,
                 'base_cost':100000000,
                 'unlocked':false,
-                'prereq':'b_laser_tag',
+            },
+            'b_donations':{
+                'label':'Online Donations',
+                'amount':0,
+                'description':'Launder cash through an online donation network',
+                'rps':5200000,
+                'unlock_rps':5200000,
+                'cost':500000000,
+                'base_cost':500000000,
+                'unlocked':false,
             },
         },
 
@@ -2082,6 +2092,12 @@ function Game() {
             var sl = pd.sellers[k];
             if(sl.unlock_rps <= pd.stats.seller_rps) {
                 sl.unlocked = true;        
+            }
+        }
+        for(var k in pd.banks) { 
+            var bn = pd.banks[k];
+            if(bn.unlock_rps <= pd.stats.seller_rps) { 
+                bn.unlocked = true;
             }
         }
     }
