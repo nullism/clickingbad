@@ -386,7 +386,20 @@ function Game() {
                 'unlock_rps':13000000,
                 'unlocked':false
             },
+            'meth_factory':{
+                'label':'Industrial Complex',
+                'description':'A massive industrial complex with thousands of cooks. '
+                    + 'Cautious? Nope! Effective? Damn straight',
+                'amount':0,
+                'risk':0.55,
+                'rps':492005000,
+                'base_cost':410302501000000,
+                'cost':410302501000000,
+                'unlock_rps':130000000,
+                'unlocked':false
+            },
         },
+        // END clickers
 
 
         // DISTRIBUTION
@@ -550,7 +563,21 @@ function Game() {
                 'unlock_rps':13000000,
                 'unlocked':false
             },
-        },
+            'meth_mart':{
+                'label':'Meth-Mart',
+                'description':'The MM franchise is an easy way to distribute product to shoppers, '
+                    +'but it\'s very risky, as you would imagine',
+                'amount':0,
+                'risk':0.55,
+                'rps':550050000,
+                'base_cost':410325015000000,
+                'cost':410325015000000,
+                'unlock_rps':130000000,
+                'unlocked':false
+            },
+        }, 
+        // END sellers
+
 
         // UPGRADES
         'upgrades':{
