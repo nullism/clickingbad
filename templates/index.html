@@ -112,15 +112,16 @@ $(document).ready(function() {
     });
 
     // End actions
-    toggle_tab('manufacturing');
+    switch_tab('manufacturing');
     $('button').attr('disabled', false);
 });
 
 
 </script>
 
-       
-<div id="left_wrap">
+<div id="left_wrap" class="left_width">
+    <div id="make_sell_spacer"></div>  
+    <div id="left_floatable">     
     <div id="make_sell_wrap">
     <div id="make_div">
         <p>
@@ -156,6 +157,7 @@ $(document).ready(function() {
     </div>
     <div id="last_saved">Game saved 60 seconds ago</div>
     <div id="last_message">No new messages</div>
+    </div> <!-- End left floatable -->
 </div> <!-- End left_wrap -->
 
 <div id="tab_btns" class="tabs">
@@ -169,7 +171,7 @@ $(document).ready(function() {
         Upgrades (<span id="upgrades_unlocked">0</span>/<span id="upgrades_total">0</span>)
     </button>
     <button onclick="switch_tab('finances');" id="finances_tab" class="tab">
-        Finances (<span id="banks_unlocked">0</span>/<span id="banks_total">0</span>)
+        Laundering (<span id="banks_unlocked">0</span>/<span id="banks_total">0</span>)
     </button>
     <button onclick="switch_tab('achievements');" id="achievements_tab" class="tab">
         Achievements (<span id="achievements_unlocked">0</span>/<span id="achievements_total">0</span>)

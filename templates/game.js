@@ -1373,6 +1373,9 @@ function Game() {
         }
         safe_amount = safe_amount / this_sub;
         pd.cash.safe += safe_amount * ticks;
+        if(pd.cash.safe > pd.cash.amount) { 
+            pd.cash.safe = pd.cash.amount;
+        }
 
         fix_display();
     }
@@ -1732,12 +1735,6 @@ function Game() {
             return false;
         }
         bn.amount += 1;
-        bn.unlocked = true;
-        for(var k in pd.banks) { 
-            if((pd.banks[k].prereq)&&(pd.banks[k].prereq == key)) { 
-                pd.banks[k].unlocked = true;
-            }
-        }
         if(has_gaq) {
             _gaq.push(['_trackPageview','/game_buy_bank']);
         }

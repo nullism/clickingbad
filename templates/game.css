@@ -4,15 +4,6 @@ body {
     color: #333;
     background: #28d;
 }
-table { 
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-}
-td { 
-    vertical-align: top;
-    padding: 5px;
-}
 a, a:visited, a:active { 
     text-decoration: none;
     color: #369;
@@ -113,15 +104,25 @@ h1 {
     color: #5e5;
 }
 #left_wrap { 
-    width: 100%;
     float: left;
     margin-right: 10px;
+    width: 100%;
 }
-#make_sell_wrap { 
+#left_floatable { 
+    width: 100%;
+    z-index: 1000;
+}
+#make_sell_wrap, #make_sell_spacer { 
     background: #fff;
     border-bottom: 2px solid #dde;
     border-radius: 5px;
-    z-index: 1000;
+    width: 100%;
+}
+#make_sell_spacer { 
+    display: none;
+    background: none;
+    border: none; 
+    height: 520px;
 }
 #make_div, #sell_div { 
     padding: 3px;
@@ -285,10 +286,19 @@ h1 {
 /*
  * Responsive layouts
  */
+@media screen and (min-height: 550px) and (min-width: 700px) { 
+    #left_floatable {
+        position: fixed; 
+        top: 5px;
+        left: 5px;
+        border: none;
+        background: none;
+        width: inherit;
+    }
+    #make_sell_spacer { display: block; }
+}
 
-
-
-/* Small desktop */
+/* Small width desktop */
 @media screen and (min-width: 200px) {
     .tab {
         width: 100%;
@@ -309,9 +319,10 @@ h1 {
     }
     #left_wrap { 
         float: left;
-        width: 40%;
         min-width: 250px;
+        width: 40%;
     }
+
 }
 
 @media screen and (min-width: 850px) { 
@@ -353,3 +364,7 @@ h1 {
         width: 75%;
     }
 }
+
+
+
+
