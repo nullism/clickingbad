@@ -3,8 +3,6 @@ Clicking Bad
 
 Official Clicking Bad Repository
 
-[TOC]
-
 About
 =====
 
@@ -45,7 +43,7 @@ Look and Feel
 There are a few things that should be kept in mind:
 
 1. **Responsive design.** One CSS file should allow `index.html` to look good on mobile phones, too.
-2. **Cross browser.** This means no `div` overflow, since it's not supported by Adroid. See the [Supported Browsers](#Supported Browser) section for more information.
+2. **Cross browser.** This means no `div` overflow, since it's not supported by Adroid. See the [Supported Browsers](#supported-browsers) section for more information.
 3. **Valid.** Try to keep the HTML5 as valid as possible. 
 
 Testing
