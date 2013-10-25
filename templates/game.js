@@ -1809,8 +1809,8 @@ function Game() {
         localStorage.ac = JSON.stringify(ac_to_json());
     }
     function new_update_save_from_pd() {
-        localStorage.sv2 = JSON.stringify(new_pd_to_json());
-        localStorage.ac2 = JSON.stringify(new_ac_to_json());
+        localStorage.sv2 = Base64.encode(JSON.stringify(new_pd_to_json()));
+        localStorage.ac2 = Base64.encode(JSON.stringify(new_ac_to_json()));
     }
 
     function update_pd_from_json(sv) {
@@ -1929,11 +1929,11 @@ function Game() {
     function new_update_pd_from_save() { 
         // Achievements
         if(localStorage.ac2) { 
-            var ac = $.parseJSON(localStorage.ac2);
+            var ac = $.parseJSON(Base64.decode(localStorage.ac2));
             new_update_ac_from_json(ac);
         }
         if(localStorage.sv2) { 
-            var sv = $.parseJSON(localStorage.sv2);
+            var sv = $.parseJSON(Base64.decode(localStorage.sv2));
             new_update_pd_from_json(sv);
         } 
     }
@@ -1960,6 +1960,7 @@ function Game() {
 
     this.do_save = function() {
         update_save_from_pd();
+        new_update_save_from_pd();
         last_save = (new Date).getTime();
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_save']);
