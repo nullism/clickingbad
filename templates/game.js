@@ -1882,7 +1882,7 @@ function Game() {
         var upgs = sv.u.split('|');
         for(var k in pd.upgrades) { 
             var upg = pd.upgrades[k];
-            if(upgs.indexOf(upg.side) > -1) {
+            if(upgs.indexOf(upg.sid) > -1) {
                 apply_upgrade(k);
             }
         }
