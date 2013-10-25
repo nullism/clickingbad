@@ -165,6 +165,7 @@ function Game() {
                 'cost':1000,
                 'base_cost':1000,
                 'unlocked':true,
+                'sid':'b1',
             },
             'b_nail_salon':{
                 'amount':0,
@@ -175,6 +176,7 @@ function Game() {
                 'cost':10000,
                 'base_cost':10000,
                 'unlocked':false,
+                'sid':'b2',
             },
             'b_banana_stand':{
                 'amount':0,
@@ -185,6 +187,7 @@ function Game() {
                 'cost':100000,
                 'base_cost':100000,
                 'unlocked':false,
+                'sid':'b3',
             },
             'b_chicken_place':{
                 'amount':0,
@@ -195,6 +198,7 @@ function Game() {
                 'cost':1000000,
                 'base_cost':1000000,
                 'unlocked':false,
+                'sid':'b4',
             },
             'b_laser_tag':{
                 'amount':0,
@@ -205,6 +209,7 @@ function Game() {
                 'cost':10000000,
                 'base_cost':10000000,
                 'unlocked':false,
+                'sid':'b5',
             },
             'b_car_wash':{
                 'label':'Car Wash',
@@ -215,6 +220,7 @@ function Game() {
                 'cost':100000000,
                 'base_cost':100000000,
                 'unlocked':false,
+                'sid':'b6',
             },
             'b_donations':{
                 'label':'Online Donations',
@@ -225,6 +231,7 @@ function Game() {
                 'cost':500000000,
                 'base_cost':500000000,
                 'unlocked':false,
+                'sid':'b7',
             },
             'b_offshore': {
                 'label':'Offshore Account',
@@ -235,6 +242,7 @@ function Game() {
                 'cost':4500000000,
                 'base_cost':4500000000,
                 'unlocked':false,
+                'sid':'b8',
             },
             'b_nyme': {
                 'label':'NYME',
@@ -246,6 +254,7 @@ function Game() {
                 'cost':50500000000,
                 'base_cost':50500000000,
                 'unlocked':false,
+                'sid':'b9',
             },
         },
 
@@ -261,6 +270,7 @@ function Game() {
                 'cost':20,
                 'unlock_rps':0,
                 'unlocked':true,
+                'sid':'c1',
             },
             '03_used_rv':{
                 'label':'Used RV',
@@ -271,7 +281,8 @@ function Game() {
                 'base_cost':210,
                 'cost':210,
                 'unlock_rps':.2,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c2',
             },
             'trailer':{
                 'label':'Abandoned Trailer',
@@ -283,6 +294,7 @@ function Game() {
                 'cost':1000,
                 'unlock_rps':1.2,
                 'unlocked':false,
+                'sid':'c3',
             },
             '05_house':{
                 'label':'Small House',
@@ -293,7 +305,8 @@ function Game() {
                 'base_cost':5000,
                 'cost':5000,
                 'unlock_rps':6,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c4',
             },
             '07_warehouse':{
                 'label':'Abandoned Warehouse',
@@ -304,7 +317,8 @@ function Game() {
                 'base_cost':25000,
                 'cost':25000,
                 'unlock_rps':50,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c5',
             },
             '09_lab':{ 
                 'label':'Laboratory',
@@ -315,7 +329,8 @@ function Game() {
                 'base_cost':125000,
                 'cost':125000,
                 'unlock_rps':250,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c6',
             },
             '10_under_lab': {
                 'label':'Underground Laboratory',
@@ -326,7 +341,8 @@ function Game() {
                 'base_cost':6250000,
                 'cost':6250000,
                 'unlock_rps':1000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c7',
             },
             '11_bot': {
                 'label':'Meth-o-matic 9000',
@@ -337,7 +353,8 @@ function Game() {
                 'base_cost':35000000,
                 'cost':35000000,
                 'unlock_rps':6500,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c8',
             },
             '11_bot_s': {
                 'label':'Meth-o-matic 9000S',
@@ -348,7 +365,8 @@ function Game() {
                 'base_cost':40000000,
                 'cost':40000000,
                 'unlock_rps':8000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c9',
             },
             'under_complex':{
                 'label':'Subterranean Complex',
@@ -359,7 +377,8 @@ function Game() {
                 'base_cost':505000000,
                 'cost':505000000,
                 'unlock_rps':25000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c10',
             },
             'country':{
                 'label':'Island State',
@@ -370,7 +389,8 @@ function Game() {
                 'base_cost':2501000000,
                 'cost':2501000000,
                 'unlock_rps':50000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c11',
             },
             '12_moon_lab': {
                 'label':'Moonlab Alpha',
@@ -381,7 +401,8 @@ function Game() {
                 'base_cost':32501000000,
                 'cost':32501000000,
                 'unlock_rps':150000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c12',
             },
             'station': {
                 'label':'Meth Star',
@@ -393,7 +414,8 @@ function Game() {
                 'base_cost':1632501000000,
                 'cost':1632501000000,
                 'unlock_rps':1300000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c13',
             },
             'belt':{
                 'label':'Heisenbelt',
@@ -405,7 +427,8 @@ function Game() {
                 'base_cost':41032501000000,
                 'cost':41032501000000,
                 'unlock_rps':13000000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c14',
             },
             'meth_factory':{
                 'label':'Industrial Complex',
@@ -417,7 +440,8 @@ function Game() {
                 'base_cost':410302501000000,
                 'cost':410302501000000,
                 'unlock_rps':130000000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'c15',
             },
         },
         // END clickers
@@ -435,6 +459,7 @@ function Game() {
                 'cost':20,
                 'unlock_rps':0.5,
                 'unlocked':true,
+                'sid':'s1',
             },
             '03_drug_mule':{
                 'label':'Drug Mule',
@@ -445,7 +470,8 @@ function Game() {
                 'base_cost':230,
                 'cost':230,
                 'unlock_rps':.2,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s2',
             },
             'drug_van':{
                 'label':'Drug Van',
@@ -456,7 +482,8 @@ function Game() {
                 'base_cost':2300,
                 'cost':2300,
                 'unlock_rps':1,
-                'unlocked':false           
+                'unlocked':false,
+                'sid':'s3',
             },
             'cheap_lawyer':{
                 'label':'Sleazy Lawyer',
@@ -467,7 +494,8 @@ function Game() {
                 'base_cost':5000,
                 'cost':5000,
                 'unlock_rps':5,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s4',
             },
             '04_club':{
                 'label':'Night Club',
@@ -478,7 +506,8 @@ function Game() {
                 'base_cost':25000,
                 'cost':25000,
                 'unlock_rps':50,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s5',
             },
             '05_cartel':{
                 'label':'Drug Cartel',
@@ -489,7 +518,8 @@ function Game() {
                 'base_cost':125000,
                 'cost':125000,
                 'unlock_rps':250,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s6',
             },
             '07_dea':{
                 'label':'DEA Mole',
@@ -500,7 +530,8 @@ function Game() {
                 'base_cost':6250000,
                 'cost':6250000,
                 'unlock_rps':500,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s7',
             },
             '09_diplomat':{ 
                 'label':'Foreign Diplomat',
@@ -511,7 +542,8 @@ function Game() {
                 'base_cost':33000000,
                 'cost':33000000,
                 'unlock_rps':2500,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s8',
             },
             '11_city_police':{
                 'label':'City Police Force',
@@ -522,7 +554,8 @@ function Game() {
                 'base_cost':165000000,
                 'cost':165000000,
                 'unlock_rps':5000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s9',
             },
              'senator':{
                 'label':'Crooked Senator',
@@ -533,7 +566,8 @@ function Game() {
                 'base_cost':801000000,
                 'cost':801000000,
                 'unlock_rps':20000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s10',
             },       
             'big_cartel':{
                 'label':'Rival Cartel',
@@ -544,7 +578,8 @@ function Game() {
                 'base_cost':3005000000,
                 'cost':3005000000,
                 'unlock_rps':60000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s11',
             },
             'dictator':{
                 'label':'El Presidente',
@@ -555,7 +590,8 @@ function Game() {
                 'base_cost':32501000000,
                 'cost':32501000000,
                 'unlock_rps':160000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s12',
             },
             'space_mules':{
                 'label':'Space Mules',
@@ -569,7 +605,8 @@ function Game() {
                 'base_cost':1632501000000,
                 'cost':1632501000000,
                 'unlock_rps':1300000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s13',
             },
             // Sneak a ref in the shuttle for fun. 
             'shuttle':{
@@ -583,7 +620,8 @@ function Game() {
                 'base_cost':41032501000000,
                 'cost':41032501000000,
                 'unlock_rps':13000000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s14',
             },
             'meth_mart':{
                 'label':'Meth-Mart',
@@ -595,7 +633,8 @@ function Game() {
                 'base_cost':410325015000000,
                 'cost':410325015000000,
                 'unlock_rps':130000000,
-                'unlocked':false
+                'unlocked':false,
+                'sid':'s15',
             },
         }, 
         // END sellers
@@ -612,6 +651,7 @@ function Game() {
                 'mod':1,
                 'cost':10,
                 'prereq':null,
+                'sid':'u01',
             },
             '01_exhaust_fan':{
                 'label':'Exhaust Fan',
@@ -621,6 +661,7 @@ function Game() {
                 'mod':5,
                 'cost':100,
                 'prereq':'00_air_fresheners',
+                'sid':'u02',
             },
             '02_goatee':{
                 'label':'Goatee',
@@ -630,6 +671,7 @@ function Game() {
                 'mod':1,
                 'cost':10,
                 'prereq':null,
+                'sid':'u03',
             },
             '03_hvac':{
                 'label':'Industrial HVAC',
@@ -639,6 +681,7 @@ function Game() {
                 'mod':100,
                 'cost':11050,
                 'prereq':'01_exhaust_fan',
+                'sid':'u04',
             },
             '04_glasses':{
                 'label':'Prescription Glasses',
@@ -648,6 +691,7 @@ function Game() {
                 'mod':5,
                 'cost':100,
                 'prereq':'02_goatee',
+                'sid':'u05',
             },
             '07_hat': { 
                 'label':'Porkpie Hat',
@@ -657,6 +701,7 @@ function Game() {
                 'mod':50,
                 'cost':500,
                 'prereq':'04_glasses',
+                'sid':'u06',
             },
             '08_mariachi_band':{
                 'label':'Mariachi Band',
@@ -666,6 +711,7 @@ function Game() {
                 'mod':5,
                 'cost':17500,
                 'prereq':'07_hat',
+                'sid':'u07',
             },
             '09_vats':{
                 'label':'Brewing Vats',
@@ -675,6 +721,7 @@ function Game() {
                 'mod':500,
                 'cost':4507500,
                 'prereq':'08_mariachi_band',
+                'sid':'u08',
             },
             // UPG SELLERS
             '11_dealer_business_cards':{
@@ -685,6 +732,7 @@ function Game() {
                 'mod':.1,
                 'cost':75,
                 'prereq':'02_goatee',
+                'sid':'u09',
             },
             '13_spinning_rims':{
                 'label':'Spinnin\' Rims',
@@ -694,6 +742,7 @@ function Game() {
                 'mod':.2,
                 'cost':250,
                 'prereq':'11_dealer_business_cards',
+                'sid':'u10',
             },
             'dealer_slacks':{
                 'label':'Dealer Slacks',
@@ -703,6 +752,7 @@ function Game() {
                 'mod':-.01,
                 'cost':550,
                 'prereq':'13_spinning_rims',
+                'sid':'u11',
             },
             'mules_1': {
                 'label':'Stuffed Mules',
@@ -712,6 +762,7 @@ function Game() {
                 'mod':3,
                 'cost':1250,
                 'prereq':'dealer_slacks',
+                'sid':'u12',
             },
             'mules_2': {
                 'label':'Double Stuffed Mules',
@@ -721,6 +772,7 @@ function Game() {
                 'mod':16,
                 'cost':55000,
                 'prereq':'mules_1',
+                'sid':'u13',
             },
             'dealer_guns': {
                 'label':'Dealer Heat',
@@ -730,6 +782,7 @@ function Game() {
                 'mod':0.5,
                 'cost':8000,
                 'prereq':'dealer_slacks',
+                'sid':'u14',
             },
             'van_jingle':{
                 'label':'Van Jingle',
@@ -739,6 +792,7 @@ function Game() {
                 'mod':5,
                 'cost':16000,
                 'prereq':'dealer_guns',
+                'sid':'u15',
             },
             'lawyers_sleaze': {
                 'label':'Extra Sleaze',
@@ -748,6 +802,7 @@ function Game() {
                 'mod':10,
                 'cost':150000,
                 'prereq':'van_jingle',
+                'sid':'u16',
             },
             'lawyers_better':{
                 'label':'Better Lawyers',
@@ -757,6 +812,7 @@ function Game() {
                 'mod':-0.05,
                 'cost':1175000,
                 'prereq':'lawyers_sleaze',
+                'sid':'u17',
             },
             'lawyers_best':{
                 'label':'Lawyers 2.0',
@@ -766,6 +822,7 @@ function Game() {
                 'mod':-0.05,
                 'cost':11275000,
                 'prereq':'lawyers_better',
+                'sid':'u18',
             },
             'lawyers_super':{
                 'label':'Super Lawyers',
@@ -775,6 +832,7 @@ function Game() {
                 'mod':-0.05,
                 'cost':210555000,
                 'prereq':'lawyers_best',
+                'sid':'u19',
             },       
             'lawyers_magic':{
                 'label':'Immortal Lawyers',
@@ -784,6 +842,7 @@ function Game() {
                 'mod':-0.10,
                 'cost':164200552000,
                 'prereq':'lawyers_super',
+                'sid':'u20',
             },
             'better_diplomats': {
                 'label':'Diplomatic Immunity',
@@ -793,6 +852,7 @@ function Game() {
                 'mod':1000,
                 'cost':15005000,
                 'prereq':'lawyers_sleaze',
+                'sid':'u21',
             },
             '21_portable_generator':{
                 'label':'Portable Power Generator',
@@ -802,6 +862,7 @@ function Game() {
                 'mod':0.5,
                 'cost':150,
                 'prereq':'01_exhaust_fan',
+                'sid':'u22',
             },
             'shed_power':{
                 'label':'Shed Propane',
@@ -811,6 +872,7 @@ function Game() {
                 'mod':0.8,
                 'cost':9500,
                 'prereq':'21_portable_generator',
+                'sid':'u23',
                
             },
             'rv_solar':{
@@ -821,6 +883,7 @@ function Game() {
                 'mod':2.5,
                 'cost':1250,
                 'prereq':'shed_power',
+                'sid':'u24',
             },
             'camper_lab':{
                 'label':'Mobile Lab',
@@ -830,6 +893,7 @@ function Game() {
                 'mod':16,
                 'cost':55000,
                 'prereq':'rv_solar',
+                'sid':'u25',
             },
             '22_hazmat_suit':{
                 'label':'Hazmat Suit',
@@ -840,6 +904,7 @@ function Game() {
                 'mod':100,
                 'cost':15000,
                 'prereq':'04_glasses',
+                'sid':'u26',
             },
 
             '23_personal_enforcer':{
@@ -850,6 +915,7 @@ function Game() {
                 'mod':100,
                 'cost':15000,
                 'prereq':'22_hazmat_suit',
+                'sid':'u27',
             },
             // UPG BURNERS 
             '31_electric_hotplate':{
@@ -860,6 +926,7 @@ function Game() {
                 'mod':0,
                 'cost':25,
                 'prereq':null,
+                'sid':'u28',
             },
             '32_gas_stove':{
                 'label':'Gas Stove',
@@ -869,6 +936,7 @@ function Game() {
                 'mod':0.5,
                 'purchased':false,
                 'prereq':null,
+                'sid':'u29',
             },
             '33_steel_burner':{
                 'label':'Steel Burners',
@@ -878,6 +946,7 @@ function Game() {
                 'mod':0.5,
                 'purchased':false,
                 'prereq':'32_gas_stove',
+                'sid':'u30',
             },
             '34_titanium_burner':{
                 'label':'Titanium Burners',
@@ -887,6 +956,7 @@ function Game() {
                 'mod':1,
                 'purchased':false,
                 'prereq':'33_steel_burner',
+                'sid':'u31',
             },
             '35_platinum_burner':{
                 'label':'Platinum Burners',
@@ -896,6 +966,7 @@ function Game() {
                 'mod':3,
                 'purchased':false,
                 'prereq':'34_titanium_burner',
+                'sid':'u32',
             },
            
             // UPG COOKWARE
@@ -907,6 +978,7 @@ function Game() {
                 'mod':0,
                 'purchased':true,
                 'prereq':null,
+                'sid':'u33',
             },
             '42_steel_cookware':{
                 'label':'Stainless Steel Cookware',
@@ -916,6 +988,7 @@ function Game() {
                 'mod':0.5,
                 'purchased':false,
                 'prereq':null,
+                'sid':'u34',
             },
             '43_glass_flasks':{
                 'label':'Glass Flasks',
@@ -925,6 +998,7 @@ function Game() {
                 'mod':0.5,
                 'purchased':false,
                 'prereq':'42_steel_cookware',
+                'sid':'u35',
             },
             '46_hard_glass_boilers':{
                 'label':'Hardened Glass Boilers',
@@ -934,6 +1008,7 @@ function Game() {
                 'mod':1,
                 'purchased':false,
                 'prereq':'43_glass_flasks',
+                'sid':'u36',
             },
             
             '47_carbon_filters':{
@@ -944,6 +1019,7 @@ function Game() {
                 'mod':3,
                 'purchased':false,
                 'prereq':'46_hard_glass_boilers',
+                'sid':'u37',
             },
             '49_diamond_flasks':{
                 'label':'Diamond Flasks',
@@ -953,6 +1029,7 @@ function Game() {
                 'mod':5,
                 'purchased':false,
                 'prereq':'46_hard_glass_boilers',
+                'sid':'u38',
             },
             '50_platinum_boilers':{
                 'label':'Platinum Boilers',
@@ -962,6 +1039,7 @@ function Game() {
                 'mod':10,
                 'purchased':false,
                 'prereq':'49_diamond_flasks',
+                'sid':'u39',
             },
             '53_space_hazmat':{
                 'label':'Space Hazmat Suit',
@@ -971,6 +1049,7 @@ function Game() {
                 'mod':1000,
                 'purchased':false,
                 'prereq':'50_platinum_boilers',
+                'sid':'u40',
             },
             'personal_snipers':{
                 'label':'SWAT Snipers',
@@ -980,6 +1059,7 @@ function Game() {
                 'mod':1000,
                 'purchased':false,
                 'prereq':'50_platinum_boilers',
+                'sid':'u41',
             },
             'chem_degree':{
                 'label':'Chemistry Doctorate',
@@ -990,6 +1070,7 @@ function Game() {
                 'mod':0.5,
                 'purchased':false,
                 'prereq':'53_space_hazmat',
+                'sid':'u42',
             },
             'mech_suit':{
                 'label':'Mech Suit',
@@ -1000,6 +1081,7 @@ function Game() {
                 'mod':0.5,
                 'purchased':false,
                 'prereq':'personal_snipers',
+                'sid':'u43',
             },
             'slap_chop':{
                 'label':'Slap Chop (TM)',
@@ -1011,6 +1093,7 @@ function Game() {
                 'mod':0.5,
                 'purchased':false,
                 'prereq':'chem_degree',
+                'sid':'u44',
             },
              'fearless':{
                 'label':'Fearless',
@@ -1022,6 +1105,7 @@ function Game() {
                 'mod':0.5,
                 'purchased':false,
                 'prereq':'mech_suit',
+                'sid':'u45',
             },
             'better_genetics':{
                 'label':'Pinky Genetics',
@@ -1032,6 +1116,7 @@ function Game() {
                 'mod':1,
                 'purchased':false,
                 'prereq':'slap_chop',
+                'sid':'u46',
             }, 
             'crack_bite':{
                 'label':'Methbie',
@@ -1043,6 +1128,7 @@ function Game() {
                 'mod':1,
                 'purchased':false,
                 'prereq':'fearless',
+                'sid':'u47',
             },
             'ancient_methology': { 
                 'label':'Ancient Methology',
@@ -1053,6 +1139,7 @@ function Game() {
                 'mod':10,
                 'purchased':false,
                 'prereq':'50_platinum_boilers',           
+                'sid':'u48',
             },
             'methylamine_secret': { 
                 'label':'Methylamine X',
@@ -1062,6 +1149,7 @@ function Game() {
                 'mod':10,
                 'purchased':false,
                 'prereq':'ancient_methology',           
+                'sid':'u49',
             },
             'alien_meth':{
                 'label':'Meth of the Third Kind',
@@ -1072,6 +1160,7 @@ function Game() {
                 'mod':12,
                 'purchased':false,
                 'prereq':'methylamine_secret',           
+                'sid':'u50',
             },
             // Laundering
             'u_nyme_1':{
@@ -1082,6 +1171,7 @@ function Game() {
                 'mod':500000000,
                 'purchased':false,
                 'prereq':'lawyers_sleaze',                          
+                'sid':'u51',
             },
             'u_nyme_2': {
                 'label':'Sleazy Brokers',
@@ -1092,6 +1182,7 @@ function Game() {
                 'mod':1000000000,
                 'purchased':false,
                 'prereq':'u_nyme_1',                          
+                'sid':'u52',
             },
 
             'donator_thanks':{
@@ -1102,6 +1193,7 @@ function Game() {
                 'mod':50,
                 'purchased':false,
                 'prereq':'hidden',
+                'sid':'u70',
             },
          },
 
@@ -1116,6 +1208,7 @@ function Game() {
                 'value':1,
                 'group':10,
                 'min_time':1,
+                'sid':'a01',
             },
             'hand_made_widgets_2': { 
                 'label':'I see how this works',
@@ -1126,6 +1219,7 @@ function Game() {
                 'value':2,
                 'group':11,
                 'min_time':1,
+                'sid':'a02',
             },
             'hand_made_widgets_3': { 
                 'label':'Click apprentice',
@@ -1136,6 +1230,7 @@ function Game() {
                 'value':3,
                 'group':12,
                 'min_time':1,
+                'sid':'a03',
             },
             'hand_made_widgets_4':{ 
                 'label':'Click magician',
@@ -1146,6 +1241,7 @@ function Game() {
                 'value':4,
                 'group':13,
                 'min_time':1,
+                'sid':'a04',
             },      
             'hand_made_widgets_5':{ 
                 'label':'Clickity-splickity',
@@ -1156,6 +1252,7 @@ function Game() {
                 'value':5,
                 'group':14,
                 'min_time':1,
+                'sid':'a05',
             },      
             'hand_made_widgets_6':{ 
                 'label':'I AM THE ONE WHO CLICKS',
@@ -1166,6 +1263,7 @@ function Game() {
                 'value':6,
                 'group':15,
                 'min_time':1,
+                'sid':'a06',
             },
             'total_cash_1': {
                 'label':'In the meth business',
@@ -1176,6 +1274,7 @@ function Game() {
                 'value':1,
                 'group':20,
                 'min_time':1,           
+                'sid':'a07',
             },
             'total_cash_2': {
                 'label':'In the money business',
@@ -1186,6 +1285,7 @@ function Game() {
                 'value':2,
                 'group':21,
                 'min_time':1,           
+                'sid':'a08',
             },
             'total_cash_3': {
                 'label':'Billion with a B',
@@ -1196,6 +1296,7 @@ function Game() {
                 'value':3,
                 'group':22,
                 'min_time':1,           
+                'sid':'a09',
             },
             'total_cash_4': {
                 'label':'In the cartel business',
@@ -1206,6 +1307,7 @@ function Game() {
                 'value':4,
                 'group':23,
                 'min_time':1,           
+                'sid':'a10',
             },
             'total_cash_5': {
                 'label':'In the empire business',
@@ -1216,6 +1318,7 @@ function Game() {
                 'value':5,
                 'group':24,
                 'min_time':1,           
+                'sid':'a11',
             },
             // Randoms (group 200+)
             'under_complex_1': {
@@ -1227,6 +1330,7 @@ function Game() {
                 'value':1,
                 'group':200,
                 'min_time':1,           
+                'sid':'a12',
             },
             'city_police_1': {
                 'label':'I am the law!',
@@ -1237,6 +1341,7 @@ function Game() {
                 'value':1,
                 'group':210,
                 'min_time':1,           
+                'sid':'a13',
             },
             'lab_1': { 
                 'label':'Science, bitch!',
@@ -1247,6 +1352,7 @@ function Game() {
                 'value':1,
                 'group':220,
                 'min_time':1,           
+                'sid':'a14',
             },
             'moon_lab_1':{
                 'label':'One small step for meth kind',
@@ -1258,6 +1364,7 @@ function Game() {
                 'value':1,
                 'group':227,
                 'min_time':1,           
+                'sid':'a15',
             },
             'station_1':{
                 'label':'The meth is strong with you',
@@ -1269,6 +1376,7 @@ function Game() {
                 'value':1,
                 'group':227,
                 'min_time':1,           
+                'sid':'a16',
             },
             'dea_1':{
                 'label':'On the inside',
@@ -1280,7 +1388,20 @@ function Game() {
                 'value':1,
                 'group':227,
                 'min_time':1,           
+                'sid':'a17',
             },
+            'banana_stand': {
+                'label':'Frozen Bananas',
+                'description':'There\'s always money in the banana stand',
+                'property':'banks.b_banana_stand.amount',
+                'required':1,
+                'unlocked':false,
+                'hidden':false,
+                'value':1,
+                'group':250,
+                'min_time':1,
+                'sid':'a18',           
+            }, 
             'cheated_cash_1':{
                 'label':'Counterfeiter',
                 'description':'You\'ve hacked in some cash',
@@ -1291,6 +1412,7 @@ function Game() {
                 'value':1,
                 'group':230,
                 'min_time':1,           
+                'sid':'a101',
             },
             'cheated_meth_1':{
                 'label':'Meth from nowhere',
@@ -1302,18 +1424,9 @@ function Game() {
                 'value':1,
                 'group':240,
                 'min_time':1,           
+                'sid':'a102',
             },
-            'banana_stand': {
-                'label':'Frozen Bananas',
-                'description':'There\'s always money in the banana stand',
-                'property':'banks.b_banana_stand.amount',
-                'required':1,
-                'unlocked':false,
-                'hidden':false,
-                'value':1,
-                'group':250,
-                'min_time':1,           
-            }, 
+
         },
 
         // EVENTS
@@ -1565,11 +1678,16 @@ function Game() {
         return unsafe;
     }
 
-    function new_save_to_pd() {
-
+    function get_hex_from_int(n) { 
+        return n.toString(24);
     }
-    function new_pd_to_save() {
+    function get_int_from_hex(s) { 
+        return parseInt(s, 24);
+    }
+    
 
+    function new_pd_to_save() { 
+        return new_pd_to_json();        
     }
 
     function pd_to_json() { 
@@ -1617,6 +1735,54 @@ function Game() {
         }
         return sv;
     }
+    function new_pd_to_json() { 
+        var sdata = {
+            'c':get_hex_from_int(Math.round(pd.cash.amount)),
+            'cs':get_hex_from_int(Math.round(pd.cash.safe)),
+            'w':get_hex_from_int(Math.round(pd.widgets.amount)),
+        };
+       
+        var unlockables = {
+            "clickers":"cl",
+            "sellers":"sl",
+            "banks":"bn",
+        };
+        for(var k in unlockables) { 
+            var items = pd[k];
+            var sk = unlockables[k];
+            var tmpa = [];
+            for(var ik in items) { 
+                if(items[ik].unlocked) {
+                    tmpa.push(
+                        items[ik].sid
+                        + ":" +
+                        get_hex_from_int(items[ik].amount)
+                    ); 
+                }
+            }
+            sdata[sk] = tmpa.join('|');
+        }
+        // Upgrades
+        var tmpu = [];
+        for(var k in pd.upgrades) { 
+            var u = pd.upgrades[k];
+            if(u.purchased) { 
+                tmpu.push(u.sid); 
+            }
+        }
+        sdata['u'] = tmpu.join('|')
+
+        // Stats
+        var tmps = [];
+        for(var k in pd.stats) { 
+            tmps.push(k+':'
+                +get_hex_from_int(pd.stats[k])
+            );
+        }
+        sdata['s'] = tmps.join('|');
+        return sdata;
+    }
+
 
     function ac_to_json() { 
         // Convert achievements to a suitable state for save, backup, etc.
@@ -1628,10 +1794,23 @@ function Game() {
         }
         return ac;
     }
+    function new_ac_to_json() { 
+        var ac = [];
+        for(var k in pd.achievements) { 
+            if(pd.achievements[k].unlocked) { 
+                ac.push(pd.achievements[k].sid);
+            }
+        }
+        return ac.join('|');
+    }
 
     function update_save_from_pd() { 
         localStorage.sv = JSON.stringify(pd_to_json());
         localStorage.ac = JSON.stringify(ac_to_json());
+    }
+    function new_update_save_from_pd() {
+        localStorage.sv2 = JSON.stringify(new_pd_to_json());
+        localStorage.ac2 = JSON.stringify(new_ac_to_json());
     }
 
     function update_pd_from_json(sv) {
@@ -1672,6 +1851,52 @@ function Game() {
             }
         }
     }
+    function new_update_pd_from_json(sv) { 
+        pd.cash.amount = get_int_from_hex(sv.c);
+        if(sv.cs) { pd.cash.safe = get_int_from_hex(sv.cs); }
+        pd.widgets.amount = get_int_from_hex(sv.w);
+        // Banks, Sellers, Clickers
+        var unlockables = {
+            'banks':'bn',
+            'clickers':'cl',
+            'sellers':'sl',
+        };
+
+        for(var uk in unlockables) {
+            var sk = unlockables[uk];
+            if(sv[sk]) { 
+                var bns = sv[sk].split('|');
+                for(var i=0; i<bns.length; i++) {
+                    var bid = bns[i].split(':');
+                    for(var k in pd[uk]) {
+                        if(pd[uk][k].sid == bid[0]) { 
+                            pd[uk][k].amount = get_int_from_hex(bid[1]);
+                            pd[uk][k].unlocked = true;
+                        } 
+                    }
+                }
+            }
+        }
+
+        // Upgrades
+        var upgs = sv.u.split('|');
+        for(var k in pd.upgrades) { 
+            var upg = pd.upgrades[k];
+            if(upgs.indexOf(upg.side) > -1) {
+                apply_upgrade(k);
+            }
+        }
+        // Stats
+        var svs = sv.s.split('|');
+        for(var k in pd.stats) { 
+            for(var i=0; i<svs.length; i++) { 
+                var svsp = svs[i].split(':');
+                if(svsp[0] == k) {
+                   pd.stats[k] = get_int_from_hex(svsp[1]);
+                }
+            }
+        }
+    }
 
     function update_ac_from_json(ac) {
         // Load a saved JSON object with achievements back into the game.
@@ -1679,6 +1904,14 @@ function Game() {
             if(pd.achievements[ac[i]]) { 
                 pd.achievements[ac[i]].unlocked = true;
             }
+        }
+    }
+    function new_update_ac_from_json(ac) {
+        ac = ac.split('|');
+        for(var k in pd.achievements) { 
+            if(ac.indexOf(pd.achievements[k].sid) > -1) { 
+                pd.achievements[k].unlocked = true;
+            } 
         }
     }
 
@@ -1692,6 +1925,17 @@ function Game() {
             var ac = $.parseJSON(localStorage.ac);
             update_ac_from_json(ac);
         }
+    }
+    function new_update_pd_from_save() { 
+        // Achievements
+        if(localStorage.ac2) { 
+            var ac = $.parseJSON(localStorage.ac2);
+            new_update_ac_from_json(ac);
+        }
+        if(localStorage.sv2) { 
+            var sv = $.parseJSON(localStorage.sv2);
+            new_update_pd_from_json(sv);
+        } 
     }
 
     /****************************************************************************** 
@@ -1711,7 +1955,7 @@ function Game() {
     }
     
     this.new_do_save = function() { 
-
+        return new_update_save_from_pd();
     }
 
     this.do_save = function() {
@@ -1723,7 +1967,7 @@ function Game() {
     }
 
     this.new_do_load = function() { 
-
+        return new_update_pd_from_save();
     }
 
     this.do_load = function() { 
@@ -1738,8 +1982,8 @@ function Game() {
 
     this.do_export = function() {
         var exdata = {
-            'sv': pd_to_json(),
-            'ac': ac_to_json()
+            'sv': new_pd_to_json(),
+            'ac': new_ac_to_json()
         };
         var exdata_json = JSON.stringify(exdata);
         var exdata_base64 = Base64.encode(exdata_json);
@@ -1756,8 +2000,8 @@ function Game() {
         }
         var exdata_json = Base64.decode($.trim(imptxt));
         var exdata = $.parseJSON(exdata_json);
-        update_pd_from_json(exdata.sv);
-        update_ac_from_json(exdata.ac);
+        new_update_ac_from_json(exdata.ac);
+        new_update_pd_from_json(exdata.sv);
         message('Game imported!');
     }
 
