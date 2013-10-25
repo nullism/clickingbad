@@ -410,7 +410,7 @@ function Game() {
             'meth_factory':{
                 'label':'Industrial Complex',
                 'description':'A massive industrial complex with thousands of cooks. '
-                    + 'Cautious? Nope! Effective? Damn straight',
+                    + 'Cautious? Nope! Effective? You\'re Goddamn right',
                 'amount':0,
                 'risk':0.55,
                 'rps':492005000,
