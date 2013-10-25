@@ -244,11 +244,13 @@ $(document).ready(function() {
                 <li><button onclick="gm.do_save();">Save</button></li>
                 <li><button onclick="gm.do_load();">Load</button></li>
             </ul>
+            {% if not isapp %}
             <h4>Backup</h4>
             <textarea id="impexp"></textarea>
             <br>
             <button onclick="gm.do_export();">Create backup</button>
             <button onclick="gm.do_import();">Import backup</button>
+            {% endif %}
         </div>
 
         <div class="pull_left">

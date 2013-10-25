@@ -1745,14 +1745,13 @@ function Game() {
         if(imptxt == 'THANK YOU!') {
             good_message('You have unlocked the "Thank You" hidden upgrade'); 
             apply_upgrade('donator_thanks');
+            return;
         }
-        else {
-            var exdata_json = Base64.decode($.trim(imptxt));
-            var exdata = $.parseJSON(exdata_json);
-            update_pd_from_json(exdata.sv);
-            update_ac_from_json(exdata.ac);
-            message('Game imported!');
-        }
+        var exdata_json = Base64.decode($.trim(imptxt));
+        var exdata = $.parseJSON(exdata_json);
+        update_pd_from_json(exdata.sv);
+        update_ac_from_json(exdata.ac);
+        message('Game imported!');
     }
 
     this.do_reset = function() { 
