@@ -1503,7 +1503,10 @@ function Game() {
         if(pd.cash.safe > pd.cash.amount) { 
             return 0;
         }
-        return 0.5 - (pd.cash.safe / pd.cash.amount);
+        if(pd.cash.safe / pd.cash.amount) { 
+            return 0.5 - (pd.cash.safe / pd.cash.amount);
+        }
+        return 0;
     }
 
 
