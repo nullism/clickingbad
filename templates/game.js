@@ -571,6 +571,7 @@ function Game() {
                 'unlock_rps':1300000,
                 'unlocked':false
             },
+            // Sneak a ref in the shuttle for fun. 
             'shuttle':{
                 'label':'Meth Horizon',
                 'description':'According to commander Tony Drake, these '
