@@ -6,9 +6,16 @@
 
 <title>Clicking Bad</title>
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/mustache.js"></script>
-<script src="/js/base64.js"></script>
+<script>
+{% include 'jquery.min.js' %}
+</script>
+<script>
+{% include 'mustache.js' %}
+</script>
+
+<script>
+{% include 'base64.js' %}
+</script>
 {% if isapp %}
     <script>
     var has_gaq = false;
