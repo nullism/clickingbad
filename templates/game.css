@@ -11,6 +11,11 @@ a, a:visited, a:active {
 a:hover { 
     text-decoration: underline;
 }
+textarea { 
+    border: 1px solid #aaa;
+    background: #fff;
+    border-radius: 5px;
+}
 button {
     margin: 1px; 
     background-color: #bbb;

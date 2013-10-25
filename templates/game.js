@@ -1994,6 +1994,9 @@ function Game() {
 
     this.do_import = function() { 
         var imptxt = $('#impexp').val();
+        if(!imptxt) { 
+            return false;
+        }
         if(imptxt == 'THANK YOU!') {
             good_message('You have unlocked the "Thank You" hidden upgrade'); 
             apply_upgrade('donator_thanks');
