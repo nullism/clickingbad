@@ -235,7 +235,7 @@ $(document).ready(function() {
     </div>
 
     <div class="tab_div w_div" id="misc_div" style="display:none;">
-        <div class="pull_left">
+        <div class="pull_left space_left">
             <h3>Instructions</h3>
             <ol>
                 <li>Cook batches of meth</li>
@@ -244,23 +244,24 @@ $(document).ready(function() {
             </ol>
         </div>
 
-        <div class="pull_left">
+        <div class="pull_left space_left">
             <h3>Options</h3>
-            <ul>
-                <li><button onclick="gm.do_reset_confirm();">Reset</button></li>
-                <li><button onclick="gm.do_save();">Save</button></li>
-                <li><button onclick="gm.do_load();">Load</button></li>
-            </ul>
-            {% if not isapp %}
-            <h4>Backup</h4>
+                <button onclick="gm.do_reset_confirm();">Reset</button>
+                <button onclick="gm.do_save();">Save</button>
+                <button onclick="gm.do_load();">Load</button>
+        </div>
+        
+        {% if not isapp %}
+        <div class="pull_left space_left">
+            <h3>Backup</h3>
             <textarea id="impexp" style="width: 100%; height: 100px;"></textarea>
             <br>
             <button onclick="gm.do_export();">Create backup</button>
             <button onclick="gm.do_import();">Import backup</button>
-            {% endif %}
         </div>
+        {% endif %}
 
-        <div class="pull_left">
+        <div class="pull_left space_left">
             <h3>Stats</h3>
             <ul>
                 <li>Batches cooked: <b><span id="made_widgets">0</span></b></li>

@@ -189,6 +189,9 @@ h1 {
 .s_div h3 { 
     margin: 2px;
 }
+.space_left { 
+    margin-left: 10px;
+}
 .pull_left { 
     float: left;
 }
