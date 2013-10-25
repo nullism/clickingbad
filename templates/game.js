@@ -1572,7 +1572,9 @@ function Game() {
 
     }
 
-    function update_save_from_pd() { 
+    function pd_to_json() { 
+        // Convert the current game state to a JSON object suitable for saves,
+        // backups, etc.
         var sv = {
             'cash':Math.round(pd.cash.amount),
             'cash_safe':Math.round(pd.cash.safe),
@@ -1613,66 +1615,82 @@ function Game() {
                 'purchased':pd.upgrades[k].purchased,
             };
         }
-        localStorage.sv = JSON.stringify(sv);
+        return sv;
+    }
 
-        // Achievements
+    function ac_to_json() { 
+        // Convert achievements to a suitable state for save, backup, etc.
         var ac = [];
         for(var k in pd.achievements) { 
             if(pd.achievements[k].unlocked) { 
                 ac.push(k);
             }
         }
-        localStorage.ac = JSON.stringify(ac);
-        
+        return ac;
+    }
+
+    function update_save_from_pd() { 
+        localStorage.sv = JSON.stringify(pd_to_json());
+        localStorage.ac = JSON.stringify(ac_to_json());
+    }
+
+    function update_pd_from_json(sv) {
+        // Load a saved JSON object back into the game.
+        pd.cash.amount = sv.cash;
+        if(sv.cash_safe) { pd.cash.safe = sv.cash_safe; }
+        pd.widgets.amount = sv.widgets;
+        $.extend(pd.stats, sv.stats);
+        // Banks
+        if(sv.banks) {
+            for(var k in sv.banks) { 
+                if(pd.banks[k]) {
+                    pd.banks[k].amount = sv.banks[k].amount;
+                    pd.banks[k].unlocked = sv.banks[k].unlocked;
+                }
+            }
+        }
+        // Clickers
+        for(var k in sv.clickers) { 
+            if(pd.clickers[k]) {
+                pd.clickers[k].amount = sv.clickers[k].amount;
+                pd.clickers[k].unlocked = sv.clickers[k].unlocked;
+            }
+        }
+        // Sellers
+        for(var k in sv.sellers) { 
+            if(pd.sellers[k]) { 
+                pd.sellers[k].amount = sv.sellers[k].amount;
+                pd.sellers[k].unlocked = sv.sellers[k].unlocked;
+            }
+        }
+        // Upgrades
+        for(var k in sv.upgrades) { 
+            if(pd.upgrades[k]) { 
+                if(sv.upgrades[k].purchased) { 
+                    apply_upgrade(k);
+                }
+            }
+        }
+    }
+
+    function update_ac_from_json(ac) {
+        // Load a saved JSON object with achievements back into the game.
+        for(var i=0; i<ac.length; i++) {
+            if(pd.achievements[ac[i]]) { 
+                pd.achievements[ac[i]].unlocked = true;
+            }
+        }
     }
 
     function update_pd_from_save() { 
         if(localStorage.sv) { 
             var sv = $.parseJSON(localStorage.sv);
-            pd.cash.amount = sv.cash;
-            if(sv.cash_safe) { pd.cash.safe = sv.cash_safe; }
-            pd.widgets.amount = sv.widgets;
-            $.extend(pd.stats, sv.stats);
-            // Banks
-            if(sv.banks) {
-                for(var k in sv.banks) { 
-                    if(pd.banks[k]) {
-                        pd.banks[k].amount = sv.banks[k].amount;
-                        pd.banks[k].unlocked = sv.banks[k].unlocked;
-                    }
-                }
-            }
-            // Clickers
-            for(var k in sv.clickers) { 
-                if(pd.clickers[k]) {
-                    pd.clickers[k].amount = sv.clickers[k].amount;
-                    pd.clickers[k].unlocked = sv.clickers[k].unlocked;
-                }
-            }
-            // Sellers
-            for(var k in sv.sellers) { 
-                if(pd.sellers[k]) { 
-                    pd.sellers[k].amount = sv.sellers[k].amount;
-                    pd.sellers[k].unlocked = sv.sellers[k].unlocked;
-                }
-            }
-            // Upgrades
-            for(var k in sv.upgrades) { 
-                if(pd.upgrades[k]) { 
-                    if(sv.upgrades[k].purchased) { 
-                        apply_upgrade(k);
-                    }
-                }
-            }
+            update_pd_from_json(sv);
         } 
         // Achievements
         if(localStorage.ac) { 
             var ac = $.parseJSON(localStorage.ac);
-            for(var i=0; i<ac.length; i++) {
-                if(pd.achievements[ac[i]]) { 
-                    pd.achievements[ac[i]].unlocked = true;
-                }
-            }
+            update_ac_from_json(ac);
         }
     }
 
@@ -1711,13 +1729,30 @@ function Game() {
         }
     }
 
+    this.do_export = function() {
+        var exdata = {
+            'sv': pd_to_json(),
+            'ac': ac_to_json()
+        };
+        var exdata_json = JSON.stringify(exdata);
+        var exdata_base64 = Base64.encode(exdata_json);
+        $('#impexp').val(exdata_base64);
+        message('Game exported!');
+    }
+
     this.do_import = function() { 
-        var imptxt = window.prompt("Data to import","");
+        var imptxt = $('#impexp').val();
         if(imptxt == 'THANK YOU!') {
             good_message('You have unlocked the "Thank You" hidden upgrade'); 
             apply_upgrade('donator_thanks');
         }
-
+        else {
+            var exdata_json = Base64.decode($.trim(imptxt));
+            var exdata = $.parseJSON(exdata_json);
+            update_pd_from_json(exdata.sv);
+            update_ac_from_json(exdata.ac);
+            message('Game imported!');
+        }
     }
 
     this.do_reset = function() { 

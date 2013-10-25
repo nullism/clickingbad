@@ -8,6 +8,7 @@
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/mustache.js"></script>
+<script src="/js/base64.js"></script>
 {% if isapp %}
     <script>
     var has_gaq = false;
@@ -242,8 +243,12 @@ $(document).ready(function() {
                 <li><button onclick="gm.do_reset_confirm();">Reset</button></li>
                 <li><button onclick="gm.do_save();">Save</button></li>
                 <li><button onclick="gm.do_load();">Load</button></li>
-                <li><button onclick="gm.do_import();">Import</button><span class="small grey">Not yet functional</span></li>
             </ul>
+            <h4>Backup</h4>
+            <textarea id="impexp"></textarea>
+            <br>
+            <button onclick="gm.do_export();">Create backup</button>
+            <button onclick="gm.do_import();">Import backup</button>
         </div>
 
         <div class="pull_left">
