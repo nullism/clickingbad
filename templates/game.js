@@ -1710,6 +1710,9 @@ function Game() {
         pd.stats.cheated_widgets += n;
     }
     
+    this.new_do_save = function() { 
+
+    }
 
     this.do_save = function() {
         update_save_from_pd();
@@ -1717,6 +1720,10 @@ function Game() {
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_save']);
         }
+    }
+
+    this.new_do_load = function() { 
+
     }
 
     this.do_load = function() { 

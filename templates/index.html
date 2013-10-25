@@ -49,7 +49,7 @@ $(document).ready(function() {
         $('#make_div').append(elc);
         elc.show();
         elc.offset({left:e.pageX-30, top:e.pageY-50});
-        var end_y = e.pageY-150;
+        var end_y = e.clientY-150;
         elc.css('opacity',100);
         if(last_float == 1) { 
             var this_float = e.pageX;
@@ -72,7 +72,7 @@ $(document).ready(function() {
         $('#sell_div').append(elc);
         elc.show();
         elc.offset({left:e.pageX-30, top:e.pageY-50});
-        var end_y = e.pageY-150;
+        var end_y = e.clientY-150;
         elc.css('opacity',100);
         if(last_float == 1) { 
             var this_float = e.pageX;

@@ -91,8 +91,8 @@ h1 {
 }
 .make_up, .sell_up { 
     display: none;
-    z-index: 500;
-    position: absolute;
+    z-index: 1500;
+    position: fixed;
     font-size: 1.3em;
     font-weight: bold;
     color: #ccc;
