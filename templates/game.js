@@ -130,6 +130,11 @@ function Game() {
                 'label':'nearly certain (!)',
                 'color':'red',
             },
+            { 
+                'level':100000000000000000,
+                'label':'certain (!!)',
+                'color':'red',
+            },
         ],
         'cash': {
             'amount':0,
