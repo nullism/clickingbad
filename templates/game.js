@@ -265,6 +265,18 @@ function Game() {
                 'unlocked':false,
                 'sid':'b9',
             },
+            'b_franchise': {
+                'label':'Food Franchise',
+                'amount':0,
+                'description':'Why launder through a restaurant, '
+                    + 'when you can launder through an entire franchise? ',
+                'rps':4550000000,
+                'unlock_rps':25000000,
+                'cost':150500000000,
+                'base_cost':150500000000,
+                'unlocked':false,
+                'sid':'b10',
+            },
         },
 
         // MANUFACTURING
@@ -1410,7 +1422,19 @@ function Game() {
                 'group':250,
                 'min_time':1,
                 'sid':'a18',           
-            }, 
+            },
+            'senate': {
+                'label':'Government Shutdown',
+                'description':'You\'ve bought the entire senate!',
+                'property':'sellers.senator.amount',
+                'required':100,
+                'unlocked':false,
+                'hidden':true,
+                'value':1,
+                'group':228,
+                'min_time':1,           
+                'sid':'a19',
+            },
             'cheated_cash_1':{
                 'label':'Counterfeiter',
                 'description':'You\'ve hacked in some cash',
