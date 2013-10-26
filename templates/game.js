@@ -238,7 +238,7 @@ function Game() {
                 'amount':0,
                 'description':'Launder cash using an offshore finance account',
                 'rps':60000000,
-                'unlock_rps':6000000,
+                'unlock_rps':3000000,
                 'cost':4500000000,
                 'base_cost':4500000000,
                 'unlocked':false,
@@ -250,7 +250,7 @@ function Game() {
                 'description':'Launder high volumes of cash through stocks and bonds on '
                     + 'the New York Meth Exchange ',
                 'rps':750000000,
-                'unlock_rps':75000000,
+                'unlock_rps':15000000,
                 'cost':50500000000,
                 'base_cost':50500000000,
                 'unlocked':false,
@@ -439,7 +439,7 @@ function Game() {
                 'rps':492005000,
                 'base_cost':410302501000000,
                 'cost':410302501000000,
-                'unlock_rps':130000000,
+                'unlock_rps':53000000,
                 'unlocked':false,
                 'sid':'c15',
             },
@@ -629,10 +629,10 @@ function Game() {
                     +'but it\'s very risky, as you would imagine',
                 'amount':0,
                 'risk':0.55,
-                'rps':550050000,
+                'rps':492005000,
                 'base_cost':410325015000000,
                 'cost':410325015000000,
-                'unlock_rps':130000000,
+                'unlock_rps':53000000,
                 'unlocked':false,
                 'sid':'s15',
             },
@@ -1685,11 +1685,6 @@ function Game() {
         return parseInt(s, 24);
     }
     
-
-    function new_pd_to_save() { 
-        return new_pd_to_json();        
-    }
-
     function pd_to_json() { 
         // Convert the current game state to a JSON object suitable for saves,
         // backups, etc.
@@ -1704,6 +1699,7 @@ function Game() {
             'stats':pd.stats,
             'version':pd.version,
         };
+    
         // Banks
         for(var k in pd.banks) { 
             if(pd.banks[k].unlocked) {
