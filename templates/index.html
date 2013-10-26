@@ -51,6 +51,7 @@ $(document).ready(function() {
     // Events
     $('#make_btn').click(function(e) { 
         gm.do_make_click();
+        {% if not isapp %}
         var elc = $('.make_up:first').clone()
         elc.html('+'+pretty_int(gm.get_click_make_amount()));
         $('#make_div').append(elc);
@@ -68,12 +69,14 @@ $(document).ready(function() {
         elc.animate({'top':end_y.toString()+'px', 'opacity':0, 'left':this_float.toString()+'px'}, 750, function() { 
             $(this).remove();
         });
+        {% endif %}
     });
     $('#sell_btn').click(function(e) { 
         var sale = gm.do_sell_click();
         if(sale == 0) { 
             return;
         }
+        {% if not isapp %}
         var elc = $('.sell_up:first').clone()
         elc.html('$'+pretty_int(sale*gm.get_widget_roi()));
         $('#sell_div').append(elc);
@@ -91,36 +94,11 @@ $(document).ready(function() {
         elc.animate({'top':end_y.toString()+'px', 'opacity':0, 'left':this_float.toString()+'px'}, 750, function() { 
             $(this).remove();
         });
-    });
-    $('#sell_btn').click(function(e) { 
-        var sale = gm.do_sell_click();
-        if(sale == 0) { 
-            return;
-        }
-        var elc = $('.sell_up:first').clone()
-        elc.html('$'+pretty_int(sale*gm.get_widget_roi()));
-        $('#sell_div').append(elc);
-        elc.show();
-        elc.offset({left:e.pageX-30, top:e.pageY-50});
-        var end_y = e.pageY-150;
-        elc.css('opacity',100);
-        if(last_float == 1) { 
-            var this_float = e.pageX;
-            last_float = 0;
-        } else { 
-            var this_float = e.pageX - 60;
-            last_float = 1; 
-        }
-        elc.animate({'top':end_y.toString()+'px', 'opacity':0, 'left':this_float.toString()+'px'}, 
-            750, 
-            function() { 
-                $(this).remove();
-            }
-        );
+        {% endif %}
     });
 
     // End actions
-    switch_tab('manufacturing');
+    switch_tab('clickers');
     $('button').attr('disabled', false);
 });
 
@@ -169,16 +147,16 @@ $(document).ready(function() {
 </div> <!-- End left_wrap -->
 
 <div id="tab_btns" class="tabs">
-    <button onclick="switch_tab('manufacturing');" id="manufacturing_tab" class="tab">
+    <button onclick="switch_tab('clickers');" id="clickers_tab" class="tab">
         Manufacturing (<span id="clickers_unlocked">0</span>/<span id="clickers_total">0</span>)
     </button>
-    <button onclick="switch_tab('distribution');" id="distribution_tab" class="tab">
+    <button onclick="switch_tab('sellers');" id="sellers_tab" class="tab">
         Distribution (<span id="sellers_unlocked">0</span>/<span id="sellers_total">0</span>)
     </button>
     <button onclick="switch_tab('upgrades');" id="upgrades_tab" class="tab">
         Upgrades (<span id="upgrades_unlocked">0</span>/<span id="upgrades_total">0</span>)
     </button>
-    <button onclick="switch_tab('finances');" id="finances_tab" class="tab">
+    <button onclick="switch_tab('banks');" id="banks_tab" class="tab">
         Laundering (<span id="banks_unlocked">0</span>/<span id="banks_total">0</span>)
     </button>
     <button onclick="switch_tab('achievements');" id="achievements_tab" class="tab">
@@ -194,11 +172,11 @@ $(document).ready(function() {
 
 <div id="tab_divs">
 
-    <div class="tab_div" id="manufacturing_div" style="display:none;">
+    <div class="tab_div" id="clickers_div" style="display:none;">
         <div id="clickers"></div>
     </div>
 
-    <div class="tab_div" id="distribution_div" style="display:none;">
+    <div class="tab_div" id="sellers_div" style="display:none;">
         <div id="sellers"></div>
     </div>
 
@@ -206,7 +184,7 @@ $(document).ready(function() {
         <div id="upgrades"></div>
     </div>
 
-    <div class="tab_div" id="finances_div" style="display:none;">
+    <div class="tab_div" id="banks_div" style="display:none;">
         <div class="w_div">
             <h3>
                 <a href="#" onclick="$('#toggle_finance_info').toggle(100); return false;">

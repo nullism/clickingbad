@@ -31,11 +31,15 @@ var stat_tmr = null;
 var event_tmr = null;
 var ver_tmr = null;
 var last_tick = (new Date).getTime();
-var last_save = (new Date).getTime();
+var last_saved = 0;
 var last_click = 0;
 var last_bust = 0;
 var last_float = 10;
+{% if isapp %}
+var tick_ms = 200;
+{% else %}
 var tick_ms = 100;
+{% endif %}
 //var has_gaq = true;
 
 
@@ -1503,6 +1507,7 @@ function Game() {
             'made_widgets':0,
             'sold_widgets':0,
             'hand_sold_widgets':0,
+            'seconds_played':0,
             'bought_upgrades':0,
             'total_cash':0,
             'start_time':(new Date).getTime(),
@@ -1957,7 +1962,7 @@ function Game() {
     this.do_save = function() {
         update_save_from_pd();
         new_update_save_from_pd();
-        last_save = (new Date).getTime();
+        last_saved = 0;
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_save']);
         }
@@ -2029,11 +2034,13 @@ function Game() {
     }
 
     this.do_make_click = function() { 
+        {% if not isapp %}
         var nw = (new Date).getTime();
         if((nw - last_click) < 70) { 
             return false;
         }
         last_click = nw;
+        {% endif %}
         var amt = this.get_click_make_amount();
         if(do_make(amt)) { 
             //message('You made '+pretty_int(pd.make_amount)+' '+pd.widgets.label);
@@ -2057,11 +2064,13 @@ function Game() {
     }
 
     this.do_sell_click = function() {
+        {% if not isapp %}
         var nw = (new Date).getTime();
         if((nw - last_click) < 70) {
             return false;
         } 
         last_click = nw;
+        {% endif %}
         var sale = do_sell(this.get_click_sell_amount());
         if(sale) { 
             //message('You sold '+pretty_int(sale)+' '+pd.widgets.label);
@@ -2263,12 +2272,13 @@ function Game() {
     }
 
     function fix_banks() {
-        var bn_unl = 0;
-        var bn_tot = 0;
+        if(active_tab != 'banks') { 
+            return; 
+        }
+
         $('#bank_rps').html(pretty_int(pd.stats.bank_rps));
         $('#bank_total').html(pretty_int(pd.cash.safe));
         for(var k in pd.banks) {
-            bn_tot += 1; 
             var bn = pd.banks[k];
             bn.cost = get_item_cost(bn);
             var el = $('#'+k);
@@ -2301,10 +2311,7 @@ function Game() {
             }
                 
             el.removeClass('hidden');
-            bn_unl += 1;
         }
-        $('#banks_total').html(pretty_int(bn_tot));
-        $('#banks_unlocked').html(pretty_int(bn_unl));
     }
 
     function fix_risk() { 
@@ -2330,8 +2337,8 @@ function Game() {
     }
 
     function fix_saved() { 
-        var s_ago = Math.round(((new Date).getTime() - last_save) / 1000);
-        $('#last_saved').html('Game saved '+s_ago+' seconds ago');
+        last_saved += 1;
+        $('#last_saved').html('Game saved '+last_saved+' seconds ago');
     }
 
     function fix_title() { 
@@ -2357,13 +2364,11 @@ function Game() {
         $('#clicker_rps_g').html(pretty_int(pd.stats.clicker_rps));
     }
 
-    function fix_clickers() { 
-        var hd_unl = $('#clickers_unlocked');
-        var hd_tot = $('#clickers_total');
-        var cl_tot = 0;
-        var cl_unl = 0;
+    function fix_clickers() {
+        if(active_tab != 'clickers') {
+            return false;
+        } 
         for(var k in pd.clickers) { 
-            cl_tot += 1;
             var el = $('#'+k);
             var el_btn = $('#'+k+'_btn');
             var el_sell_btn = $('#'+k+'_sell_btn');
@@ -2389,7 +2394,6 @@ function Game() {
             if(!cl.unlocked) { 
                 el.addClass('hidden');
             } else { 
-                cl_unl += 1;
                 el.removeClass('hidden');
             }
             el_cst.html(pretty_int(cl.cost));
@@ -2397,17 +2401,13 @@ function Game() {
             el_rps.html(pretty_int(cl.rps));
             el_rsk.html(pretty_int(cl.risk * 100));
         }
-        hd_unl.html(pretty_int(cl_unl));
-        hd_tot.html(pretty_int(cl_tot));
     }
 
-    function fix_sellers() { 
-        var hd_unl = $('#sellers_unlocked');
-        var hd_tot = $('#sellers_total');
-        var sl_tot = 0;
-        var sl_unl = 0;
+    function fix_sellers() {
+        if(active_tab != 'sellers') { 
+            return;
+        } 
         for(var k in pd.sellers) { 
-            sl_tot += 1;
             var el = $('#'+k);
             var el_btn = $('#'+k+'_btn');
             var el_sell_btn = $('#'+k+'_sell_btn');
@@ -2435,36 +2435,55 @@ function Game() {
                 el.addClass('hidden');
             } else { 
                 el.removeClass('hidden');
-                sl_unl += 1;
             }
             el_cst.html(pretty_int(sl.cost));
             el_amt.html(pretty_int(sl.amount));
             el_rps.html(pretty_int(sl.rps));
             el_rsk.html(pretty_int(sl.risk * 100));
         }
-        hd_unl.html(pretty_int(sl_unl));
-        hd_tot.html(pretty_int(sl_tot));
     }
 
-    function fix_unlocks() { 
+    function fix_unlocks() {
+        var cl_unl = 0;
+        var cl_tot = 0; 
         for(var k in pd.clickers) { 
+            cl_tot += 1;
             var cl = pd.clickers[k];
             if(cl.unlock_rps <= pd.stats.seller_rps) { 
                 cl.unlocked = true;
+                cl_unl += 1;
             }
         }
+        $('#clickers_unlocked').html(pretty_int(cl_unl));
+        $('#clickers_total').html(pretty_int(cl_tot));
+
+    
+        var sl_unl = 0;
+        var sl_tot = 0;
         for(var k in pd.sellers) { 
+            sl_tot += 1;
             var sl = pd.sellers[k];
             if(sl.unlock_rps <= pd.stats.seller_rps) {
+                sl_unl += 1;
                 sl.unlocked = true;        
             }
         }
+        $('#sellers_unlocked').html(pretty_int(cl_unl));
+        $('#sellers_total').html(pretty_int(cl_tot));
+
+        var bn_unl = 0;
+        var bn_tot = 0;
         for(var k in pd.banks) { 
+            bn_tot += 1;
             var bn = pd.banks[k];
             if(bn.unlock_rps <= pd.stats.seller_rps) { 
+                bn_unl += 1;
                 bn.unlocked = true;
             }
         }
+        $('#banks_total').html(pretty_int(bn_tot));
+        $('#banks_unlocked').html(pretty_int(bn_unl));
+
     }
 
     function fix_upgrades() {
@@ -2513,7 +2532,7 @@ function Game() {
 
 
     function fix_stats() {
-        var sec_played = Math.round(((new Date).getTime() - pd.stats.start_time) / 1000);
+        pd.stats.seconds_played += 1;
         pd.stats.bought_upgrades = 0;
         for(var k in pd.upgrades) { 
             if(pd.upgrades[k].purchased) { 
@@ -2526,7 +2545,7 @@ function Game() {
         $('#hand_sold_widgets').html(pretty_int(pd.stats.hand_sold_widgets));
         $('#total_cash').html(pretty_int(pd.stats.total_cash));
         $('#bought_upgrades').html(pretty_int(pd.stats.bought_upgrades));
-        $('#time_played').html(pretty_int(sec_played));
+        $('#time_played').html(pretty_int(pd.stats.seconds_played));
     }
 
     /****************************************************************************** 
