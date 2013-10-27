@@ -1205,7 +1205,17 @@ function Game() {
                 'prereq':'u_nyme_1',                          
                 'sid':'u52',
             },
-
+            'u_franchise': {
+                'label':'Fortune 500 Franchise',
+                'description':''
+                    + 'Each franchise can now launder an extra $2B per second',
+                'cost':590000555000,
+                'action':'banks.b_franchise.rps',
+                'mod':2000000000,
+                'purchased':false,
+                'prereq':'u_nyme_2',                          
+                'sid':'u53',
+            },
             'donator_thanks':{
                 'label':'Thank You',
                 'description':'Thanks for donating, your meth is now worth $50 more per batch',
