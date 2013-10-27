@@ -2098,7 +2098,7 @@ function Game() {
             return false;
         }
         bn.amount += 1;
-        message('You have bought a '+bn.label);
+        message('You have purchased a '+bn.label+' for $'+pretty_int(bn.cost));
         if(has_gaq) {
             _gaq.push(['_trackPageview','/game_buy_bank']);
         }
@@ -2123,7 +2123,7 @@ function Game() {
             return false;
         }
         cl.amount += 1;
-        message('You have purchased a '+cl.label);
+        message('You have purchased a '+cl.label+' for $'+pretty_int(cl.cost));
         fix_clickers();
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_buy_clicker']);
@@ -2149,7 +2149,7 @@ function Game() {
             return false;
         }
         sl.amount += 1;
-        message('You have purchased a '+sl.label);
+        message('You have purchased a '+sl.label+' for $'+pretty_int(sl.cost));
         fix_sellers();
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_buy_seller']);
@@ -2178,7 +2178,7 @@ function Game() {
         if(!spend_cash(upg.cost)) {
             return false; 
         } 
-        message('You have unlocked '+upg.label);
+        message('You have unlocked '+upg.label+' for $'+pretty_int(upg.cost));
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_buy_upgrade']);
         }
