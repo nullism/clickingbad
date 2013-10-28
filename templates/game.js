@@ -159,7 +159,9 @@ function Game() {
                 20: 'Crystal',
                 25: 'Blue Gold',
                 50: 'Blue Platinum',
-                1000: 'FDA Approved Additive',
+                100: 'FDA Approved Additive',
+                200: 'Atomically Perfect',
+                1000: 'Holy',
             },
         },
 
@@ -464,6 +466,18 @@ function Game() {
                 'unlocked':false,
                 'sid':'c15',
             },
+            'c_planet':{
+                'label':'Planetary Meth Replicator',
+                'description':'Convert all of a planet\'s matter into pure crystal',
+                'amount':0,
+                'risk':0.000001,
+                'rps':1590000000,
+                'base_cost':1910000000000000,
+                'cost':1910000000000000,
+                'unlock_rps':110000000,
+                'unlocked':false,
+                'sid':'c16',
+            },
         },
         // END clickers
 
@@ -656,6 +670,19 @@ function Game() {
                 'unlock_rps':53000000,
                 'unlocked':false,
                 'sid':'s15',
+            },
+            's_meth_relay':{
+                'label':'Intergalactic Meth Relay',
+                'description':'Distribute meth to crank-lovin\' sentient life from '
+                    + 'the far reaches of the galaxy',
+                'amount':0,
+                'risk':0.00001,
+                'rps':1590000000,
+                'base_cost':1910000000000000,
+                'cost':1910000000000000,
+                'unlock_rps':110000000,
+                'unlocked':false,
+                'sid':'s16',
             },
         }, 
         // END sellers
@@ -1439,11 +1466,23 @@ function Game() {
                 'property':'sellers.senator.amount',
                 'required':100,
                 'unlocked':false,
-                'hidden':true,
+                'hidden':false,
                 'value':1,
                 'group':228,
                 'min_time':1,           
                 'sid':'a19',
+            },
+            'a_franchise': {
+                'label':'McLaunder\'s',
+                'description':'You\'ve bought a franchise!',
+                'property':'banks.b_franchise.amount',
+                'required':1,
+                'unlocked':false,
+                'hidden':false,
+                'value':1,
+                'group':229,
+                'min_time':1,           
+                'sid':'a20',
             },
             'cheated_cash_1':{
                 'label':'Counterfeiter',
@@ -1477,62 +1516,43 @@ function Game() {
             'cash_found_small':{
                 'chance':0.04,
                 'action':'event_found_cash(60)',
-                'min_d_level':0,
-                'max_d_level':2,
             },
             'cash_found_med': {
                 'chance':0.005,
                 'action':'event_found_cash(240)',
-                'min_d_level':0,
-                'max_d_level':1,
             },
             'cash_found_large': {
                 'chance':0.001,
                 'action':'event_found_cash(640)',
-                'min_d_level':0,
-                'max_d_level':0,
             },
             'meth_found_small':{
                 'chance':0.04,
                 'action':'event_found_meth(120)',
-                'min_d_level':0,
-                'max_d_level':1,
             },
             'building_seized':{
                 'chance':0.2,
                 'action':'event_dea_seize_building()',
-                'min_d_level':0,
-                'max_d_level':2,
             },
             'cash_lost': { 
                 'chance':0.007,
                 'action':'event_lose_cash(60)',
-                'min_d_level':0,
-                'max_d_level':2,
             },
             'rival_cash_lost': { 
                 'chance':0.005,
                 'action':'event_rival_lose_cash(205)',
-                'min_d_level':0,
-                'max_d_level':2,
             },
             'pay_bribe':{
                 'chance':0.01,
                 'action':'event_pay_bribe(125)',
-                'min_d_level':0,
-                'max_d_level':3,
             },
             'lose_meth':{
                 'chance':0.005,
                 'action':'event_lose_meth(125)',
-                'min_d_level':0,
-                'max_d_level':3,
             },
-            // DIFFICULTY 0 EVENTS (Easy)
-            
-            // DIFFICULTY 1 EVENTS (Medium)
-
-            // DIFFICULTY 2 EVENTS (Hard)
+            'irs_audit_1': { 
+                'chance':0.2,
+                'action':'event_irs_audit(0.5)',
+            },
             
         },
         // STATISTICS
@@ -1661,10 +1681,7 @@ function Game() {
         if(pd.cash.safe > pd.cash.amount) { 
             return 0;
         }
-        if(pd.cash.safe / pd.cash.amount) { 
-            return 0.5 - (pd.cash.safe / pd.cash.amount);
-        }
-        return 0;
+        return 0.5 - (pd.cash.safe / pd.cash.amount);
     }
 
 
@@ -1956,15 +1973,16 @@ function Game() {
     }
 
     function update_pd_from_save() { 
-        if(localStorage.sv) { 
-            var sv = $.parseJSON(localStorage.sv);
-            update_pd_from_json(sv);
-        } 
         // Achievements
         if(localStorage.ac) { 
             var ac = $.parseJSON(localStorage.ac);
             update_ac_from_json(ac);
         }
+
+        if(localStorage.sv) { 
+            var sv = $.parseJSON(localStorage.sv);
+            update_pd_from_json(sv);
+        } 
     }
     function new_update_pd_from_save() { 
         // Achievements
@@ -2012,7 +2030,7 @@ function Game() {
     }
 
     this.do_load = function() { 
-        if(localStorage.sv) { 
+        if((localStorage.sv)||(localStorage.ac)) { 
             update_pd_from_save();
             message('Game loaded!');
             if(has_gaq) { 
@@ -2050,21 +2068,37 @@ function Game() {
     }
 
     this.do_reset = function() { 
-        localStorage.clear();
+        localStorage.removeItem("sv");
+        localStorage.removeItem("sv2");
         message('Game reset');
-        location.reload();
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_reset']);
         }
+        location.reload();
+    }
+    this.do_reset_all = function() { 
+        localStorage.clear();
+        message('Game reset - all');
+        if(has_gaq) { 
+            _gaq.push(['_trackPageview','/game_reset_all']);
+        }
+        location.reload();
     }
 
     this.do_reset_confirm = function() { 
-        var ok = confirm('Are you sure? You\'ll lose everything.');
+        var ok = confirm('Are you sure? You\'ll lose everything '
+            + 'except Achievements.');
         if(ok) { 
             this.do_reset();
         }
     }
-
+    this.do_reset_all_confirm = function() { 
+        var ok = confirm('Are you sure? You\'ll lose everything, '
+            + 'including Achievements.');
+        if(ok) { 
+            this.do_reset_all();
+        }
+    }
 
     function do_make(n) {
         pd.widgets.amount += n;   
@@ -2146,7 +2180,7 @@ function Game() {
             return false;
         }
         bn.amount += 1;
-        message('You have purchased a '+bn.label+' for $'+pretty_int(bn.cost));
+        message('You have purchased a '+bn.label+' for $'+pretty_bigint(bn.cost));
         if(has_gaq) {
             _gaq.push(['_trackPageview','/game_buy_bank']);
         }
@@ -2160,7 +2194,7 @@ function Game() {
         }
         var sell_val = get_item_sell_value(bn);
         earn_cash(sell_val);
-        message('You sold a '+bn.label+' for $'+pretty_int(sell_val));
+        message('You sold a '+bn.label+' for $'+pretty_bigint(sell_val));
         bn.amount -= 1;
         return true;
     }
@@ -2171,7 +2205,7 @@ function Game() {
             return false;
         }
         cl.amount += 1;
-        message('You have purchased a '+cl.label+' for $'+pretty_int(cl.cost));
+        message('You have purchased a '+cl.label+' for $'+pretty_bigint(cl.cost));
         fix_clickers();
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_buy_clicker']);
@@ -2186,7 +2220,7 @@ function Game() {
         }
         var sell_val = get_item_sell_value(cl);
         earn_cash(sell_val);
-        message('You sold a '+cl.label+' for $'+pretty_int(sell_val));
+        message('You sold a '+cl.label+' for $'+pretty_bigint(sell_val));
         cl.amount -= 1;
         return true;
     }
@@ -2197,7 +2231,7 @@ function Game() {
             return false;
         }
         sl.amount += 1;
-        message('You have purchased a '+sl.label+' for $'+pretty_int(sl.cost));
+        message('You have purchased a '+sl.label+' for $'+pretty_bigint(sl.cost));
         fix_sellers();
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_buy_seller']);
@@ -2212,7 +2246,7 @@ function Game() {
         }
         var sell_val = get_item_sell_value(sl);
         earn_cash(sell_val);
-        message('You sold a '+sl.label+' for $'+pretty_int(sell_val));
+        message('You sold a '+sl.label+' for $'+pretty_bigint(sell_val));
         sl.amount -= 1;
         return true;
     }
@@ -2226,7 +2260,7 @@ function Game() {
         if(!spend_cash(upg.cost)) {
             return false; 
         } 
-        message('You have unlocked '+upg.label+' for $'+pretty_int(upg.cost));
+        message('You have unlocked '+upg.label+' for $'+pretty_bigint(upg.cost));
         if(has_gaq) { 
             _gaq.push(['_trackPageview','/game_buy_upgrade']);
         }
@@ -2284,8 +2318,9 @@ function Game() {
     }
 
     function fix_achievements() {
-        var ac_unl = 0;
-        var ac_tot = 0; 
+        if(active_tab != 'achievements') { 
+            return false;
+        }
         for(var k in pd.achievements) { 
             var ac = pd.achievements[k];
             var el = $('#'+k);
@@ -2294,20 +2329,17 @@ function Game() {
                 el.addClass('hidden'); 
                 continue;
             }
-            ac_tot += 1;
             if(ac.unlocked) { 
-                ac_unl += 1;
                 el.removeClass('hidden');
                 el.removeClass('semi_trans');
                 el_lbl.addClass('purchased');
+                el.removeClass('locked');
             } else { 
                 el.addClass('locked');
                 el.addClass('semi_trans');
             }
         }
 
-        $('#achievements_unlocked').html(pretty_int(ac_unl));
-        $('#achievements_total').html(pretty_int(ac_tot));
     }
 
     function fix_banks() {
@@ -2329,8 +2361,8 @@ function Game() {
             var el_rps = $('#'+k+'_rps');
         
             el_amt.html(pretty_int(bn.amount));
-            el_cst.html(pretty_int(bn.cost));
-            el_rps.html(pretty_int(bn.rps));
+            el_cst.html(pretty_bigint(bn.cost));
+            el_rps.html(pretty_bigint(bn.rps));
 
             if((!bn.unlocked)) { 
                 el.addClass('hidden');
@@ -2381,7 +2413,7 @@ function Game() {
     }
 
     function fix_title() { 
-        document.title = '$'+pretty_int(pd.cash.amount)+' | '+pd.title;
+        document.title = '$'+pretty_bigint(pd.cash.amount)+' | '+pd.title;
     }
 
     function fix_make_sell() { 
@@ -2435,9 +2467,9 @@ function Game() {
             } else { 
                 el.removeClass('hidden');
             }
-            el_cst.html(pretty_int(cl.cost));
+            el_cst.html(pretty_bigint(cl.cost));
             el_amt.html(pretty_int(cl.amount));
-            el_rps.html(pretty_int(cl.rps));
+            el_rps.html(pretty_bigint(cl.rps));
             el_rsk.html(pretty_int(cl.risk * 100));
         }
     }
@@ -2475,14 +2507,15 @@ function Game() {
             } else { 
                 el.removeClass('hidden');
             }
-            el_cst.html(pretty_int(sl.cost));
+            el_cst.html(pretty_bigint(sl.cost));
             el_amt.html(pretty_int(sl.amount));
-            el_rps.html(pretty_int(sl.rps));
+            el_rps.html(pretty_bigint(sl.rps));
             el_rsk.html(pretty_int(sl.risk * 100));
         }
     }
 
     function fix_unlocks() {
+        // Clickers
         var cl_unl = 0;
         var cl_tot = 0; 
         for(var k in pd.clickers) { 
@@ -2496,7 +2529,7 @@ function Game() {
         $('#clickers_unlocked').html(pretty_int(cl_unl));
         $('#clickers_total').html(pretty_int(cl_tot));
 
-    
+        // Sellers
         var sl_unl = 0;
         var sl_tot = 0;
         for(var k in pd.sellers) { 
@@ -2510,6 +2543,7 @@ function Game() {
         $('#sellers_unlocked').html(pretty_int(cl_unl));
         $('#sellers_total').html(pretty_int(cl_tot));
 
+        // Banks
         var bn_unl = 0;
         var bn_tot = 0;
         for(var k in pd.banks) { 
@@ -2522,6 +2556,19 @@ function Game() {
         }
         $('#banks_total').html(pretty_int(bn_tot));
         $('#banks_unlocked').html(pretty_int(bn_unl));
+
+        // Achievements
+        var ac_unl = 0;
+        var ac_tot = 0;
+        for(var k in pd.achievements) { 
+            ac_tot += 1;
+            var ac = pd.achievements[k];
+            if(ac.unlocked) { 
+                ac_unl += 1;
+            }
+        }
+        $('#achievements_unlocked').html(pretty_int(ac_unl));
+        $('#achievements_total').html(pretty_int(ac_tot));
 
     }
 
@@ -2556,7 +2603,7 @@ function Game() {
                 el_cst.html('&#10004;');
                 up_unl += 1;
             } else { 
-                el_cst.html('$'+pretty_int(upg.cost));
+                el_cst.html('$'+pretty_bigint(upg.cost));
             }
             if(pd.cash.amount < upg.cost) { 
                 el_btn.attr('disabled', true);
@@ -2741,6 +2788,23 @@ function Game() {
 
     // Custom Events ---------------------------------------------------------------
 
+    // IRS audit - small; n = % of cash
+    function event_irs_audit(n) { 
+        var rsk = get_risk2();
+        if(rsk < Math.random()) { 
+            good_message('You were able to avoid an IRS audit');
+            return;
+        }
+        var amt = pd.cash.amount * n;
+        amt -= get_safe_cash();
+        if(amt < 1) {
+            good_message('The IRS was unable to find any unlaundered cash to seize');
+            return;
+        }
+        pd.cash.amount -= amt;
+        bad_message('The IRS has confiscated $'+pretty_bigint(amt)+' of your funds');
+    }
+
 
     // Meth found, meth per second * r
     function event_found_meth(r) { 
@@ -2923,6 +2987,31 @@ function switch_tab(tbid) {
 function toggle_tab(tbid) { 
     $('#'+tbid+'_div').toggle(200);
     return false;
+}
+
+function pretty_bigint(num) { 
+    var sn = '';
+    if(num > 1000000000000000000) { 
+        sn = Math.round((num / 1000000000000000000) * 100) / 100;
+        return sn + 'Quint';
+    }
+    if(num > 1000000000000000) { 
+        sn = Math.round((num / 1000000000000000)*100) / 100;
+        return sn + 'Q';
+    }
+    if(num > 1000000000000) { 
+        sn = Math.round((num / 1000000000000) * 100) / 100;
+        return sn + 'T';
+    }
+    if(num > 1000000000) { 
+        sn = Math.round((num / 1000000000) * 100) / 100;
+        return sn + 'B';
+    }
+    if(num > 1000000) { 
+        sn = Math.round((num / 1000000) * 100) / 100;
+        return sn + 'M';
+    } 
+    return pretty_int(num);
 }
 
 function pretty_int(num) {
