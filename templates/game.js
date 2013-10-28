@@ -1592,6 +1592,14 @@ function Game() {
         }
         last_tick = this_tick;
 
+        // Negative fix
+        if(pd.cash.amount < 0) { 
+            pd.cash.amount = 0;
+        } 
+        if(pd.widgets.amount < 0) { 
+            pd.widgets.amount = 0;
+        }
+
         // Make widgets (meth)
         var make_amount = 0;
         for(var k in pd.clickers) {
