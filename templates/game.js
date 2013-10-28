@@ -1640,15 +1640,15 @@ function Game() {
 
     // Calculate and return the player's risk level
     function get_risk() { 
-        var rsk = 0;
+        var rsk = 0.5;
         for(var k in pd.clickers) { 
             if(pd.clickers[k].risk) { 
-                rsk += pd.clickers[k].risk * pd.clickers[k].amount;
+                rsk *= Math.pow(1 + pd.clickers[k].risk, pd.clickers[k].amount);
             }
         }
         for(var k in pd.sellers) { 
             if(pd.sellers[k].risk) { 
-                rsk += pd.sellers[k].risk * pd.sellers[k].amount;
+                rsk *= Math.pow(1 + pd.sellers[k].risk, pd.sellers[k].amount);
             }
         }
         return rsk;
