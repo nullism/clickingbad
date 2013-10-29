@@ -1881,6 +1881,7 @@ function Game() {
         }
         return ac;
     }
+
     function new_ac_to_json() { 
         var ac = [];
         for(var k in pd.achievements) { 
