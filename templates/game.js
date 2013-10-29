@@ -2591,11 +2591,14 @@ function Game() {
         var ac_unl = 0;
         var ac_tot = 0;
         for(var k in pd.achievements) { 
-            ac_tot += 1;
             var ac = pd.achievements[k];
+            if((!ac.unlocked)&&(ac.hidden)) { 
+                continue;
+            }
             if(ac.unlocked) { 
                 ac_unl += 1;
             }
+            ac_tot += 1;
         }
         $('#achievements_unlocked').html(pretty_int(ac_unl));
         $('#achievements_total').html(pretty_int(ac_tot));
