@@ -279,6 +279,17 @@ function Game() {
                 'unlocked':false,
                 'sid':'b10',
             },
+            'b_cantina': {
+                'label':'Space Cantina',
+                'amount':0,
+                'description':'Launder your cash on an intergalactic scale with the Space Cantina',
+                'rps':14550000000,
+                'unlock_rps':30000000,
+                'cost':750500000000,
+                'base_cost':750500000000,
+                'unlocked':false,
+                'sid':'b11',
+            },
         },
 
         // MANUFACTURING
@@ -1242,6 +1253,17 @@ function Game() {
                 'purchased':false,
                 'prereq':'u_nyme_2',                          
                 'sid':'u53',
+            },
+            'u_cantina': {
+                'label':'Cantina Band',
+                'description':''
+                    + 'Increase Cantina laundering speed by $5B with live flute music ',
+                'cost':1590000555000,
+                'action':'banks.b_cantina.rps',
+                'mod':5000000000,
+                'purchased':false,
+                'prereq':'u_franchise',                          
+                'sid':'u54',
             },
             'donator_thanks':{
                 'label':'Thank You',
