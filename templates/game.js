@@ -2449,20 +2449,20 @@ function Game() {
     function fix_make_sell() { 
         $('#sell_btn').html(pd.cash.action_label);
         $('#sell_lbl').html(pd.cash.label);
-        $('#sell_amt').html(pretty_bigint(pd.cash.amount));
-        $('#sell_roi').html(pretty_bigint(pd.widget_roi));
-        $('#safe_cash').html(pretty_bigint(get_safe_cash()));
+        $('#sell_amt').html(pretty_int(pd.cash.amount));
+        $('#sell_roi').html(pretty_int(pd.widget_roi));
+        $('#safe_cash').html(pretty_int(get_safe_cash()));
         var sell_rate = pd.stats.seller_rps;
         if((pd.stats.seller_rps > pd.stats.clicker_rps)&&(pd.widgets.amount < pd.stats.seller_rps)) { 
             sell_rate = pd.stats.clicker_rps;
         }
-        $('#seller_rps').html(pretty_bigint(sell_rate * pd.widget_roi));
+        $('#seller_rps').html(pretty_int(sell_rate * pd.widget_roi));
         $('#make_btn').html(pd.widgets.action_label);
         $('#make_lbl').html(pd.widgets.label);
-        $('#make_amt').html(pretty_bigint(pd.widgets.amount));
+        $('#make_amt').html(pretty_int(pd.widgets.amount));
         $('#make_qlt').html(get_widget_quality());
-        $('#clicker_rps').html(pretty_bigint(pd.stats.clicker_rps-pd.stats.seller_rps));
-        $('#clicker_rps_g').html(pretty_bigint(pd.stats.clicker_rps));
+        $('#clicker_rps').html(pretty_int(pd.stats.clicker_rps-pd.stats.seller_rps));
+        $('#clicker_rps_g').html(pretty_int(pd.stats.clicker_rps));
     }
 
     function fix_clickers() {
@@ -3024,9 +3024,13 @@ function toggle_tab(tbid) {
 
 function pretty_bigint(num) { 
     var sn = '';
+    if(num > 1000000000000000000000) { 
+        sn = Math.round((num / 1000000000000000000000) * 100) / 100;
+        return sn + 'S';
+    }
     if(num > 1000000000000000000) { 
         sn = Math.round((num / 1000000000000000000) * 100) / 100;
-        return sn + 'Quint';
+        return sn + 'Qt';
     }
     if(num > 1000000000000000) { 
         sn = Math.round((num / 1000000000000000)*100) / 100;
