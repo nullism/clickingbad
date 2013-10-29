@@ -3025,6 +3025,9 @@ function toggle_tab(tbid) {
 
 function pretty_bigint(num) { 
     var sn = '';
+    if(num > 1000000000000000000000000) { 
+        return pretty_int(num)
+    }    
     if(num > 1000000000000000000000) { 
         sn = Math.round((num / 1000000000000000000000) * 100) / 100;
         return sn + 'S';
