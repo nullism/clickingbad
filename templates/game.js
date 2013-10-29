@@ -2377,8 +2377,8 @@ function Game() {
             return; 
         }
 
-        $('#bank_rps').html(pretty_int(pd.stats.bank_rps));
-        $('#bank_total').html(pretty_int(pd.cash.safe));
+        $('#bank_rps').html(pretty_bigint(pd.stats.bank_rps));
+        $('#bank_total').html(pretty_bigint(pd.cash.safe));
         for(var k in pd.banks) {
             var bn = pd.banks[k];
             bn.cost = get_item_cost(bn);
@@ -2449,20 +2449,20 @@ function Game() {
     function fix_make_sell() { 
         $('#sell_btn').html(pd.cash.action_label);
         $('#sell_lbl').html(pd.cash.label);
-        $('#sell_amt').html(pretty_int(pd.cash.amount));
-        $('#sell_roi').html(pretty_int(pd.widget_roi));
-        $('#safe_cash').html(pretty_int(get_safe_cash()));
+        $('#sell_amt').html(pretty_bigint(pd.cash.amount));
+        $('#sell_roi').html(pretty_bigint(pd.widget_roi));
+        $('#safe_cash').html(pretty_bigint(get_safe_cash()));
         var sell_rate = pd.stats.seller_rps;
         if((pd.stats.seller_rps > pd.stats.clicker_rps)&&(pd.widgets.amount < pd.stats.seller_rps)) { 
             sell_rate = pd.stats.clicker_rps;
         }
-        $('#seller_rps').html(pretty_int(sell_rate * pd.widget_roi));
+        $('#seller_rps').html(pretty_bigint(sell_rate * pd.widget_roi));
         $('#make_btn').html(pd.widgets.action_label);
         $('#make_lbl').html(pd.widgets.label);
-        $('#make_amt').html(pretty_int(pd.widgets.amount));
+        $('#make_amt').html(pretty_bigint(pd.widgets.amount));
         $('#make_qlt').html(get_widget_quality());
-        $('#clicker_rps').html(pretty_int(pd.stats.clicker_rps-pd.stats.seller_rps));
-        $('#clicker_rps_g').html(pretty_int(pd.stats.clicker_rps));
+        $('#clicker_rps').html(pretty_bigint(pd.stats.clicker_rps-pd.stats.seller_rps));
+        $('#clicker_rps_g').html(pretty_bigint(pd.stats.clicker_rps));
     }
 
     function fix_clickers() {
@@ -2658,11 +2658,11 @@ function Game() {
                 pd.stats.bought_upgrades += 1;
             }
         }
-        $('#hand_made_widgets').html(pretty_int(pd.stats.hand_made_widgets));
-        $('#made_widgets').html(pretty_int(pd.stats.made_widgets));
-        $('#sold_widgets').html(pretty_int(pd.stats.sold_widgets));
-        $('#hand_sold_widgets').html(pretty_int(pd.stats.hand_sold_widgets));
-        $('#total_cash').html(pretty_int(pd.stats.total_cash));
+        $('#hand_made_widgets').html(pretty_bigint(pd.stats.hand_made_widgets));
+        $('#made_widgets').html(pretty_bigint(pd.stats.made_widgets));
+        $('#sold_widgets').html(pretty_bigint(pd.stats.sold_widgets));
+        $('#hand_sold_widgets').html(pretty_bigint(pd.stats.hand_sold_widgets));
+        $('#total_cash').html(pretty_bigint(pd.stats.total_cash));
         $('#bought_upgrades').html(pretty_int(pd.stats.bought_upgrades));
         $('#time_played').html(pretty_int(pd.stats.seconds_played));
     }
@@ -2845,7 +2845,7 @@ function Game() {
         if(amt < 100) { amt = 100; }
         pd.widgets.amount += amt;
         good_message('You found an extra barrel of meth, with '
-            +pretty_int(amt)+' batches inside!');
+            +pretty_bigint(amt)+' batches inside!');
     }
 
     // Cash found, cash per second * r
@@ -2855,12 +2855,12 @@ function Game() {
         earn_cash(amt);
         if(amt > 10000000000) { 
             good_message('A mystery benefactor has contributed $'
-                +pretty_int(amt)+' to your cause');
+                +pretty_bigint(amt)+' to your cause');
             return;
         }
         if(amt > 10000000) { 
             good_message('You found a truck load of cash, containing $'
-                +pretty_int(amt)+' inside!');
+                +pretty_bigint(amt)+' inside!');
             return;
         }
         if(amt > 100000) { 
@@ -2880,7 +2880,7 @@ function Game() {
             amt = pd.widgets.amount;
         }
         pd.widgets.amount -= amt;
-        bad_message('About '+pretty_int(amt)+' batches of meth have gone missing...');
+        bad_message('About '+pretty_bigint(amt)+' batches of meth have gone missing...');
         return true;
     }
 
@@ -2895,7 +2895,7 @@ function Game() {
             amt = pd.cash.amount;
         }
         pd.cash.amount -= amt;
-        bad_message('According to accounting, $'+pretty_int(amt)+' has been "lost"');
+        bad_message('According to accounting, $'+pretty_bigint(amt)+' has been "lost"');
         return true;
     }
 
@@ -2910,7 +2910,7 @@ function Game() {
             amt = pd.cash.amount;
         }
         pd.cash.amount -= amt;
-        bad_message('A rival cartel has hijacked a sale worth $'+pretty_int(amt)+'!');
+        bad_message('A rival cartel has hijacked a sale worth $'+pretty_bigint(amt)+'!');
         return true;
     }
 
@@ -2925,7 +2925,7 @@ function Game() {
             amt = pd.cash.amount;
         }
         pd.cash.amount -= amt;
-        bad_message('You had to pay off a government official with $'+pretty_int(amt));
+        bad_message('You had to pay off a government official with $'+pretty_bigint(amt));
         return true;
     }
 
@@ -2938,7 +2938,7 @@ function Game() {
             return false;
         }
         pd.cash.amount -= amt;
-        bad_message('The DEA has seized $'+pretty_int(amt)+'!');
+        bad_message('The DEA has seized $'+pretty_bigint(amt)+'!');
         return true;
     }
 

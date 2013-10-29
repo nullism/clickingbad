@@ -53,7 +53,7 @@ $(document).ready(function() {
         gm.do_make_click();
         {% if not isapp %}
         var elc = $('.make_up:first').clone()
-        elc.html('+'+pretty_int(gm.get_click_make_amount()));
+        elc.html('+'+pretty_bigint(gm.get_click_make_amount()));
         $('#make_div').append(elc);
         elc.show();
         elc.offset({left:e.pageX-30, top:e.pageY-50});
@@ -78,7 +78,7 @@ $(document).ready(function() {
         }
         {% if not isapp %}
         var elc = $('.sell_up:first').clone()
-        elc.html('$'+pretty_int(sale*gm.get_widget_roi()));
+        elc.html('$'+pretty_bigint(sale*gm.get_widget_roi()));
         $('#sell_div').append(elc);
         elc.show();
         elc.offset({left:e.pageX-30, top:e.pageY-50});
@@ -248,7 +248,7 @@ $(document).ready(function() {
                 <li>Batches sold: <b><span id="sold_widgets">0</span></b></li>
                 <li>Batches hand-sold: <b><span id="hand_sold_widgets">0</span></b></li>
                 <li>Total upgrades purchased: <b><span id="bought_upgrades">0</span></b></li>
-                <li>Total cash earned: <b><span id="total_cash">0</span></b></li>
+                <li>Total cash earned: <b>$<span id="total_cash">0</span></b></li>
                 <li>Seconds spent playing: <b><span id="time_played">0</span></b></li>
             </ul>    
         </div>
