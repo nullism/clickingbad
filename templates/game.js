@@ -3094,6 +3094,7 @@ function error_log(msg, data) {
     remote_log({
         'type':'error',
         'text':msg,
+        'version':'{{version}}',
         'data_string':data,
     });
     console.log('ERROR: '+msg)
