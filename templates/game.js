@@ -1616,13 +1616,15 @@ function Game() {
 
         // Negative fix
         if(pd.cash.amount < 0) { 
+            track_event('debug','negative_cash','('+pd.cash.amount+')');
             pd.cash.amount = 0;
         } 
         if(pd.widgets.amount < 0) { 
+            track_event('debug','negative_widgets','('+pd.widgets.amount+')');
             pd.widgets.amount = 0;
         }
         if(pd.cash.safe < 0) {
-            
+            track_event('debug','negative_safe_cash','('+pd.cash.safe+')');
             pd.cash.safe = 0;
         }
 
@@ -3072,3 +3074,26 @@ function track_event(category, action, message) {
     } 
     return false;
 }
+
+function error_log(msg) {
+    remote_log({
+        'type':'error',
+        'text':msg,
+        'pd':pd,
+    });
+}
+
+function remote_log(data) {
+    if(has_loggly) { 
+        _LTracker.push(data);
+        return true;
+    }
+    return false;
+}
+
+function get_debug_data() { 
+    var s = "Cash: "+pd.cash.amount+"\n"
+        + "Widgets: "+pd.widgets.amount+"\n"
+        + "Cash (Safe): "+pd.cash.safe+"\n";
+    return s;
+}       

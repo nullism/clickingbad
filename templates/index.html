@@ -7,6 +7,9 @@
 <title>Clicking Bad</title>
 
 <script>
+var has_gaq = false;
+var has_loggly = false;
+
 {% include 'jquery.min.js' %}
 </script>
 <script>
@@ -16,12 +19,9 @@
 <script>
 {% include 'base64.js' %}
 </script>
-{% if isapp %}
-    <script>
-    var has_gaq = false;
-    </script>    
-{% else %}
+{% if not isapp %}
     {% include "google.html" %}
+    {% include "loggly.html" %}
 {% endif %}
 
 </head>
