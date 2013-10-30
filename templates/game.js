@@ -1616,15 +1616,15 @@ function Game() {
 
         // Negative fix
         if(pd.cash.amount < 0) { 
-            track_event('debug','negative_cash','('+pd.cash.amount+')');
+            error_log('negative_cash: '+pd.cash.amount);
             pd.cash.amount = 0;
         } 
         if(pd.widgets.amount < 0) { 
-            track_event('debug','negative_widgets','('+pd.widgets.amount+')');
+            error_log('negative_widgets: '+pd.widgets.amount);
             pd.widgets.amount = 0;
         }
         if(pd.cash.safe < 0) {
-            track_event('debug','negative_safe_cash','('+pd.cash.safe+')');
+            error_log('negative_safe_cash: '+pd.cash.safe);
             pd.cash.safe = 0;
         }
 
@@ -3081,6 +3081,7 @@ function error_log(msg) {
         'text':msg,
         'pd':pd,
     });
+    console.log('ERROR: '+msg)
 }
 
 function remote_log(data) {
