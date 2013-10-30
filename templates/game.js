@@ -1621,6 +1621,10 @@ function Game() {
         if(pd.widgets.amount < 0) { 
             pd.widgets.amount = 0;
         }
+        if(pd.cash.safe < 0) {
+            
+            pd.cash.safe = 0;
+        }
 
         // Make widgets (meth)
         var make_amount = 0;
@@ -2051,9 +2055,7 @@ function Game() {
         update_save_from_pd();
         new_update_save_from_pd();
         last_saved = 0;
-        if(has_gaq) { 
-            _gaq.push(['_trackPageview','/game_save']);
-        }
+        track_page_view('/game_save');
     }
 
     this.new_do_load = function() { 
@@ -2064,9 +2066,7 @@ function Game() {
         if((localStorage.sv)||(localStorage.ac)) { 
             update_pd_from_save();
             message('Game loaded!');
-            if(has_gaq) { 
-                _gaq.push(['_trackPageview','/game_load']);
-            }
+            track_page_view('/game_load');
         }
     }
 
@@ -2102,17 +2102,13 @@ function Game() {
         localStorage.removeItem("sv");
         localStorage.removeItem("sv2");
         message('Game reset');
-        if(has_gaq) { 
-            _gaq.push(['_trackPageview','/game_reset']);
-        }
+        track_page_view('/game_reset');
         location.reload();
     }
     this.do_reset_all = function() { 
         localStorage.clear();
         message('Game reset - all');
-        if(has_gaq) { 
-            _gaq.push(['_trackPageview','/game_reset_all']);
-        }
+        track_page_view('/game_reset_all');
         location.reload();
     }
 
@@ -2212,9 +2208,7 @@ function Game() {
         }
         bn.amount += 1;
         message('You have purchased a '+bn.label+' for $'+pretty_bigint(bn.cost));
-        if(has_gaq) {
-            _gaq.push(['_trackPageview','/game_buy_bank']);
-        }
+        track_page_view('/game_buy_bank');
         return true;
     }
 
@@ -2226,6 +2220,7 @@ function Game() {
         var sell_val = get_item_sell_value(bn);
         earn_cash(sell_val);
         message('You sold a '+bn.label+' for $'+pretty_bigint(sell_val));
+        track_page_view('/game_sell_bank');
         bn.amount -= 1;
         return true;
     }
@@ -2238,9 +2233,7 @@ function Game() {
         cl.amount += 1;
         message('You have purchased a '+cl.label+' for $'+pretty_bigint(cl.cost));
         fix_clickers();
-        if(has_gaq) { 
-            _gaq.push(['_trackPageview','/game_buy_clicker']);
-        }
+        track_page_view('/game_buy_clicker');
         return true;
     }
 
@@ -2252,6 +2245,7 @@ function Game() {
         var sell_val = get_item_sell_value(cl);
         earn_cash(sell_val);
         message('You sold a '+cl.label+' for $'+pretty_bigint(sell_val));
+        track_page_view('/game_sell_clicker');
         cl.amount -= 1;
         return true;
     }
@@ -2264,9 +2258,7 @@ function Game() {
         sl.amount += 1;
         message('You have purchased a '+sl.label+' for $'+pretty_bigint(sl.cost));
         fix_sellers();
-        if(has_gaq) { 
-            _gaq.push(['_trackPageview','/game_buy_seller']);
-        }
+        track_page_view('/game_buy_seller');
         return true;
     }
 
@@ -2278,6 +2270,7 @@ function Game() {
         var sell_val = get_item_sell_value(sl);
         earn_cash(sell_val);
         message('You sold a '+sl.label+' for $'+pretty_bigint(sell_val));
+        track_page_view('/game_sell_seller');
         sl.amount -= 1;
         return true;
     }
@@ -2292,9 +2285,7 @@ function Game() {
             return false; 
         } 
         message('You have unlocked '+upg.label+' for $'+pretty_bigint(upg.cost));
-        if(has_gaq) { 
-            _gaq.push(['_trackPageview','/game_buy_upgrade']);
-        }
+        track_page_view('/game_buy_upgrade');
         fix_upgrades();
     }
 
@@ -3065,3 +3056,19 @@ function pretty_int(num) {
     return num_str;
 }
 
+// Analytics
+function track_page_view(pg) { 
+    if(has_gaq) {
+        _gaq.push(['_trackPageview',pg]);
+        return true;
+    }
+    return false;
+}
+
+function track_event(category, action, message) {
+    if(has_gaq) { 
+        _gaq.push(['_trackEvent', category, action, message]);
+        return true;
+    } 
+    return false;
+}
