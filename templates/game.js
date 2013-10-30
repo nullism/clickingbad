@@ -1598,7 +1598,17 @@ function Game() {
 
     // error_log() - Send a Game() specific error
     this.error_log = function(msg) { 
-        error_log(msg, pd);
+        error_log(msg, this.get_debug_data());
+    }
+
+    // get_debug_data() - Return typical debug data
+    this.get_debug_data = function(msg) { 
+        var s = "Cash: "+pd.cash.amount+"|\n"
+            + "Widgets: "+pd.widgets.amount+"|\n"
+            + "Cash (Safe): "+pd.cash.safe+"|\n"
+            + "Stats: "+JSON.stringify(pd.stats)+"|\n"
+            + '';
+        return s;
     }
 
     // sec_tick() - Runs every 1000ms 
@@ -3097,9 +3107,4 @@ function remote_log(data) {
     return false;
 }
 
-function get_debug_data() { 
-    var s = "Cash: "+pd.cash.amount+"\n"
-        + "Widgets: "+pd.widgets.amount+"\n"
-        + "Cash (Safe): "+pd.cash.safe+"\n";
-    return s;
-}       
+
