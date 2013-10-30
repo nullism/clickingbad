@@ -1601,14 +1601,14 @@ function Game() {
         error_log(msg, this.get_debug_data());
     }
 
-    // get_debug_data() - Return typical debug data
-    this.get_debug_data = function(msg) { 
-        var s = "Cash: "+pd.cash.amount+"|\n"
-            + "Widgets: "+pd.widgets.amount+"|\n"
-            + "Cash (Safe): "+pd.cash.safe+"|\n"
-            + "Stats: "+JSON.stringify(pd.stats)+"|\n"
-            + '';
-        return s;
+    this.get_debug_data = function() { 
+        return {
+            'cash':pd.cash.amount,
+            'widgets':pd.widgets.amount,
+            'safe_cash':pd.cash.safe,
+            'make_amount':pd.make_amount,
+            'sell_amount':pd.sell_amount,
+        }
     }
 
     // sec_tick() - Runs every 1000ms 
@@ -3104,7 +3104,7 @@ function error_log(msg, data) {
         'type':'error',
         'text':msg,
         'version':'{{version}}',
-        'data_string':data,
+        'data':data,
     });
     console.log('ERROR: '+msg)
 }
