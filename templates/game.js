@@ -1596,6 +1596,11 @@ function Game() {
     };
 
 
+    // error_log() - Send a Game() specific error
+    this.error_log = function(msg) { 
+        error_log(msg, pd);
+    }
+
     // sec_tick() - Runs every 1000ms 
     this.sec_tick = function() {
         fix_saved();
@@ -1616,15 +1621,15 @@ function Game() {
 
         // Negative fix
         if(pd.cash.amount < 0) { 
-            error_log('negative_cash: '+pd.cash.amount);
+            this.error_log('negative_cash: '+pd.cash.amount);
             pd.cash.amount = 0;
         } 
         if(pd.widgets.amount < 0) { 
-            error_log('negative_widgets: '+pd.widgets.amount);
+            this.error_log('negative_widgets: '+pd.widgets.amount);
             pd.widgets.amount = 0;
         }
         if(pd.cash.safe < 0) {
-            error_log('negative_safe_cash: '+pd.cash.safe);
+            this.error_log('negative_safe_cash: '+pd.cash.safe);
             pd.cash.safe = 0;
         }
 
@@ -3075,11 +3080,11 @@ function track_event(category, action, message) {
     return false;
 }
 
-function error_log(msg) {
+function error_log(msg, data) {
     remote_log({
         'type':'error',
         'text':msg,
-        'pd':pd,
+        'data':data,
     });
     console.log('ERROR: '+msg)
 }
