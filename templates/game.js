@@ -3089,6 +3089,15 @@ function track_event(category, action, message) {
     } 
     return false;
 }
+function debug_log(msg, data) { 
+    remote_log({
+        'type':'debug',
+        'text':msg,
+        'version':'{{version}}',
+        'data_string':data,
+    });
+    console.log('DEBUG: '+msg)
+}
 
 function error_log(msg, data) {
     remote_log({
