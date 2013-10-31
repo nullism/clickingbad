@@ -451,10 +451,10 @@ function Game() {
                 'unlocked':false,
                 'sid':'c13',
             },
-            'belt':{
-                'label':'Heisenbelt',
-                'description':'A series of labs on the outer edges of the solar '
-                    + 'system that convert asteroids into pure crystal',
+            'meth_factory':{
+                'label':'Industrial Complex',
+                'description':'A massive industrial complex with thousands of cooks. '
+                    + 'Cautious? Nope! Effective? You\'re Goddamn right',
                 'amount':0,
                 'risk':0.000001,
                 'rps':55205000,
@@ -464,10 +464,10 @@ function Game() {
                 'unlocked':false,
                 'sid':'c14',
             },
-            'meth_factory':{
-                'label':'Industrial Complex',
-                'description':'A massive industrial complex with thousands of cooks. '
-                    + 'Cautious? Nope! Effective? You\'re Goddamn right',
+            'belt':{
+                'label':'Heisenbelt',
+                'description':'A series of labs on the outer edges of the solar '
+                    + 'system that convert asteroids into pure crystal',
                 'amount':0,
                 'risk':0.55,
                 'rps':492005000,
@@ -654,12 +654,10 @@ function Game() {
                 'unlocked':false,
                 'sid':'s13',
             },
-            // Sneak a ref in the shuttle for fun. 
-            'shuttle':{
-                'label':'Meth Horizon',
-                'description':'According to commander Tony Drake, these '
-                    + 'high speed shuttles quickly transport product '
-                    + 'from the far edges of the solar system',
+            'meth_mart':{
+                'label':'Meth-Mart',
+                'description':'The MM franchise is an easy way to distribute product to shoppers, '
+                    +'but it\'s very risky, as you would imagine',
                 'amount':0,
                 'risk':0.000001,
                 'rps':55205000,
@@ -669,10 +667,12 @@ function Game() {
                 'unlocked':false,
                 'sid':'s14',
             },
-            'meth_mart':{
-                'label':'Meth-Mart',
-                'description':'The MM franchise is an easy way to distribute product to shoppers, '
-                    +'but it\'s very risky, as you would imagine',
+            // Sneak a ref in the shuttle for fun. 
+            'shuttle':{
+                'label':'Meth Horizon',
+                'description':'According to commander Tony Drake, these '
+                    + 'high speed shuttles quickly transport product '
+                    + 'from the far edges of the solar system',
                 'amount':0,
                 'risk':0.55,
                 'rps':492005000,
@@ -932,7 +932,6 @@ function Game() {
                 'cost':9500,
                 'prereq':'21_portable_generator',
                 'sid':'u23',
-               
             },
             'rv_solar':{
                 'label':'RV Solar Panels',
@@ -1189,6 +1188,18 @@ function Game() {
                 'prereq':'fearless',
                 'sid':'u47',
             },
+            'u_trick_or_treat': {
+                'label':'Trick or Treat',
+                'description':'Hand out meth like it\'s candy, and sell an additional 200% of sales at a time',
+                'action':'sell_rps_multiplier',
+                'purchased':false,
+                'mod':2,
+                'hidden':false,
+                'cost':15000000,
+                'prereq':null,
+                'sid':'u47.1',
+            },
+
             'ancient_methology': { 
                 'label':'Ancient Methology',
                 'description':'Send your best scientists to remote parts of the world looking for '
@@ -1220,6 +1231,17 @@ function Game() {
                 'purchased':false,
                 'prereq':'methylamine_secret',           
                 'sid':'u50',
+            },
+            'quantum_meth':{
+                'label':'Quantum Meth',
+                'description':'This meth is atomically perfect, alowing you to charge an additional '
+                    + '$40 per batch',
+                'cost':42100500555000,
+                'action':'widget_roi',
+                'mod':40.5,
+                'purchased':false,
+                'prereq':'alien_meth',           
+                'sid':'u50.1',               
             },
             // Laundering
             'u_nyme_1':{
@@ -2064,24 +2086,17 @@ function Game() {
         pd.stats.cheated_widgets += n;
     }
     
-    this.new_do_save = function() { 
-        return new_update_save_from_pd();
-    }
-
     this.do_save = function() {
-        update_save_from_pd();
+        //update_save_from_pd();
         new_update_save_from_pd();
         last_saved = 0;
         track_page_view('/game_save');
     }
 
-    this.new_do_load = function() { 
-        return new_update_pd_from_save();
-    }
-
     this.do_load = function() { 
-        if((localStorage.sv)||(localStorage.ac)) { 
-            update_pd_from_save();
+        if((localStorage.sv2)||(localStorage.ac2)) { 
+            //update_pd_from_save();
+            new_update_pd_from_save();
             message('Game loaded!');
             track_page_view('/game_load');
         }
@@ -2116,7 +2131,6 @@ function Game() {
     }
 
     this.do_reset = function() { 
-        localStorage.removeItem("sv");
         localStorage.removeItem("sv2");
         message('Game reset');
         track_page_view('/game_reset');
@@ -3092,28 +3106,30 @@ function track_event(category, action, message) {
     } 
     return false;
 }
-function debug_log(msg, data) { 
+
+function log(type, msg, data) { 
+    var obj = null;
+    if(data) { obj = data; }
     remote_log({
-        'type':'debug',
+        'type':type,
         'text':msg,
         'version':'{{version}}',
-        'data_string':data,
+        'user_agent':navigator.userAgent,
+        'extra':Base64.encode(JSON.stringify(obj)),
     });
-    console.log('DEBUG: '+msg)
+    console.log(type.toUpperCase()+': '+msg);
+}
+
+function warning_log(msg, data) { 
+    log('warning',msg,data);
+}
+
+function debug_log(msg, data) { 
+    log('debug',msg,data);
 }
 
 function error_log(msg, data) {
-    var obj = null;
-    if(data) { 
-        obj = data;
-    } 
-    remote_log({
-        'type':'error',
-        'text':msg,
-        'version':'{{version}}',
-        'data':Base64.encode(JSON.stringify(obj)),
-    });
-    console.log('ERROR: '+msg)
+    log('error',msg,data);
 }
 
 function remote_log(data) {
