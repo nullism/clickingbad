@@ -8,6 +8,7 @@
 
 <script>
 var has_gaq = false;
+var has_loggly = false;
 
 {% include 'jquery.min.js' %}
 </script>
@@ -20,6 +21,7 @@ var has_gaq = false;
 </script>
 {% if not isapp %}
     {% include "google.html" %}
+    {% include "loggly.html" %}
 {% endif %}
 
 </head>

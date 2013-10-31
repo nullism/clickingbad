@@ -3110,7 +3110,6 @@ function error_log(msg, data) {
 }
 
 function remote_log(data) {
-    return false;
     if(has_loggly) { 
         _LTracker.push(data);
         return true;
