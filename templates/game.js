@@ -2462,7 +2462,7 @@ function Game() {
         $('#sell_btn').html(pd.cash.action_label);
         $('#sell_lbl').html(pd.cash.label);
         $('#sell_amt').html(pretty_int(pd.cash.amount));
-        $('#sell_roi').html(pretty_int(pd.widget_roi));
+        $('#sell_roi').html(pd.widget_roi.toFixed(2));
         $('#safe_cash').html(pretty_int(get_safe_cash()));
         var sell_rate = pd.stats.seller_rps;
         if((pd.stats.seller_rps > pd.stats.clicker_rps)&&(pd.widgets.amount < pd.stats.seller_rps)) { 
