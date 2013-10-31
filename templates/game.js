@@ -1235,10 +1235,10 @@ function Game() {
             'quantum_meth':{
                 'label':'Quantum Meth',
                 'description':'This meth is atomically perfect, alowing you to charge an additional '
-                    + '$40 per batch',
+                    + '$45 per batch',
                 'cost':42100500555000,
                 'action':'widget_roi',
-                'mod':40.5,
+                'mod':44.5,
                 'purchased':false,
                 'prereq':'alien_meth',           
                 'sid':'u50.1',               
