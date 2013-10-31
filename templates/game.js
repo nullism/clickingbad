@@ -3100,11 +3100,15 @@ function debug_log(msg, data) {
 }
 
 function error_log(msg, data) {
+    var obj = null;
+    if(data) { 
+        obj = data;
+    } 
     remote_log({
         'type':'error',
         'text':msg,
         'version':'{{version}}',
-        'data':data,
+        'data':Base64.encode(JSON.stringify(obj)),
     });
     console.log('ERROR: '+msg)
 }
