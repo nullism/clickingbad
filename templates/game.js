@@ -1620,7 +1620,7 @@ function Game() {
 
     // tick() - Runs every tick_ms (default 100ms)
     this.tick = function() { 
-        
+ 
         var this_tick = (new Date).getTime();
         var this_sub = 1000 / tick_ms;
         var ticks = Math.round((this_tick - last_tick) / tick_ms);
@@ -2167,14 +2167,17 @@ function Game() {
     }
 
     function do_sell(n) { 
+        if(pd.widgets.amount < 1) {
+            return 0;
+        }         
         if(n > pd.widgets.amount) {
             n += (pd.widgets.amount - n);
             if(n < 1) { 
-                return false;
+                return 0;
             } 
         }
         pd.stats.sold_widgets += n;
-        pd.widgets.amount -= n;
+        pd.widgets.amount = Math.round((pd.widgets.amount - n)*10)/10;
         earn_cash(n * pd.widget_roi);
         pd.stats.total_cash += (n * pd.widget_roi);
         return n;
