@@ -38,13 +38,6 @@ var has_loggly = false;
 // SETUP
 var gm = new Game();
 $(document).ready(function() {
-  {% if isapp %}
-    try { 
-        super.appView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-    } catch(err) { 
-        console.log('Unable to set Hardware Acceleration');
-    }  
-  {% endif %}
     gm.setup_display();
     tmr = setInterval("gm.tick()", tick_ms);
     sec_tmr = setInterval("gm.sec_tick()", 1000);
@@ -56,11 +49,14 @@ $(document).ready(function() {
 
 
     // Events
-  {% if isapp %}
-    $('#make_btn').bind('touchstart', function(e) { 
-  {% else %}
-    $('#make_btn').click(function(e) { 
-  {% endif %}
+    var bind_type = 'click';
+    if ('ontouchstart' in window) {
+        bind_type = 'touchstart';
+    } else if(window.navigator.msPointerEnabled) {
+        bind_type = 'touchstart';
+    }
+
+    $('#make_btn').bind(bind_type, function(e) { 
         gm.do_make_click();
         {% if not isapp %}
         var elc = $('.make_up:first').clone()
@@ -82,11 +78,8 @@ $(document).ready(function() {
         });
         {% endif %}
     });
-  {% if isapp %}
-    $('#sell_btn').bind('touchstart', function(e) { 
-  {% else %}
-    $('#sell_btn').click(function(e) { 
-  {% endif %}
+
+    $('#sell_btn').bind(bind_type, function(e) { 
         var sale = gm.do_sell_click();
         if(sale == 0) { 
             return;
@@ -300,7 +293,9 @@ $(document).ready(function() {
 
 {% include "tpls.html" %}
 
-{% if not isapp %}
+{% if isapp %}
+    <p class="small light_grey">Version {{version}}</p>
+{% else %}
     {% include "footer.html" %}
 {% endif %}
 </body>
