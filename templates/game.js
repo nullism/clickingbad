@@ -1560,7 +1560,7 @@ function Game() {
                 'value':1,
                 'group':240,
                 'min_time':1,
-                'sid':'a20',
+                'sid':'a21',
             },
             'cheated_cash_1':{
                 'label':'Counterfeiter',
