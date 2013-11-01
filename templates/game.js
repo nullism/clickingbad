@@ -456,7 +456,7 @@ function Game() {
                 'description':'A massive industrial complex with thousands of cooks. '
                     + 'Cautious? Nope! Effective? You\'re Goddamn right',
                 'amount':0,
-                'risk':0.000001,
+                'risk':0.55,
                 'rps':55205000,
                 'base_cost':41032501000000,
                 'cost':41032501000000,
@@ -469,7 +469,7 @@ function Game() {
                 'description':'A series of labs on the outer edges of the solar '
                     + 'system that convert asteroids into pure crystal',
                 'amount':0,
-                'risk':0.55,
+                'risk':0.000001,
                 'rps':492005000,
                 'base_cost':410302501000000,
                 'cost':410302501000000,
@@ -659,7 +659,7 @@ function Game() {
                 'description':'The MM franchise is an easy way to distribute product to shoppers, '
                     +'but it\'s very risky, as you would imagine',
                 'amount':0,
-                'risk':0.000001,
+                'risk':0.55,
                 'rps':55205000,
                 'base_cost':41032501000000,
                 'cost':41032501000000,
@@ -674,7 +674,7 @@ function Game() {
                     + 'high speed shuttles quickly transport product '
                     + 'from the far edges of the solar system',
                 'amount':0,
-                'risk':0.55,
+                'risk':0.00001,
                 'rps':492005000,
                 'base_cost':410325015000000,
                 'cost':410325015000000,
