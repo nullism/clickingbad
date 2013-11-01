@@ -36,7 +36,7 @@ var last_click = 0;
 var last_bust = 0;
 var last_float = 10;
 {% if isapp %}
-var tick_ms = 200;
+var tick_ms = 500;
 {% else %}
 var tick_ms = 100;
 {% endif %}
@@ -2684,6 +2684,7 @@ function Game() {
                 pd.stats.bought_upgrades += 1;
             }
         }
+        if(active_tab != 'misc') { return; }
         $('#hand_made_widgets').html(pretty_bigint(pd.stats.hand_made_widgets));
         $('#made_widgets').html(pretty_bigint(pd.stats.made_widgets));
         $('#sold_widgets').html(pretty_bigint(pd.stats.sold_widgets));

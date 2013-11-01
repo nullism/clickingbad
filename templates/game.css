@@ -22,12 +22,12 @@ button {
     border: 1px solid #aaa;
     border-radius: 5px;
     color: #fff;
+    text-shadow: -1px -1px 0px #aaa;
     cursor: pointer;
     font-weight: bold;
-    text-shadow: -1px -1px 0px #aaa;
     padding: 5px;
 }
-button:disabled, button.disabled { 
+button:disabled, button.disabled {
     color: #aaa;
     background-color: #777;
     border-color: #777;
@@ -174,7 +174,7 @@ h1 {
 .s_div, .w_div { 
     /*border: 3px solid #ddd;
     border-bottom-color: #ccc;*/
-    border-radius: 10px;
+    border-radius: 8px;
     background: #fff;
     margin: 4px;
     padding: 2px;

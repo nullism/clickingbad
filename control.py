@@ -67,6 +67,7 @@ def cache_all():
     ''' Update this list when new templates are added '''
     cache_template('index.html', minify=True)
     cache_template('index.html', minify=True, isapp=True)
+    cache_template('config.xml', minify=True, isapp=True)
     cache_template('thanks.html')
     cache_version()
 

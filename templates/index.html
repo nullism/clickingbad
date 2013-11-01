@@ -37,7 +37,14 @@ var has_loggly = false;
 
 // SETUP
 var gm = new Game();
-$(document).ready(function() { 
+$(document).ready(function() {
+  {% if isapp %}
+    try { 
+        super.appView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+    } catch(err) { 
+        console.log('Unable to set Hardware Acceleration');
+    }  
+  {% endif %}
     gm.setup_display();
     tmr = setInterval("gm.tick()", tick_ms);
     sec_tmr = setInterval("gm.sec_tick()", 1000);
@@ -49,7 +56,11 @@ $(document).ready(function() {
 
 
     // Events
+  {% if isapp %}
+    $('#make_btn').bind('touchstart', function(e) { 
+  {% else %}
     $('#make_btn').click(function(e) { 
+  {% endif %}
         gm.do_make_click();
         {% if not isapp %}
         var elc = $('.make_up:first').clone()
@@ -71,7 +82,11 @@ $(document).ready(function() {
         });
         {% endif %}
     });
+  {% if isapp %}
+    $('#sell_btn').bind('touchstart', function(e) { 
+  {% else %}
     $('#sell_btn').click(function(e) { 
+  {% endif %}
         var sale = gm.do_sell_click();
         if(sale == 0) { 
             return;
