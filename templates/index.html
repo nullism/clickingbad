@@ -51,9 +51,9 @@ $(document).ready(function() {
     // Events
     var bind_type = 'click';
     if ('ontouchstart' in window) {
-        bind_type = 'touchstart';
+        bind_type = 'touchstart click';
     } else if(window.navigator.msPointerEnabled) {
-        bind_type = 'touchstart';
+        bind_type = 'touchstart click';
     }
 
     $('#make_btn').bind(bind_type, function(e) { 
