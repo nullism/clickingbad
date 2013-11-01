@@ -1550,6 +1550,18 @@ function Game() {
                 'min_time':1,           
                 'sid':'a20',
             },
+            'a_spacecorp':{
+                'label':'Laundering Better Worlds',
+                'description':'You\'ve bought a Space Corp!',
+                'property':'banks.b_spacecorp.amount',
+                'required':1,
+                'unlocked':false,
+                'hidden':false,
+                'value':1,
+                'group':240,
+                'min_time':1,
+                'sid':'a20',
+            },
             'cheated_cash_1':{
                 'label':'Counterfeiter',
                 'description':'You\'ve hacked in some cash',
