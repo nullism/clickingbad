@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.nullism.clickingbad"
+        version   = "{{version}}">
+
+    <name>Clicking Bad</name>
+
+    <description>
+The official Clicking Bad release, from http://clickingbad.nullism.com.
+Like Cookie Clicker, but with meth.
+    </description>
+
+    <author href="http://clickingbad.nullism.com" email="webgovernor@gmail.com">
+        Aaron Meier
+    </author>
+
+    <!--
+        Enable individual API permissions here.
+        The "device" permission is required for the 'deviceready' event.
+    -->
+    <feature name="http://api.phonegap.com/1.0/device" />
+    <preference name="permissions" value="none"/>
+    <access origin="http://127.0.0.1*"/> <!-- allow local pages -->
+</widget>
+
