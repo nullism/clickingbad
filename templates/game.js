@@ -304,7 +304,7 @@ function Game() {
             'b_spacecorp':{
                 'label':'Space Corp',
                 'amount':0,
-                'description':'Launder your cash through a shady intergalactic conglomerate with secret ties to the military',
+                'description':'Launder cash through a shady conglomerate that deals in planetary colonisation, asteroid mining, and other technology, with secret ties to the military',
                 'rps':5000000000000,
                 'unlock_rps':125000000,
                 'cost':10000000000000,
