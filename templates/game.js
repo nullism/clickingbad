@@ -36,7 +36,7 @@ var last_click = 0;
 var last_bust = 0;
 var last_float = 10;
 {% if isapp %}
-var tick_ms = 500;
+var tick_ms = 250;
 {% else %}
 var tick_ms = 100;
 {% endif %}
@@ -289,6 +289,17 @@ function Game() {
                 'base_cost':750500000000,
                 'unlocked':false,
                 'sid':'b11',
+            },
+            'b_resort':{
+                'label':'Space Resort',
+                'amount':0,
+                'description':'Launder your cash through a low gravity spa and resort',
+                'rps':254550000000,
+                'unlock_rps':50000000,
+                'cost':1750500000000,
+                'base_cost':1750500000000,
+                'unlocked':false,
+                'sid':'b12',
             },
         },
 
@@ -1194,7 +1205,7 @@ function Game() {
                 'action':'sell_rps_multiplier',
                 'purchased':false,
                 'mod':2,
-                'hidden':false,
+                'hidden':true,
                 'cost':15000000,
                 'prereq':null,
                 'sid':'u47.1',
@@ -1594,7 +1605,7 @@ function Game() {
                 'action':'event_lose_meth(125)',
             },
             'irs_audit_1': { 
-                'chance':0.2,
+                'chance':0.18,
                 'action':'event_irs_audit(0.5)',
             },
             

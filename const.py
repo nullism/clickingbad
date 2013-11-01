@@ -1,5 +1,5 @@
 import time
-VERSION = '0.7.9.3'
+VERSION = '0.7.9.4'
 UPDATED = time.strftime('%a, %b %d @ %I:%M %p %Z')
 DOCROOT = 'docroot'
 APP_DOCROOT = 'app_docroot'
