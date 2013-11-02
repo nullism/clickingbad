@@ -301,6 +301,17 @@ function Game() {
                 'unlocked':false,
                 'sid':'b12',
             },
+            'b_spacecorp':{
+                'label':'Space Corp',
+                'amount':0,
+                'description':'Launder cash through a shady conglomerate that deals in planetary colonisation, asteroid mining, and other technology, with secret ties to the military',
+                'rps':5000000000000,
+                'unlock_rps':125000000,
+                'cost':10000000000000,
+                'base_cost':10000000000000,
+                'unlocked':false,
+                'sid':'b13',
+            },
         },
 
         // MANUFACTURING
@@ -1538,6 +1549,18 @@ function Game() {
                 'group':229,
                 'min_time':1,           
                 'sid':'a20',
+            },
+            'a_spacecorp':{
+                'label':'Laundering Better Worlds',
+                'description':'You\'ve bought a Space Corp!',
+                'property':'banks.b_spacecorp.amount',
+                'required':1,
+                'unlocked':false,
+                'hidden':false,
+                'value':1,
+                'group':240,
+                'min_time':1,
+                'sid':'a21',
             },
             'cheated_cash_1':{
                 'label':'Counterfeiter',
