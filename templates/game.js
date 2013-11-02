@@ -1682,6 +1682,8 @@ function Game() {
         var ticks = Math.round((this_tick - last_tick) / tick_ms);
         if(ticks > 360000) { 
             ticks = 360000;
+        } else if (ticks < 1) { 
+            return;
         }
         last_tick = this_tick;
 
