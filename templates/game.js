@@ -1166,7 +1166,7 @@ function Game() {
             'slap_chop':{
                 'label':'Slap Chop (TM)',
                 'description':'You\'re gonna love my meth. With this precision '
-                    + 'cutting device, you can now make an addition 50% of production '
+                    + 'cutting device, you can now make an additional 50% of production '
                     + 'at a time',
                 'cost':18100500000,
                 'action':'make_rps_multiplier',
