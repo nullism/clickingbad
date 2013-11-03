@@ -69,6 +69,7 @@ def cache_all():
     cache_template('index.html', minify=True, isapp=True)
     cache_template('config.xml', minify=True, isapp=True)
     cache_template('thanks.html')
+    cache_template('clickingbad.appcache')
     cache_version()
 
 def run_test_server():
