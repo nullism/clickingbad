@@ -39,7 +39,7 @@ def minify_template(txt):
     # Remove comments
     txt = re.sub(r'\s/\*.*?\*/', '', txt, flags=re.DOTALL)
     txt = re.sub(r'^\s{0,12}//.*$', '', txt, flags=re.M)
-    txt = re.sub(r'<!\-\-.*?\-\->', '', txt)
+    #txt = re.sub(r'<!\-\-.*?\-\->', '', txt)
 
     return txt
 

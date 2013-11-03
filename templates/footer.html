@@ -1,26 +1,26 @@
 <div class="clear"></div>
 <div id="footer">
-<div>
-    <p class="small light_grey">
-        &copy;2013 nullism.com, version <b><span id="version">{{version}}</span></b>
-        updated on <b>{{updated}}</b> &mdash; now with less beta, bitch. 
-        [<a href="http://clickingbad.tumblr.com" target="_blank">Dev Blog</a>]
-        [<a href="https://github.com/webgovernor/clickingbad/issues/new" target="_blank">Report Bug (GitHub)</a>]
-<!--        [<a href="https://play.google.com/store/apps/details?id=com.nullism.clickingbad" target="_blank">Free Android App</a>] -->
-    </p>
-</div>
+    <div>
+        <p class="small light_grey">
+            &copy;2013 nullism.com, version <b><span id="version">{{version}}</span></b>
+            updated on <b>{{updated}}</b> &mdash; now with less beta, bitch. 
+            [<a href="http://clickingbad.tumblr.com" target="_blank">Dev Blog</a>]
+            [<a href="https://github.com/webgovernor/clickingbad/issues/new" target="_blank">Report Bug (GitHub)</a>]
+            [<a href="https://play.google.com/store/apps/details?id=com.nullism.clickingbad" target="_blank">Free Android App</a>]
+        </p>
+    </div>
 </div>
 {% if not isapp %}
 <div id="share_footer">
     <!--// Twitter Follow //-->
     <div class="pull_left" style="margin-left: 10px;">
-    <a href="https://twitter.com/ClickingBad" 
-        class="twitter-follow-button" 
-        data-show-count="false">Follow @ClickingBad</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-            if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
-            fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-    </script>
+        <a href="https://twitter.com/ClickingBad" 
+            class="twitter-follow-button" 
+            data-show-count="false">Follow @ClickingBad</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+                if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
+                fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+        </script>
     </div>
 
     <!--// Facebook Like //-->
@@ -41,23 +41,14 @@
 
     <!--// Paypal Donate //-->
     <div class="pull_left" style="margin-left: 10px;">
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_s-xclick">
-    <input type="hidden" name="hosted_button_id" value="6JT4H4463XJ8Q">
-    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" 
-        alt="PayPal - The safer, easier way to donate online!">
-    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-    </form>
-
-    <!--//
-    <form style="display: inline;" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="pp_donate">
-    <input type="hidden" name="cmd" value="_s-xclick">
-    <input type="hidden" name="hosted_button_id" value="6JT4H4463XJ8Q">
-    <input type="hidden" name="submit">
-    <button type="submit" style="font-size: 0.7em; padding: 1px; margin: 0px;">Donate (PayPal)</button>
-    </form>
-    //-->
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="6JT4H4463XJ8Q">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" style="border: 0px;" name="submit" 
+            alt="PayPal - The safer, easier way to donate online!">
+        <img alt="" style="border: 0px;" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
     </div>
     <div class="clear"></div>
-</div>
+</div> <!--// End Share footer -->
 {% endif %}
