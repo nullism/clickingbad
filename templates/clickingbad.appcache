@@ -1,6 +1,9 @@
 CACHE MANIFEST
 # Version {{version}}
 
+CACHE:
 index.html
 favicon.png
-http://platform.twitter.com/widgets/images/btn.27237bab4db188ca749164efd38861b0.png
+
+NETWORK:
+*
