@@ -2227,7 +2227,7 @@ function Game() {
             } 
         }
         pd.stats.sold_widgets += n;
-        pd.widgets.amount = Math.round((pd.widgets.amount - n)*10)/10;
+        pd.widgets.amount -= n;
         earn_cash(n * pd.widget_roi);
         pd.stats.total_cash += (n * pd.widget_roi);
         return n;
