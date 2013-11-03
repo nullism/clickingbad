@@ -41,6 +41,10 @@ var has_loggly = false;
 
 // SETUP
 var gm = new Game();
+window.applicationCache.addEventListener('updateready', function (e) {
+    $('#updated').show(500);
+}, false);
+
 $(document).ready(function() {
     gm.setup_display();
     tmr = setInterval("gm.tick()", tick_ms);
