@@ -2641,7 +2641,7 @@ function Game() {
         for(var k in pd.banks) { 
             bn_tot += 1;
             var bn = pd.banks[k];
-            if(bn.unlock_rps <= pd.stats.seller_rps) { 
+            if((bn.unlock_rps <= pd.stats.seller_rps)||(bn.unlocked)) { 
                 bn_unl += 1;
                 bn.unlocked = true;
             }
