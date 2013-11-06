@@ -1218,7 +1218,7 @@ function Game() {
                 'mod':2,
                 'hidden':true,
                 'cost':15000000,
-                'prereq':null,
+                'prereq':'hidden',
                 'sid':'u47.1',
             },
 
@@ -1308,6 +1308,17 @@ function Game() {
                 'purchased':false,
                 'prereq':'u_franchise',                          
                 'sid':'u54',
+            },
+            'u_spacecorp': {
+                'label':'Space Capitalism',
+                'description':''
+                    + 'Increase Space Corp\'s laundering rate by $0.2T ',
+                'cost':2500000555000,
+                'action':'banks.b_spacecorp.rps',
+                'mod':200000000000,
+                'purchased':false,
+                'prereq':'u_cantina',                          
+                'sid':'u55',
             },
             'donator_thanks':{
                 'label':'Thank You',
@@ -3087,30 +3098,30 @@ function toggle_tab(tbid) {
 
 function pretty_bigint(num) { 
     var sn = '';
-    if(num > 1000000000000000000000000) { 
+    if(num >= 1000000000000000000000000) { 
         return pretty_int(num)
     }    
-    if(num > 1000000000000000000000) { 
+    if(num >= 1000000000000000000000) { 
         sn = Math.round((num / 1000000000000000000000) * 100) / 100;
         return sn + 'S';
     }
-    if(num > 1000000000000000000) { 
+    if(num >= 1000000000000000000) { 
         sn = Math.round((num / 1000000000000000000) * 100) / 100;
         return sn + 'Qt';
     }
-    if(num > 1000000000000000) { 
+    if(num >= 1000000000000000) { 
         sn = Math.round((num / 1000000000000000)*100) / 100;
         return sn + 'Q';
     }
-    if(num > 1000000000000) { 
+    if(num >= 1000000000000) { 
         sn = Math.round((num / 1000000000000) * 100) / 100;
         return sn + 'T';
     }
-    if(num > 1000000000) { 
+    if(num >= 1000000000) { 
         sn = Math.round((num / 1000000000) * 100) / 100;
         return sn + 'B';
     }
-    if(num > 1000000) { 
+    if(num >= 1000000) { 
         sn = Math.round((num / 1000000) * 100) / 100;
         return sn + 'M';
     } 
