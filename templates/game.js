@@ -2967,7 +2967,7 @@ function Game() {
             if((val === true)&&(val === a.required)) { 
                 unlock_achievement(k);
             }
-            else if((val)&&(val >= a.required)) {
+            else if((val)&&((a.required >= 0 && val >= a.required)||(a.required < 0 && val <= a.required))) {
                 unlock_achievement(k);
             } 
         }
