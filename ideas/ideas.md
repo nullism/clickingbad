@@ -41,7 +41,7 @@
 
 # Achievement: Addict
 * Description: You have played over X seconds
-* Implemented: No
+* Implemented: Yes
 
 # Achievement: 
 * Description: You have lost $ to the DEA 10 times
