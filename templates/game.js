@@ -516,7 +516,7 @@ function Game() {
             'c_portal':{
                 'label':'Portal to The Crystalverse',
                 'description':'Attempt to open a portal to another universe full of '
-                    + '<del>Cookies</del> crystal meth',
+                    + 'Cookies, err... Crystal Meth',
                 'amount':0,
                 'risk':0.1,
                 'rps':21590000000,
@@ -2388,7 +2388,7 @@ function Game() {
         }
         bn.amount += 1;
         message('You have purchased a '+bn.label+' for $'+pretty_bigint(bn.cost));
-        track_page_view('/game_buy_bank');
+        //track_page_view('/game_buy_bank');
         return true;
     }
 
@@ -2400,7 +2400,7 @@ function Game() {
         var sell_val = get_item_sell_value(bn);
         earn_cash(sell_val);
         message('You sold a '+bn.label+' for $'+pretty_bigint(sell_val));
-        track_page_view('/game_sell_bank');
+        //track_page_view('/game_sell_bank');
         bn.amount -= 1;
         return true;
     }
@@ -2413,7 +2413,7 @@ function Game() {
         cl.amount += 1;
         message('You have purchased a '+cl.label+' for $'+pretty_bigint(cl.cost));
         fix_clickers();
-        track_page_view('/game_buy_clicker');
+        //track_page_view('/game_buy_clicker');
         return true;
     }
 
@@ -2425,7 +2425,7 @@ function Game() {
         var sell_val = get_item_sell_value(cl);
         earn_cash(sell_val);
         message('You sold a '+cl.label+' for $'+pretty_bigint(sell_val));
-        track_page_view('/game_sell_clicker');
+        //track_page_view('/game_sell_clicker');
         cl.amount -= 1;
         return true;
     }
@@ -2438,7 +2438,7 @@ function Game() {
         sl.amount += 1;
         message('You have purchased a '+sl.label+' for $'+pretty_bigint(sl.cost));
         fix_sellers();
-        track_page_view('/game_buy_seller');
+        //track_page_view('/game_buy_seller');
         return true;
     }
 
@@ -2450,7 +2450,7 @@ function Game() {
         var sell_val = get_item_sell_value(sl);
         earn_cash(sell_val);
         message('You sold a '+sl.label+' for $'+pretty_bigint(sell_val));
-        track_page_view('/game_sell_seller');
+        //track_page_view('/game_sell_seller');
         sl.amount -= 1;
         return true;
     }
@@ -3247,6 +3247,7 @@ function track_page_view(pg) {
 }
 
 function track_event(category, action, message) {
+    return false;
     if(has_gaq) { 
         _gaq.push(['_trackEvent', category, action, message]);
         return true;
