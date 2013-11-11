@@ -1578,7 +1578,7 @@ function Game() {
             },
             'senate': {
                 'label':'Government Shutdown',
-                'description':'You\'ve bought the entire senate!',
+                'description':'You\'ve bought the entire senate (100 Crooked Senators)!',
                 'property':'sellers.senator.amount',
                 'required':100,
                 'unlocked':false,
