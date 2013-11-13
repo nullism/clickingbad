@@ -314,6 +314,18 @@ function Game() {
                 'unlocked':false,
                 'sid':'b13',
             },
+            'b_tv':{
+                'label':'The Crystal Methwork',
+                'amount':0,
+                'description':'Launder through a popular television network, included in every '
+                    + 'cable package in the galaxy',
+                'rps':10500000000000,
+                'unlock_rps':525000000,
+                'cost':120000000000000,
+                'base_cost':120000000000000,
+                'unlocked':false,
+                'sid':'b14',
+            },
         },
 
         // MANUFACTURING
