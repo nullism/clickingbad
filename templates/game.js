@@ -1914,7 +1914,7 @@ function Game() {
         $.get('/version.json',
             function(data) { 
                 if(data.data.version) {
-                    if(data.data.version != pd.version) { 
+                    if(data.data.version > pd.version) { 
                         $('#updated').show(500);
                     }
                 }
