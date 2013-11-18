@@ -2876,6 +2876,7 @@ function Game() {
                 pd.stats.bought_upgrades += 1;
             }
         }
+        
         if(active_tab != 'misc') { return; }
         $('#hand_made_widgets').html(pretty_bigint(pd.stats.hand_made_widgets));
         $('#made_widgets').html(pretty_bigint(pd.stats.made_widgets));
@@ -2884,6 +2885,8 @@ function Game() {
         $('#total_cash').html(pretty_bigint(pd.stats.total_cash));
         $('#bought_upgrades').html(pretty_int(pd.stats.bought_upgrades));
         $('#time_played').html(pretty_int(pd.stats.seconds_played));
+        $('#click_sell_amount').html(pretty_int(pd.sell_amount));
+        $('#click_make_amount').html(pretty_int(pd.make_amount));
     }
 
     /****************************************************************************** 
