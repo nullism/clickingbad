@@ -2007,7 +2007,7 @@ function Game() {
             cst *= 8;
         } else if(sc1.amount > 100){
             cst *= 4;
-        } else if ((sc1.amount > 10){
+        } else if (sc1.amount > 10){
             cst *= 2;
         }
         return cst;
@@ -2017,7 +2017,7 @@ function Game() {
     function get_item_sell_value(scl) {
         var value = get_item_last_cost(scl) * (pd.sell_return * pd.economy_roi);
         // Increase the resale value by a multiplier that is dependent on amount
-        if((scl.amount > 10000) { 
+        if(scl.amount > 10000) { 
             value *= 16;
         } else if(sc1.amount > 1000){
             value *= 8;
