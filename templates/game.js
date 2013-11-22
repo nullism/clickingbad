@@ -2001,13 +2001,13 @@ function Game() {
     function get_item_last_cost(scl) { 
         var cst = ((scl.amount) * scl.base_cost) * (scl.amount);
         // Increase the cost by a multiplier that is dependent on amount
-        if((scl.amount + 1) > 10000) { 
+        if(scl.amount > 10000) { 
             cst *= 16;
-        } else if((sc1.amount +1) > 1000){
+        } else if(sc1.amount > 1000){
             cst *= 8;
-        } else if((sc1.amount + 1) > 100){
+        } else if(sc1.amount > 100){
             cst *= 4;
-        } else if ((sc1.amount + 1) > 10){
+        } else if ((sc1.amount > 10){
             cst *= 2;
         }
         return cst;
