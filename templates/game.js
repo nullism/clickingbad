@@ -1983,49 +1983,24 @@ function Game() {
         console.log(pd[key]);
     }
 
+
     function get_item_cost(scl) { 
-        var cst = ((scl.amount + 1) * scl.base_cost) * (scl.amount + 1);
-        // Increase the cost by a multiplier that is dependent on amount
-        if((scl.amount + 1) > 10000) { 
-            cst *= 16;
-        } else if((sc1.amount +1) > 1000){
-            cst *= 8;
-        } else if((sc1.amount + 1) > 100){
-            cst *= 4;
-        } else if ((sc1.amount + 1) > 10){
-            cst *= 2;
-        }
+        //cost = [base_cost^(1 + ((amount + 1) * 0.0075)^2)] * (amount + 1)
+        var exponent = 1 + Math.pow((sc1.amount + 1) * 0.0075, 2);
+        var cst = Math.pow(sc1.base_cost, exponent) * (sc1.amount + 1);
         return cst;
     }
 
     function get_item_last_cost(scl) { 
-        var cst = ((scl.amount) * scl.base_cost) * (scl.amount);
-        // Increase the cost by a multiplier that is dependent on amount
-        if(scl.amount > 10000) { 
-            cst *= 16;
-        } else if(sc1.amount > 1000){
-            cst *= 8;
-        } else if(sc1.amount > 100){
-            cst *= 4;
-        } else if (sc1.amount > 10){
-            cst *= 2;
-        }
+        //cost = [base_cost^(1 + (amount * 0.0075)^2] * amount
+        var exponent = 1 + Math.pow(sc1.amount * 0.0075, 2);
+        var cst = Math.pow(sc1.base_cost, exponent) * sc1.amount;
         return cst;
     }
 
 
     function get_item_sell_value(scl) {
         var value = get_item_last_cost(scl) * (pd.sell_return * pd.economy_roi);
-        // Increase the resale value by a multiplier that is dependent on amount
-        if(scl.amount > 10000) { 
-            value *= 16;
-        } else if(sc1.amount > 1000){
-            value *= 8;
-        } else if(sc1.amount > 100){
-            value *= 4;
-        } else if (sc1.amount > 10){
-            value *= 2;
-        }
         return value;        
     }
     
