@@ -1718,6 +1718,18 @@ function Game() {
                 'min_time':1,
                 'sid':'a28',
             },
+            'a_spent_million':{
+            	'label':'Kardashian',
+            	'description':'You\'ve spent your first $1,000,000!',
+            	'property':'stats.total_spent',
+            	'required':1000000,
+            	'unlocked':false,
+            	'hidden':false,
+            	'value':5,
+            	'group':308,
+            	'min_time':1,
+            	'sid':'a29',
+            },
             'cheated_cash_1':{
                 'label':'Counterfeiter',
                 'description':'You\'ve hacked in some cash',
@@ -1803,6 +1815,7 @@ function Game() {
             'seconds_played':0,
             'bought_upgrades':0,
             'total_cash':0,
+            'total_spent':0,
             'start_time':(new Date).getTime(),
         },
     };
@@ -1906,6 +1919,7 @@ function Game() {
             return false;
         } 
         pd.cash.amount -= n;
+        pd.stats.total_spent += n;
         return true;
     }
 
@@ -2883,6 +2897,7 @@ function Game() {
         $('#sold_widgets').html(pretty_bigint(pd.stats.sold_widgets));
         $('#hand_sold_widgets').html(pretty_bigint(pd.stats.hand_sold_widgets));
         $('#total_cash').html(pretty_bigint(pd.stats.total_cash));
+        $('#total_spent').html(pretty_bigint(pd.stats.total_spent));
         $('#bought_upgrades').html(pretty_int(pd.stats.bought_upgrades));
         $('#time_played').html(pretty_int(pd.stats.seconds_played));
         $('#click_sell_amount').html(pretty_int(pd.sell_amount));

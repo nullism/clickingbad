@@ -37,7 +37,7 @@
 
 # Achievement: Kardashian
 * Description: You spent your first million
-* Implemented: No
+* Implemented: Yes
 
 # Achievement: Addict
 * Description: You have played over X seconds
