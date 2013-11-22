@@ -1982,10 +1982,17 @@ function Game() {
     this.dump_pd = function(key) { 
         console.log(pd[key]);
     }
+
     function get_item_cost(scl) { 
         var cst = ((scl.amount + 1) * scl.base_cost) * (scl.amount + 1);
-        // Double costs if > 10 are owned
-        if((scl.amount + 1) > 10) { 
+        // Increase the cost by a multiplier that is dependent on amount
+        if((scl.amount + 1) > 10000) { 
+            cst *= 16;
+        } else if((sc1.amount +1) > 1000){
+            cst *= 8;
+        } else if((sc1.amount + 1) > 100){
+            cst *= 4;
+        } else if ((sc1.amount + 1) > 10){
             cst *= 2;
         }
         return cst;
@@ -1993,15 +2000,33 @@ function Game() {
 
     function get_item_last_cost(scl) { 
         var cst = ((scl.amount) * scl.base_cost) * (scl.amount);
-        // Double costs if > 10 are owned
-        if(scl.amount > 10) { 
+        // Increase the cost by a multiplier that is dependent on amount
+        if((scl.amount + 1) > 10000) { 
+            cst *= 16;
+        } else if((sc1.amount +1) > 1000){
+            cst *= 8;
+        } else if((sc1.amount + 1) > 100){
+            cst *= 4;
+        } else if ((sc1.amount + 1) > 10){
             cst *= 2;
         }
         return cst;
     }
 
+
     function get_item_sell_value(scl) {
-        return get_item_last_cost(scl) * (pd.sell_return * pd.economy_roi);
+        var value = get_item_last_cost(scl) * (pd.sell_return * pd.economy_roi);
+        // Increase the resale value by a multiplier that is dependent on amount
+        if((scl.amount > 10000) { 
+            value *= 16;
+        } else if(sc1.amount > 1000){
+            value *= 8;
+        } else if(sc1.amount > 100){
+            value *= 4;
+        } else if (sc1.amount > 10){
+            value *= 2;
+        }
+        return value;        
     }
     
     function get_safe_cash() { 
