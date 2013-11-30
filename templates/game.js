@@ -1997,7 +1997,7 @@ function Game() {
         var cst = Math.pow(sc1.base_cost, exponent) * sc1.amount;
         //To ensure an item always has a sell cost.
         if(cst > Number.MAX_VALUE){
-            cst = Number.MAX_VALUE
+            cst = Number.MAX_VALUE;
         }
         return cst;
     }
