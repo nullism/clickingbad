@@ -2497,6 +2497,7 @@ function Game() {
         bn.amount += 1;
         message('You have purchased a '+bn.label+' for $'+pretty_bigint(bn.cost));
         //track_page_view('/game_buy_bank');
+        fix_bank();
         return true;
     }
 
@@ -2510,6 +2511,7 @@ function Game() {
         message('You sold a '+bn.label+' for $'+pretty_bigint(sell_val));
         //track_page_view('/game_sell_bank');
         bn.amount -= 1;
+        fix_bank();
         return true;
     }
 
@@ -2535,6 +2537,7 @@ function Game() {
         message('You sold a '+cl.label+' for $'+pretty_bigint(sell_val));
         //track_page_view('/game_sell_clicker');
         cl.amount -= 1;
+        fix_clickers();
         return true;
     }
 
@@ -2560,6 +2563,7 @@ function Game() {
         message('You sold a '+sl.label+' for $'+pretty_bigint(sell_val));
         //track_page_view('/game_sell_seller');
         sl.amount -= 1;
+        fix_sellers();
         return true;
     }
 
