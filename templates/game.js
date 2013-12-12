@@ -404,7 +404,7 @@ function Game() {
             },
             '10_under_lab': {
                 'label':'Underground Laboratory',
-                'description':'An massive hidden laboratory for your discreet cooking needs',
+                'description':'A massive hidden laboratory for your discreet cooking needs',
                 'amount':0,
                 'risk':0.005,
                 'rps':2000,
