@@ -877,7 +877,7 @@ function Game() {
             },
             'mules_1': {
                 'label':'Stuffed Mules',
-                'description':'Your Drug Mules can now sell an additional 2.5 batches at a time',
+                'description':'Your Drug Mules can now sell an additional 3 batches at a time',
                 'action':'sellers.03_drug_mule.rps',
                 'purchased':false,
                 'mod':3,
