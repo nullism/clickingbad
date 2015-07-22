@@ -392,7 +392,7 @@ function Game() {
             },
             '09_lab':{ 
                 'label':'Laboratory',
-                'description':'An above ground laboratory outfitted for meth production',
+                'description':'A above ground laboratory outfitted for meth production',
                 'amount':0,
                 'rps':500,
                 'risk':0.1,
@@ -476,7 +476,7 @@ function Game() {
             },
             'station': {
                 'label':'Meth Star',
-                'description':'That\'s no moon... it\'s a man made super lab! '
+                'description':'That\'s no moon... It\'s a man made super lab! '
                     + ' With tractor beams.',
                 'amount':0,
                 'risk':0.000000001,
@@ -515,7 +515,7 @@ function Game() {
             },
             'c_planet':{
                 'label':'Planetary Meth Replicator',
-                'description':'Convert all of a planet\'s matter into pure crystal',
+                'description':'Convert the entirety of a planet\'s matter into pure crystal',
                 'amount':0,
                 'risk':0.000001,
                 'rps':1590000000,
@@ -558,7 +558,7 @@ function Game() {
             },
             '03_drug_mule':{
                 'label':'Drug Mule',
-                'description':'Someone to stuff drugs in their rectum and distribute them',
+                'description':'Someone to stuff drugs up their rectum and distribute them',
                 'amount':0,
                 'risk':0.005,
                 'rps':1,
@@ -582,7 +582,7 @@ function Game() {
             },
             'cheap_lawyer':{
                 'label':'Sleazy Lawyer',
-                'description':'Reduces your risk of getting charged by the DEA, also distributes some product on the side',
+                'description':'Reduces your risk of getting charged by the DEA, and also distributes some product on the side',
                 'amount':0,
                 'risk':-0.05,
                 'rps':10,
@@ -618,7 +618,7 @@ function Game() {
             },
             '07_dea':{
                 'label':'DEA Mole',
-                'description':'Hire a DEA informant, which allows for increased and discreet distribution while reducing risk',
+                'description':'Hire a DEA informant, which allows for increased and discreet distribution, whilst reducing risk',
                 'amount':0,
                 'risk':-0.05,
                 'rps':1000,
@@ -641,8 +641,8 @@ function Game() {
                 'sid':'s8',
             },
             '11_city_police':{
-                'label':'City Police Force',
-                'description':'Pay off an entire city police force. All of them, even the by-the-book detectives, greatly reducing risk',
+                'label':'City Police Department',
+                'description':'Pay off an entire city police department. All of them, even the by-the-book detectives, greatly reducing risk',
                 'amount':0,
                 'risk':-0.1,
                 'rps':10500,
@@ -1530,7 +1530,7 @@ function Game() {
             },
             'city_police_1': {
                 'label':'I am the law!',
-                'description':'An entire City Police Force is on your payroll',
+                'description':'An entire City Police Department is on your payroll',
                 'property':'sellers.11_city_police.amount',
                 'required':1,
                 'unlocked':false,
@@ -2497,6 +2497,7 @@ function Game() {
         bn.amount += 1;
         message('You have purchased a '+bn.label+' for $'+pretty_bigint(bn.cost));
         //track_page_view('/game_buy_bank');
+        fix_bank();
         return true;
     }
 
@@ -2510,6 +2511,7 @@ function Game() {
         message('You sold a '+bn.label+' for $'+pretty_bigint(sell_val));
         //track_page_view('/game_sell_bank');
         bn.amount -= 1;
+        fix_bank();
         return true;
     }
 
@@ -2535,6 +2537,7 @@ function Game() {
         message('You sold a '+cl.label+' for $'+pretty_bigint(sell_val));
         //track_page_view('/game_sell_clicker');
         cl.amount -= 1;
+        fix_clickers();
         return true;
     }
 
@@ -2560,6 +2563,7 @@ function Game() {
         message('You sold a '+sl.label+' for $'+pretty_bigint(sell_val));
         //track_page_view('/game_sell_seller');
         sl.amount -= 1;
+        fix_sellers();
         return true;
     }
 
