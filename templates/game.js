@@ -570,7 +570,7 @@ function Game() {
             },
             'drug_van':{
                 'label':'Drug Van',
-                'description':'A runned-down van that actively seeks out customers',
+                'description':'A run-down van that actively seeks out customers',
                 'amount':0,
                 'risk':0.05,
                 'rps':8,
@@ -1285,7 +1285,7 @@ function Game() {
             },
             'alien_meth':{
                 'label':'Meth of the Third Kind',
-                'description':'Exta terrestrial meth purification processes '
+                'description':'Extra terrestrial meth purification processes '
                     + 'have been discovered on Mars. Increases purity by another 12 IPUs',
                 'cost':2100320555000,
                 'action':'widget_roi',
@@ -1296,7 +1296,7 @@ function Game() {
             },
             'quantum_meth':{
                 'label':'Quantum Meth',
-                'description':'This meth is atomically perfect, alowing you to charge an additional '
+                'description':'This meth is atomically perfect, allowing you to charge an additional '
                     + '$45 per batch',
                 'cost':42100500555000,
                 'action':'widget_roi',
