@@ -2030,26 +2030,30 @@ function Game() {
     this.dump_pd = function(key) { 
         console.log(pd[key]);
     }
+
+
     function get_item_cost(scl) { 
-        var cst = ((scl.amount + 1) * scl.base_cost) * (scl.amount + 1);
-        // Double costs if > 10 are owned
-        if((scl.amount + 1) > 10) { 
-            cst *= 2;
-        }
+        //cost = [base_cost^(1 + ((amount + 1) * 0.0075)^2)] * (amount + 1)
+        var exponent = 1 + Math.pow((sc1.amount + 1) * 0.0075, 2);
+        var cst = Math.pow(sc1.base_cost, exponent) * (sc1.amount + 1);
         return cst;
     }
 
     function get_item_last_cost(scl) { 
-        var cst = ((scl.amount) * scl.base_cost) * (scl.amount);
-        // Double costs if > 10 are owned
-        if(scl.amount > 10) { 
-            cst *= 2;
+        //cost = [base_cost^(1 + (amount * 0.0075)^2] * amount
+        var exponent = 1 + Math.pow(sc1.amount * 0.0075, 2);
+        var cst = Math.pow(sc1.base_cost, exponent) * sc1.amount;
+        //To ensure an item always has a sell cost.
+        if(cst > Number.MAX_VALUE){
+            cst = Number.MAX_VALUE;
         }
         return cst;
     }
 
+
     function get_item_sell_value(scl) {
-        return get_item_last_cost(scl) * (pd.sell_return * pd.economy_roi);
+        var value = get_item_last_cost(scl) * (pd.sell_return * pd.economy_roi);
+        return value;        
     }
     
     function get_safe_cash() { 
