@@ -538,6 +538,19 @@ function Game() {
                 'unlocked':false,
                 'sid':'c17',
             },
+            'c_blue_hole':{
+                'label':'Super-meth-ive Blue Hole',
+                'description':'Alter a super-massive white hole so that it turns blue'
+                    + ' and emits jets of meth into the surrounding galaxy',
+                'amount':0,
+                'risk':0.000001,
+                'rps':300000000000,
+                'base_cost':300000000000000000,
+                'cost':300000000000000000,
+                'unlock_rps':30000000000,
+                'unlocked':false,
+                'sid':'c18',
+            },
         },
         // END clickers
 
@@ -756,6 +769,19 @@ function Game() {
                 'unlock_rps':2090000000,
                 'unlocked':false,
                 'sid':'s17',
+            },
+            's_black_hole':{
+                'label':'Super-meth-ive Black Hole',
+                'description':'Use the super-massive black hole at the heart '
+                    + 'of a galaxy to distribute meth to another universe',
+                'amount':0,
+                'risk':0.00001,
+                'rps':300000000000,
+                'base_cost':300000000000000000,
+                'cost':300000000000000000,
+                'unlock_rps':30000000000,
+                'unlocked':false,
+                'sid':'s18',
             },
         }, 
         // END sellers
