@@ -1,0 +1,21 @@
+services:
+  build:
+    image: python:2.7-alpine
+    command: sh -c "pip install -r /app/build/requirements.txt && python /app/control.py cache"
+    volumes:
+      - ./:/app
+
+  # web:
+  #   image: nginx:stable-alpine
+  #   ports:
+  #     - "8082:80"
+  #   volumes:
+  #     - ./docroot:/usr/share/nginx/html
+
+  web:
+    build:
+      context: .
+      dockerfile: ./build/web.Dockerfile
+    ports:
+      - "8082:80"
+

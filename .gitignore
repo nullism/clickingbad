@@ -1,0 +1,4 @@
+app_docroot/*.html
+app_docroot/*.xml
+docroot/*.html
+*.pyc
